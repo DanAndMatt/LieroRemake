@@ -10,7 +10,7 @@
 
 @implementation Player
 
-@synthesize hp,sprite,x,y,name,location,hpLabel,angle,isMovingRight,isStopingPlayer,isMovingLeft,isJumping,aim,aims_right,bullets,bullet_index;
+@synthesize hp,sprite,x,y,name,location,hpLabel,angle,isMovingRight,isStopingPlayer,isMovingLeft,isJumping,aim,aims_right,bullets,bullet_index,sprite_textures;
 
 
 
@@ -95,15 +95,21 @@
         [stringArray addObject:generic_sprite_name];
     }
     
-    NSMutableArray *sprite_textures = [[NSMutableArray alloc]init];
+    sprite_textures = [[NSMutableArray alloc]init];
     SKTextureAtlas *atlas = [SKTextureAtlas atlasNamed:atlas_name];
     for(int i = 0; i < suffix; i++){
         SKTexture *texture =[atlas textureNamed:[stringArray objectAtIndex:i]];
         [sprite_textures addObject:texture ];
     }
     
+
+}
+
+
+
+-(void)animateMovement{
     SKAction *animation = [SKAction animateWithTextures:sprite_textures timePerFrame:0.05];
-    animation = [SKAction repeatActionForever:animation];
+    animation = [SKAction repeatAction:animation count:3];
     [sprite runAction:animation];
 }
 

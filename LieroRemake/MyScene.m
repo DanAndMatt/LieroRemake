@@ -108,6 +108,7 @@ static const uint32_t bullet_category = 0x1 << 4;
             player.isMovingRight = true;
             player.isStopingPlayer = false;
             player.aims_right = true;
+            [player animateMovement];
             
             break;
         case 123: //left
