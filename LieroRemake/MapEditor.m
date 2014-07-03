@@ -36,6 +36,10 @@
         case 1: //S Save
             [self savePlatforms];
             break;
+            
+        case 7: //X RemoveLastPlatform
+            [self removeLastPlatform];
+            break;
         case 46: //M MAP
             [self changeSceneToGameMode];
             break;
@@ -53,6 +57,7 @@
 
 -(void)mouseDown:(NSEvent *)theEvent {
     CGPoint location = [theEvent locationInNode:self];
+    
     [self createPlatform:location.x :location.y];
 }
 
@@ -78,6 +83,15 @@
     [self addChild:enemy.sprite];
 }
 
+-(void)removeLastPlatform{
+    if(platformList.count > 0){
+        Platform *p = [platformList objectAtIndex:platformList.count-1];
+        [p.sprite removeFromParent];
+        [platformList removeLastObject];
+    }
+
+    
+}
 -(void)savePlatforms{
     //NSLog(@"Platform i listan %d", (int)platforms.count);
     paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);

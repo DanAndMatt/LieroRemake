@@ -166,7 +166,9 @@ static const uint32_t enemy_category = 0x1 << 3;
     docDir = [paths objectAtIndex:0];
     fullFileName = [NSString stringWithFormat:@"%@/platforms",docDir];
     platformList = [NSKeyedUnarchiver unarchiveObjectWithFile:fullFileName];
-    for(Platform *p in platformList){[self addChild:p.sprite];}
+    for(Platform *p in platformList){
+        [self addChild:p.sprite];
+    }
     
 }
 
