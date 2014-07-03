@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		23A5C77B196576D6000A2D1F /* Bullet.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A5C77A196576D6000A2D1F /* Bullet.m */; };
 		23A5C78719659981000A2D1F /* pistol_bullet.png in Resources */ = {isa = PBXBuildFile; fileRef = 23A5C78619659981000A2D1F /* pistol_bullet.png */; };
+		23A5C78D19659F55000A2D1F /* WormRight.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 23A5C78C19659F55000A2D1F /* WormRight.atlas */; };
+		23A5C78F1965A23E000A2D1F /* WormLeft.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 23A5C78E1965A23E000A2D1F /* WormLeft.atlas */; };
 		9E044F5B19644E2300F62514 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E044F5A19644E2300F62514 /* Cocoa.framework */; };
 		9E044F5D19644E2300F62514 /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E044F5C19644E2300F62514 /* SpriteKit.framework */; };
 		9E044F6719644E2300F62514 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9E044F6519644E2300F62514 /* InfoPlist.strings */; };
@@ -55,6 +57,8 @@
 		23A5C779196576D6000A2D1F /* Bullet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bullet.h; sourceTree = "<group>"; };
 		23A5C77A196576D6000A2D1F /* Bullet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Bullet.m; sourceTree = "<group>"; };
 		23A5C78619659981000A2D1F /* pistol_bullet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pistol_bullet.png; sourceTree = "<group>"; };
+		23A5C78C19659F55000A2D1F /* WormRight.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = WormRight.atlas; sourceTree = "<group>"; };
+		23A5C78E1965A23E000A2D1F /* WormLeft.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = WormLeft.atlas; sourceTree = "<group>"; };
 		9E044F5719644E2300F62514 /* LieroRemake.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LieroRemake.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E044F5A19644E2300F62514 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		9E044F5C19644E2300F62514 /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
@@ -177,6 +181,8 @@
 		9E044F6219644E2300F62514 /* LieroRemake */ = {
 			isa = PBXGroup;
 			children = (
+				23A5C78E1965A23E000A2D1F /* WormLeft.atlas */,
+				23A5C78C19659F55000A2D1F /* WormRight.atlas */,
 				9E044FAC19644F2B00F62514 /* RightLeg.atlas */,
 				9E044FA619644EE300F62514 /* Audio */,
 				9E044FA519644EDB00F62514 /* Sprites */,
@@ -352,6 +358,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9E044FBD19644F4A00F62514 /* char24.png in Resources */,
+				23A5C78D19659F55000A2D1F /* WormRight.atlas in Resources */,
 				9E044FBC19644F4A00F62514 /* char23.png in Resources */,
 				9E044F7919644E2300F62514 /* Images.xcassets in Resources */,
 				9E044F6719644E2300F62514 /* InfoPlist.strings in Resources */,
@@ -363,6 +370,7 @@
 				9E044FBA19644F4A00F62514 /* char21.png in Resources */,
 				9E044F6D19644E2300F62514 /* Credits.rtf in Resources */,
 				9E044FB819644F4A00F62514 /* char1.png in Resources */,
+				23A5C78F1965A23E000A2D1F /* WormLeft.atlas in Resources */,
 				9E044FAD19644F2B00F62514 /* RightLeg.atlas in Resources */,
 				9E044F6F19644E2300F62514 /* MainMenu.xib in Resources */,
 				9E044FB919644F4A00F62514 /* char22.png in Resources */,
