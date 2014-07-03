@@ -198,12 +198,13 @@ static const uint32_t enemy_category = 0x1 << 3;
         NSLog(@"player and enemy collide BOOM BOOM BOOM");
         NSLog(@"first: %i, second: %i, player: %i, enemy: %i, %i, %i",first_body.categoryBitMask, second_body.categoryBitMask, player_category, enemy_category,first_body.collisionBitMask, second_body.collisionBitMask);
         //player = NULL;
+		[player.sprite removeFromParent];
     }
     if((second_body.categoryBitMask & enemy_category) == 1) {
-    	//NSLog(@"vad hande nu=!?!");
+    	NSLog(@"vad hande nu=!?!");
     }
     if((second_body.categoryBitMask & player_category) == 1) {
-        //NSLog(@"WTFTWTFWF=!?!");
+        NSLog(@"WTFTWTFWF=!?!, category %i, testBit %i",second_body.categoryBitMask,second_body.contactTestBitMask);
     }
 }
 
