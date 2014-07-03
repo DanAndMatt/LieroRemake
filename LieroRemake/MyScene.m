@@ -193,6 +193,10 @@ static const uint32_t enemy_category = 0x1 << 3;
         NSLog(@"first: %i, second: %i, player: %i, enemy: %i, %i, %i",first_body.categoryBitMask, second_body.categoryBitMask, player_category, enemy_category,first_body.collisionBitMask, second_body.collisionBitMask);
         //player = NULL;
 		[player.sprite removeFromParent];
+        [player.aim.sprite removeFromParent];
+        player.aim = NULL;
+        player = NULL;
+        [self createPlayer];
     }
     if((second_body.categoryBitMask & enemy_category) == 1) {
     	NSLog(@"vad hande nu=!?!");
