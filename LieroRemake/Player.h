@@ -11,6 +11,8 @@
 #import "Aim.h"
 @interface Player : NSObject
 
+
+
 @property int hp;
 @property float x;
 @property float y;

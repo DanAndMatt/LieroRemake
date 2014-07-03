@@ -12,7 +12,7 @@
 #import "Enemy.h"
 #import "Audio.h"
 #import "MapEditor.h"
-@interface MyScene : SKScene
+@interface MyScene : SKScene <SKPhysicsContactDelegate> //This tells that we are using the SKPhysicsContactDelegate delegate
 
 @property Player *player;
 @property Enemy *enemy;

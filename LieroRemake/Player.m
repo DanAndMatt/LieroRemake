@@ -32,6 +32,7 @@
     //Fysik
     sprite.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:sprite.size];
     sprite.physicsBody.mass= 70;
+    sprite.physicsBody.categoryBitMask = 10;
     [sprite.physicsBody setAllowsRotation:false];
     [sprite.physicsBody setDynamic:true];
 }

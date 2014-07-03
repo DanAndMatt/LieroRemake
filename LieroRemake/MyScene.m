@@ -12,12 +12,21 @@
 @implementation MyScene
 @synthesize player,platform,platformList,enemy,paths,docDir,fullFileName,audio;
 
+static const uint32_t player_category = 0x1 << 0;
+static const uint32_t enemy_category = 0x1 << 3;
+
 -(id)initWithSize:(CGSize)size {
     if (self = [super initWithSize:size]) {
         /* Setup your scene here */
         self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
         
         self.backgroundColor = [SKColor colorWithRed:0.40 green:0.15 blue:0.3 alpha:1.0];
+
+        // ----NEW------
+        //self.physicsWorld.gravity = CGVectorMake(0, 0);
+        self.physicsWorld.contactDelegate = self;
+        //--------------
+        
         [self loadPlatforms];
         [self createEnemy];
         [self createPlayer];
@@ -34,13 +43,18 @@
     player = [[Player alloc]init];
     [self addChild:player.sprite];
     // [player animateChar];
+    player.sprite.physicsBody.categoryBitMask = player_category;
+    player.sprite.physicsBody.collisionBitMask = enemy_category;
+    player.sprite.physicsBody.contactTestBitMask = enemy_category;
     [self addChild:player.aim.sprite];
     
 }
 -(void)createEnemy{
     enemy = [[Enemy alloc]init];
     //[self addChild:enemy.sprite];
-    
+    enemy.sprite.physicsBody.categoryBitMask = enemy_category;
+	enemy.sprite.physicsBody.collisionBitMask = player_category;
+    enemy.sprite.physicsBody.contactTestBitMask = player_category;
     [self addChild:enemy.sprite];
     
 }
@@ -58,17 +72,7 @@
 
 
 
-/*
- *  U P D A T E
- */
 
-
-
--(void)update:(CFTimeInterval)currentTime {
-    /* Called before each frame is rendered */
-    [player moveDirection];
-    [player.aim updateAim:player.sprite.position.x :player.sprite.position.y :player.aims_right];
-}
 //Change Scene To MapEdit
 
 -(void)changeSceneToMapEditor{
@@ -168,11 +172,48 @@
     NSLog(@"Loaded at: %@",fullFileName);
     
     for(Platform *p in platformList){
+        NSLog(@"FORLOOPEN");
         [self addChild:p.sprite];
     }
     
 }
 
+-(void) didBeginContact:(SKPhysicsContact *)contact {
+    
+	SKPhysicsBody* first_body;
+    SKPhysicsBody* second_body;
+    
+    if(contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask) {
+        first_body = contact.bodyA;
+        second_body = contact.bodyB;
+    } else {
+        first_body = contact.bodyB;
+        second_body = contact.bodyA;
+    }
+    
+    if((first_body.categoryBitMask & enemy_category) == 1) {
+        NSLog(@"enemy?");
+    }
+    if((first_body.categoryBitMask & player_category) == 1 && (first_body.collisionBitMask != -1) && (second_body.collisionBitMask != -1)) {
+        NSLog(@"player and enemy collide BOOM BOOM BOOM");
+        NSLog(@"first: %i, second: %i, player: %i, enemy: %i, %i, %i",first_body.categoryBitMask, second_body.categoryBitMask, player_category, enemy_category,first_body.collisionBitMask, second_body.collisionBitMask);
+        //player = NULL;
+    }
+    if((second_body.categoryBitMask & enemy_category) == 1) {
+    	//NSLog(@"vad hande nu=!?!");
+    }
+    if((second_body.categoryBitMask & player_category) == 1) {
+        //NSLog(@"WTFTWTFWF=!?!");
+    }
+}
 
-
+/*
+ *  U P D A T E
+ */
+-(void)update:(CFTimeInterval)currentTime {
+    /* Called before each frame is rendered */
+    [player moveDirection];
+    [player.aim updateAim:player.sprite.position.x :player.sprite.position.y :player.aims_right];
+    
+}
 @end
