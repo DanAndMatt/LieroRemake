@@ -84,11 +84,9 @@ static const uint32_t enemy_category = 0x1 << 3;
 }
 
 -(void)keyDown:(NSEvent *)theEvent{
-    //   NSLog(@"%i",theEvent.keyCode);
     switch (theEvent.keyCode) {
         case 49: //Space
             [player jumpPlayer];
-            
             break;
         case 124: //Right
             
@@ -152,8 +150,7 @@ static const uint32_t enemy_category = 0x1 << 3;
 
 
 -(void)playSound{
-    audio = [[Audio alloc]init];
-    [audio playAudio:@"introLevel.wav"];
+    audio = [[Audio alloc]init];[audio playAudio:@"introLevel.wav"];
     [self runAction:audio.audioAction];
 }
 
@@ -169,12 +166,7 @@ static const uint32_t enemy_category = 0x1 << 3;
     docDir = [paths objectAtIndex:0];
     fullFileName = [NSString stringWithFormat:@"%@/platforms",docDir];
     platformList = [NSKeyedUnarchiver unarchiveObjectWithFile:fullFileName];
-    NSLog(@"Loaded at: %@",fullFileName);
-    
-    for(Platform *p in platformList){
-        NSLog(@"FORLOOPEN");
-        [self addChild:p.sprite];
-    }
+    for(Platform *p in platformList){[self addChild:p.sprite];}
     
 }
 
