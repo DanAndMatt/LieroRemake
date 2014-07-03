@@ -11,12 +11,15 @@
 #import "Platform.h"
 #import "Enemy.h"
 #import "Audio.h"
-#import "MapEditor.h"
 #import "Bullet.h"
-#import "MapEditor.h"
 #import "MyScene.h"
+#import "MapEditor.h"
+
+@class MainMenu;
 @interface MainMenu : SKScene
 
-@property MyScene *gameScene;
-@property MapEditor *mapScene;
+@property SKLabelNode *gameLabel;
+@property SKLabelNode *mapLabel;
+
+-(id)initYo: (CGSize)size;
 @end

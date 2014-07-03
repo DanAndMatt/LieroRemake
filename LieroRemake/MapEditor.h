@@ -12,7 +12,9 @@
 #import "Platform.h"
 #import "Enemy.h"
 #import "Audio.h"
-#import "MapEditor.h"
+#import "MainMenu.h"
+
+@class MapEditor;
 
 @interface MapEditor : SKScene
 @property Player *player;

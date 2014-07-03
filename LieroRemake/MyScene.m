@@ -13,15 +13,14 @@
 
 static const uint32_t player_category = 0x1 << 0;
 static const uint32_t enemy_category = 0x1 << 3;
-static const uint32_t bullet_category = 0x1 << 4;
+//static const uint32_t bullet_category = 0x1 << 4;
 
 -(id)initWithSize:(CGSize)size {
     if (self = [super initWithSize:size]) {
         /* Setup your scene here */
         self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
         
-        self.backgroundColor = [SKColor colorWithRed:0.40 green:0.15 blue:0.3 alpha:1.0];
-
+       self.backgroundColor = [SKColor colorWithRed:0.40 green:0.15 blue:0.3 alpha:1.0];
         // ----NEW------
         //self.physicsWorld.gravity = CGVectorMake(0, 0);
         self.physicsWorld.contactDelegate = self;
@@ -30,7 +29,7 @@ static const uint32_t bullet_category = 0x1 << 4;
         [self loadPlatforms];
         [self createEnemy];
         [self createPlayer];
-        [player superAnimateFunction:@"RightLeg" :3 :@"RightLeg"];
+        [player superAnimateFunction:@"worm" :3 :@"WormRight"];
     }
     return self;
 }
@@ -74,16 +73,19 @@ static const uint32_t bullet_category = 0x1 << 4;
 
 //Change Scene To MapEdit
 
--(void)changeSceneToMapEditor{
+
+-(void)changeToMenuScene{
     SKTransition *reveal = [SKTransition
                             revealWithDirection:SKTransitionDirectionDown duration:1.0];
-    MapEditor *newScene = [[MapEditor alloc] initWithSize: CGSizeMake(1024,768)];
+    MainMenu *newScene = [[MainMenu alloc] initYo: CGSizeMake(1024,768)];
     
     [self.scene.view presentScene:newScene transition:reveal ];
 }
-
 -(void)keyDown:(NSEvent *)theEvent{
+    
+    NSLog(@"%i",theEvent.keyCode);
     switch (theEvent.keyCode) {
+
 		case 6:
         {
             //z, is for shooting
@@ -100,28 +102,12 @@ static const uint32_t bullet_category = 0x1 << 4;
             [player jumpPlayer];
             break;
         case 124: //Right
-            
-            if(player.aims_right == false){
-                player.aim.angle -= M_PI;
-                player.aim.angle *= -1;
-            }
-            player.isMovingRight = true;
-            player.isStopingPlayer = false;
-            player.aims_right = true;
-            [player animateMovement];
-            
+            [player setMovingRightToTrue];
             break;
         case 123: //left
-            
-            if(player.aims_right){
-                player.aim.angle = M_PI - player.aim.angle;
-            }
-            player.isMovingLeft = true;
-            player.isStopingPlayer = false;
-            player.aims_right = false;
+            [player setMovingLeftToTrue];
             break;
         case 46: //M MAP
-            [self changeSceneToMapEditor];
             break;
             
         case 125: //Down
@@ -129,6 +115,10 @@ static const uint32_t bullet_category = 0x1 << 4;
             break;
         case 126: //UP
             player.aim.up = true;
+            break;
+            
+        case 53: //ESq
+            [self changeToMenuScene];
             break;
         default:
             break;

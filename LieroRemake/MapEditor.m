@@ -22,12 +22,13 @@
 }
 
 
--(void)changeSceneToGameMode{
+
+-(void)changeToMenuScene{
     SKTransition *reveal = [SKTransition
                             revealWithDirection:SKTransitionDirectionDown duration:1.0];
-    MyScene *gameScene = [[MyScene alloc] initWithSize: CGSizeMake(1024,768)];
+    MainMenu *newScene = [[MainMenu alloc] initYo: CGSizeMake(1024,768)];
     
-    [self.scene.view presentScene:gameScene transition:reveal ];
+    [self.scene.view presentScene:newScene transition:reveal ];
 }
 
 -(void)keyDown:(NSEvent *)theEvent{
@@ -41,11 +42,15 @@
             [self removeLastPlatform];
             break;
         case 46: //M MAP
-            [self changeSceneToGameMode];
             break;
             
         case 8: //C Clean
             [self removePlatforms];
+            break;
+            
+            
+        case 53: //ESq
+            [self changeToMenuScene];
             break;
         default:
             break;

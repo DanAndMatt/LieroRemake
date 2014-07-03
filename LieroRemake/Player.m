@@ -61,6 +61,24 @@
 
 
 
+-(void)setMovingRightToTrue{
+    if(aims_right == false){
+        aim.angle -= M_PI;
+        aim.angle *= -1;
+    }
+    isMovingRight = true;
+    isStopingPlayer = false;
+    aims_right = true;
+}
+-(void)setMovingLeftToTrue{
+    if(aims_right){
+        aim.angle = M_PI - aim.angle;
+    }
+    isMovingLeft = true;
+    isStopingPlayer = false;
+    aims_right = false;
+}
+
 -(void)moveDirection{
     x = sprite.position.x;
     y = sprite.position.y;
@@ -109,7 +127,7 @@
 
 -(void)animateMovement{
     SKAction *animation = [SKAction animateWithTextures:sprite_textures timePerFrame:0.05];
-    animation = [SKAction repeatAction:animation count:3];
+    animation = [SKAction repeatAction:animation count:1];
     [sprite runAction:animation];
 }
 

@@ -10,17 +10,13 @@
 #import <SpriteKit/SpriteKit.h>
 #import "MapEditor.h"
 #import "MyScene.h"
-
+#import "MainMenu.h"
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 
 @property (assign) IBOutlet NSWindow *window;
 @property (assign) IBOutlet SKView *skView;
 @property MyScene *gameScene;
 @property MapEditor *mapScene;
+@property MainMenu *menuScene;
 
-
-
--(void)changeSceneToMapEditor;
-
--(void)changeSceneToGame;
 @end

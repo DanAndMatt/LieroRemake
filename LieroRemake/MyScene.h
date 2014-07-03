@@ -13,6 +13,8 @@
 #import "Audio.h"
 #import "MapEditor.h"
 #import "Bullet.h"
+#import "MainMenu.h"
+@class MyScene;
 @interface MyScene : SKScene <SKPhysicsContactDelegate> //This tells that we are using the SKPhysicsContactDelegate delegate
 
 @property Player *player;

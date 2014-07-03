@@ -35,6 +35,10 @@
 
 @property NSMutableArray *sprite_textures;
 
+
+
+-(void)setMovingRightToTrue;
+-(void)setMovingLeftToTrue;
 -(void)moveDirection;
 -(void)jumpPlayer;
 //-(void)animateChar;
