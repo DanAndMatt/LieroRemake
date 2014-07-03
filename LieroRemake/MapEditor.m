@@ -53,6 +53,7 @@
 
 -(void)mouseDown:(NSEvent *)theEvent {
     CGPoint location = [theEvent locationInNode:self];
+
     [self createPlatform:location.x :location.y];
 }
 
