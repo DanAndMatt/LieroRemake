@@ -201,7 +201,7 @@ static const uint32_t bullet_category = 0x1 << 4;
     }
     if((first_body.categoryBitMask & player_category) == 1 && (first_body.collisionBitMask != -1) && (second_body.collisionBitMask != -1)) {
         //NSLog(@"player and enemy collide BOOM BOOM BOOM");
-       // NSLog(@"first: %i, second: %i, player: %i, enemy: %i, %i, %i",first_body.categoryBitMask, second_body.categoryBitMask, player_category, enemy_category,first_body.collisionBitMask, second_body.collisionBitMask);
+        //NSLog(@"first: %i, second: %i, player: %i, enemy: %i, %i, %i",first_body.categoryBitMask, second_body.categoryBitMask, player_category, enemy_category,first_body.collisionBitMask, second_body.collisionBitMask);
         //player = NULL;
 		[player.sprite removeFromParent];
         [player.aim.sprite removeFromParent];
