@@ -10,7 +10,7 @@
 
 @implementation Player
 
-@synthesize hp,sprite,x,y,name,location,hpLabel,angle,isMovingRight,isStopingPlayer,isMovingLeft,isJumping,aim,aims_right;
+@synthesize hp,sprite,x,y,name,location,hpLabel,angle,isMovingRight,isStopingPlayer,isMovingLeft,isJumping,aim,aims_right,bullets,bullet_index;
 
 
 
@@ -35,12 +35,22 @@
     sprite.physicsBody.categoryBitMask = 10;
     [sprite.physicsBody setAllowsRotation:false];
     [sprite.physicsBody setDynamic:true];
+    
+	bullets = [[NSMutableArray alloc] init];
+    bullet_index = 0;
 }
 
 
 -(void)createAim{
     aim = [[Aim alloc]init:sprite.position.x :sprite.position.y];
     aims_right = true;
+}
+
+
+-(void)createBullet:(float)_angle :(float)_velocity :(float)_acceleration :(int)_damage :(NSString *)sprite_name :(float)_explode_area :(float)x_pos :(float)y_pos {
+	Bullet* bullet = [[Bullet alloc] init:_angle :_velocity :_acceleration :_damage :sprite_name :_explode_area :x_pos :y_pos];
+    [bullets addObject:bullet];
+    //NSLog(@"CREATED BULLET");
 }
 
 -(id)init{
@@ -97,7 +107,12 @@
     [sprite runAction:animation];
 }
 
-
+-(void)moveBullets {
+	for(int i = 0; i < bullet_index; i++) {
+    	Bullet* bullet = [bullets objectAtIndex:i];
+        bullet.sprite.position = CGPointMake(bullet.sprite.position.x + cos(bullet.angle)*bullet.velocity, bullet.sprite.position.y + sin(bullet.angle)*bullet.velocity);
+    }
+}
 @end
 
 

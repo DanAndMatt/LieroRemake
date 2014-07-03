@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <SpriteKit/SpriteKit.h>
 #import "Aim.h"
+#import "Bullet.h"
 @interface Player : NSObject
 
 
@@ -27,10 +28,14 @@
 @property BOOL isJumping;
 @property Aim *aim;
 @property BOOL aims_right;
+@property NSMutableArray* bullets;
+@property int bullet_index;
 
 
 -(void)moveDirection;
 -(void)jumpPlayer;
 //-(void)animateChar;
 -(void)superAnimateFunction: (NSString*) sprite_name : (int) suffix : (NSString*) atlas_name;
+-(void)createBullet:(float)_angle :(float)_velocity :(float)_acceleration :(int)_damage :(NSString*)sprite_name :(float)_explode_area :(float)x_pos :(float)y_pos;
+-(void)moveBullets;
 @end

@@ -6,14 +6,14 @@
 //  Copyright (c) 2014 Daniel Vaknine. All rights reserved.
 //
 
-#import "MyScene.h"
-
+#import "MyScene.h" 
 
 @implementation MyScene
 @synthesize player,platform,platformList,enemy,paths,docDir,fullFileName,audio;
 
 static const uint32_t player_category = 0x1 << 0;
 static const uint32_t enemy_category = 0x1 << 3;
+static const uint32_t bullet_category = 0x1 << 4;
 
 -(id)initWithSize:(CGSize)size {
     if (self = [super initWithSize:size]) {
@@ -60,7 +60,6 @@ static const uint32_t enemy_category = 0x1 << 3;
 }
 
 
-
 -(void)startRaing{
     SKSpriteNode *rainSprite = [SKSpriteNode spriteNodeWithImageNamed:@"char22"];
     rainSprite.position = CGPointMake(rand()*1000%1024, 600);
@@ -85,6 +84,18 @@ static const uint32_t enemy_category = 0x1 << 3;
 
 -(void)keyDown:(NSEvent *)theEvent{
     switch (theEvent.keyCode) {
+		case 6:
+        {
+            //z, is for shooting
+            //(float)_angle :(float)_velocity :(float)_acceleration :(int)_damage :(NSString*)sprite_name :(float)_explode_area :(float)x_pos :(float)y_pos
+            [player createBullet:player.aim.angle :10.0 :1.0 :1 :@"pistol_bullet" :1.0 :player.sprite.position.x :player.sprite.position.y];
+			Bullet* bulleter = [player.bullets objectAtIndex:player.bullet_index];
+			player.bullet_index++;
+            //NSLog(@"-------------");
+            [self addChild:bulleter.sprite];
+            //NSLog(@"++++++++++++++");
+        }
+            break;
         case 49: //Space
             [player jumpPlayer];
             break;
@@ -186,7 +197,7 @@ static const uint32_t enemy_category = 0x1 << 3;
     }
     
     if((first_body.categoryBitMask & enemy_category) == 1) {
-        NSLog(@"enemy?");
+        //NSLog(@"enemy?");
     }
     if((first_body.categoryBitMask & player_category) == 1 && (first_body.collisionBitMask != -1) && (second_body.collisionBitMask != -1)) {
         //NSLog(@"player and enemy collide BOOM BOOM BOOM");
@@ -213,6 +224,7 @@ static const uint32_t enemy_category = 0x1 << 3;
     /* Called before each frame is rendered */
     [player moveDirection];
     [player.aim updateAim:player.sprite.position.x :player.sprite.position.y :player.aims_right];
+    [player moveBullets];
     
 }
 @end
