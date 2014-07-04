@@ -10,11 +10,11 @@
 #import "KeyHeader.h"
 @implementation Bullet
 
+@synthesize damage,angle,sprite,explode_area,velocity,acceleration,has_collided;
+
 static const uint32_t player_category = 0x1 << 0;
 static const uint32_t enemy_category = 0x1 << 3;
 static const uint32_t bullet_category = 0x1 << 4;
-
-@synthesize damage,angle,sprite,explode_area,velocity,acceleration,has_collided;
 
 -(NSObject*) init:(float)_angle :(float)_velocity :(float)_acceleration :(int)_damage :(NSString *)sprite_name :(float)_explode_area :(float)x_pos :(float)y_pos {
 	damage = _damage;

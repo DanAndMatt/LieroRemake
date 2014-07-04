@@ -199,7 +199,7 @@ static const uint32_t bullet_category = 0x1 << 4;
         [player.aim.sprite removeFromParent];
         player.aim = NULL;
         player = NULL;
-        [self createPlayer];
+        [self createPlayer]; 
     }
     if(((contact.bodyA.categoryBitMask == bullet_category) &&
         (contact.bodyB.categoryBitMask == -1))
