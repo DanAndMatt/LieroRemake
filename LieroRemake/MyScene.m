@@ -167,7 +167,7 @@ static const uint32_t bullet_category = 0x1 << 4;
 
 
 /*
- * L O A D   & &  S A V E   && R E M O V E
+ * L O A D  &  S A V E   &  R E M O V E
  */
 
 
@@ -183,6 +183,10 @@ static const uint32_t bullet_category = 0x1 << 4;
     
 }
 
+
+/*
+ * C O L L I S I O N
+ */
 -(void) didBeginContact:(SKPhysicsContact *)contact {
     
 	// Collision between enemy and a bullet
