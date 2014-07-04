@@ -7,6 +7,7 @@
 //
 
 #import "KeyHeader.h"
+
 @implementation Player
 
 @synthesize hp,sprite,x,y,name,location,hpLabel,angle,isMovingRight,isStopingPlayer,isMovingLeft,isJumping,aim,aims_right,bullets,bullet_index,sprite_textures;
@@ -50,6 +51,11 @@
 	Bullet* bullet = [[Bullet alloc] init:_angle :_velocity :_acceleration :_damage :sprite_name :_explode_area :x_pos :y_pos];
     [bullets addObject:bullet];
     //NSLog(@"CREATED BULLET");
+}
+
+-(void)createSmgKaliber:(float)_angle :(float)x_pos :(float)y_pos {
+	Smg_kaliber* bullet = [[Smg_kaliber alloc] init:_angle :x_pos :y_pos];
+    [bullets addObject:bullet];
 }
 
 -(id)init{
@@ -137,39 +143,3 @@
     }
 }
 @end
-
-
-
-
-
-
-
-
-
-
-/*
- -(void)animateChar{
- SKTextureAtlas *atlasRightLeg = [SKTextureAtlas atlasNamed:@"RightLeg"];
- SKTexture *bothLegs = [atlasRightLeg textureNamed:@"BothLeg"];
- SKTexture *rightLeg1 = [atlasRightLeg textureNamed:@"RightLeg1.png"];
- SKTexture *rightLeg2 = [atlasRightLeg textureNamed:@"RightLeg2.png"];
- SKTexture *rightLeg3 = [atlasRightLeg textureNamed:@"RightLeg3.png"];
- 
- SKTextureAtlas *atlasLeftLeg = [SKTextureAtlas atlasNamed:@"LeftLeg"];
- SKTexture *leftLeg1 = [atlasLeftLeg textureNamed:@"LeftLeg1.png"];
- SKTexture *leftLeg2 = [atlasLeftLeg textureNamed:@"LeftLeg2.png"];
- SKTexture *leftLeg3 = [atlasLeftLeg textureNamed:@"LeftLeg3.png"];
- 
- 
- 
- NSArray *enemyWalkTextures = @[bothLegs,rightLeg1,rightLeg2,rightLeg3,rightLeg2,rightLeg2,rightLeg1,bothLegs,leftLeg1,leftLeg2,leftLeg3,leftLeg2,leftLeg1];
- 
- SKAction *walkAnimation = [SKAction animateWithTextures:enemyWalkTextures
- timePerFrame:0.05];
- 
- 
- walkAnimation = [SKAction repeatActionForever:walkAnimation];
- [sprite runAction:walkAnimation];
- }
- 
- */

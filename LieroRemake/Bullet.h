@@ -5,6 +5,7 @@
 //  Created by Mattias Linder on 2014-07-03.
 //  Copyright (c) 2014 Daniel Vaknine. All rights reserved.
 //
+#import <SpriteKit/SpriteKit.h>
 
 @class Bullet;
 @interface Bullet : NSObject

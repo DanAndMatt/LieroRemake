@@ -98,6 +98,15 @@ static const uint32_t bullet_category = 0x1 << 4;
             //NSLog(@"++++++++++++++");
         }
             break;
+        case KEY_C:
+        {
+            [player createSmgKaliber:player.aim.angle :player.sprite.position.x :player.sprite.position.y];
+			Bullet* b = [player.bullets objectAtIndex:player.bullet_index];
+			player.bullet_index++;
+            //NSLog(@"-------------");
+            [self addChild:b.sprite];
+        }
+            break;
         case KEY_SPACE: //Space
             [player jumpPlayer];
             break;
@@ -201,17 +210,23 @@ static const uint32_t bullet_category = 0x1 << 4;
         player = NULL;
         [self createPlayer]; 
     }
+    //Collision between the floor and a bullet
     if(((contact.bodyA.categoryBitMask == bullet_category) &&
         (contact.bodyB.categoryBitMask == -1))
        						||
        ((contact.bodyB.categoryBitMask == bullet_category) &&
         (contact.bodyA.categoryBitMask == -1))) {
-			NSLog(@"REMOVE BULLET");
 			if (contact.bodyA.categoryBitMask == bullet_category) {
-				//[(Bullet*)contact.bodyA ]
+                SKNode* bullet = contact.bodyA.node;
+				[bullet runAction:[SKAction removeFromParent]];
 			} else {
-				
-			}
+                SKNode* bullet = contact.bodyB.node;
+                CGPoint location = CGPointMake(bullet.position.x, bullet.position.y);
+                SKSpriteNode* explosion = [SKSpriteNode spriteNodeWithImageNamed:@"explosion"];
+				explosion.position = location;
+                [self addChild:explosion];
+                [bullet runAction:[SKAction removeFromParent]];
+            }
        }
 }
 

@@ -5,7 +5,7 @@
 
 //  Copyright (c) 2014 Daniel Vaknine. All rights reserved.
 //
-
+#import "Bullet.h"
 @class MyScene;
 @interface MyScene : SKScene <SKPhysicsContactDelegate> //This tells that we are using the SKPhysicsContactDelegate delegate
 
