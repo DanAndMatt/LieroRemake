@@ -43,8 +43,8 @@ static const uint32_t bullet_category = 0x1 << 4;
     [self addChild:player.sprite];
     // [player animateChar];
     player.sprite.physicsBody.categoryBitMask = player_category;
-    player.sprite.physicsBody.collisionBitMask = enemy_category;
-    player.sprite.physicsBody.contactTestBitMask = enemy_category;
+    player.sprite.physicsBody.collisionBitMask = enemy_category | bullet_category;
+    player.sprite.physicsBody.contactTestBitMask = enemy_category | bullet_category;
     [self addChild:player.aim.sprite];
     
 }
@@ -96,6 +96,15 @@ static const uint32_t bullet_category = 0x1 << 4;
             //NSLog(@"-------------");
             [self addChild:bulleter.sprite];
             //NSLog(@"++++++++++++++");
+        }
+            break;
+        case KEY_C:
+        {
+            [player createSmgKaliber:player.aim.angle :player.sprite.position.x :player.sprite.position.y];
+			Bullet* b = [player.bullets objectAtIndex:player.bullet_index];
+			player.bullet_index++;
+            //NSLog(@"-------------");
+            [self addChild:b.sprite];
         }
             break;
         case KEY_SPACE: //Space
@@ -158,7 +167,7 @@ static const uint32_t bullet_category = 0x1 << 4;
 
 
 /*
- * L O A D   & &  S A V E   && R E M O V E
+ * L O A D  &  S A V E   &  R E M O V E
  */
 
 
@@ -174,6 +183,10 @@ static const uint32_t bullet_category = 0x1 << 4;
     
 }
 
+
+/*
+ * C O L L I S I O N
+ */
 -(void) didBeginContact:(SKPhysicsContact *)contact {
     
 	// Collision between enemy and a bullet
@@ -182,50 +195,43 @@ static const uint32_t bullet_category = 0x1 << 4;
         					||
         ((contact.bodyB.categoryBitMask == bullet_category) &&
         (contact.bodyA.categoryBitMask == enemy_category))) {
-        NSLog(@"vad hande nu=!?!");
+       
     	[enemy.sprite removeFromParent];
         enemy = NULL;
         [self createEnemy];
-    }
     
-    
-    //NSLog(@"BodyA: %i, BodyB: %i",contact.bodyA.collisionBitMask,contact.bodyB.collisionBitMask);
-    /*
-    if(contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask) {
-        first_body = contact.bodyA;
-        second_body = contact.bodyB;
-    } else {
-        first_body = contact.bodyB;
-        second_body = contact.bodyA;
     }
+    // Collision beetween player and a bullet
+    if(((contact.bodyA.categoryBitMask == bullet_category) &&
+        (contact.bodyB.categoryBitMask == player_category))
+       						||
+       ((contact.bodyB.categoryBitMask == bullet_category) &&
+        (contact.bodyA.categoryBitMask == player_category))) {
     
-    if((first_body.categoryBitMask & enemy_category) == 1) {
-        NSLog(@"enemy?");
-    }
-    if((first_body.categoryBitMask & player_category) == 1 && (first_body.collisionBitMask != -1) && (second_body.collisionBitMask != -1)) {
-        //NSLog(@"player and enemy collide BOOM BOOM BOOM");
-        //NSLog(@"first: %i, second: %i, player: %i, enemy: %i, %i, %i",first_body.categoryBitMask, second_body.categoryBitMask, player_category, enemy_category,first_body.collisionBitMask, second_body.collisionBitMask);
-        //player = NULL;
-		[player.sprite removeFromParent];
+    	[player.sprite removeFromParent];
         [player.aim.sprite removeFromParent];
         player.aim = NULL;
         player = NULL;
-        [self createPlayer];
+        [self createPlayer]; 
     }
-    if((first_body.categoryBitMask & enemy_category) == 1 && (first_body.collisionBitMask != -1) && (second_body.collisionBitMask != -1)) {
-        NSLog(@"vad hande nu=!?!");
-    	[enemy.sprite removeFromParent];
-        enemy = NULL;
-        [self createEnemy];
-    }
-    //if((second_body.categoryBitMask & enemy_category) == 1) {
-    //	NSLog(@"vad hande nu=!?!");
-    //}
-    if((second_body.categoryBitMask & player_category) == 1) { //TROR DETTA ÄR MARK OCH SPELARE
-      //  NSLog(@"WTFTWTFWF=!?!, category %i, testBit %i",second_body.categoryBitMask,second_body.contactTestBitMask);
-    	NSLog(@"!!!""##");
-    }
-*/
+    //Collision between the floor and a bullet
+    if(((contact.bodyA.categoryBitMask == bullet_category) &&
+        (contact.bodyB.categoryBitMask == -1))
+       						||
+       ((contact.bodyB.categoryBitMask == bullet_category) &&
+        (contact.bodyA.categoryBitMask == -1))) {
+			if (contact.bodyA.categoryBitMask == bullet_category) {
+                SKNode* bullet = contact.bodyA.node;
+				[bullet runAction:[SKAction removeFromParent]];
+			} else {
+                SKNode* bullet = contact.bodyB.node;
+                CGPoint location = CGPointMake(bullet.position.x, bullet.position.y);
+                SKSpriteNode* explosion = [SKSpriteNode spriteNodeWithImageNamed:@"explosion"];
+				explosion.position = location;
+                [self addChild:explosion];
+                [bullet runAction:[SKAction removeFromParent]];
+            }
+       }
 }
 
 /*

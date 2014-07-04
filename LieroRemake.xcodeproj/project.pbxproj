@@ -11,6 +11,9 @@
 		23A5C78719659981000A2D1F /* pistol_bullet.png in Resources */ = {isa = PBXBuildFile; fileRef = 23A5C78619659981000A2D1F /* pistol_bullet.png */; };
 		23A5C78D19659F55000A2D1F /* WormRight.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 23A5C78C19659F55000A2D1F /* WormRight.atlas */; };
 		23A5C78F1965A23E000A2D1F /* WormLeft.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 23A5C78E1965A23E000A2D1F /* WormLeft.atlas */; };
+		23A5C7941966DCC2000A2D1F /* 9mm.png in Resources */ = {isa = PBXBuildFile; fileRef = 23A5C7931966DCC2000A2D1F /* 9mm.png */; };
+		23A5C7971966DEE8000A2D1F /* Smg_kaliber.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A5C7961966DEE8000A2D1F /* Smg_kaliber.m */; };
+		23A5C7991966EB60000A2D1F /* explosion.png in Resources */ = {isa = PBXBuildFile; fileRef = 23A5C7981966EB60000A2D1F /* explosion.png */; };
 		9E044F5B19644E2300F62514 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E044F5A19644E2300F62514 /* Cocoa.framework */; };
 		9E044F5D19644E2300F62514 /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E044F5C19644E2300F62514 /* SpriteKit.framework */; };
 		9E044F6719644E2300F62514 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9E044F6519644E2300F62514 /* InfoPlist.strings */; };
@@ -60,6 +63,10 @@
 		23A5C78619659981000A2D1F /* pistol_bullet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pistol_bullet.png; sourceTree = "<group>"; };
 		23A5C78C19659F55000A2D1F /* WormRight.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = WormRight.atlas; sourceTree = "<group>"; };
 		23A5C78E1965A23E000A2D1F /* WormLeft.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = WormLeft.atlas; sourceTree = "<group>"; };
+		23A5C7931966DCC2000A2D1F /* 9mm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 9mm.png; sourceTree = "<group>"; };
+		23A5C7951966DEE8000A2D1F /* Smg_kaliber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Smg_kaliber.h; sourceTree = "<group>"; };
+		23A5C7961966DEE8000A2D1F /* Smg_kaliber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Smg_kaliber.m; sourceTree = "<group>"; };
+		23A5C7981966EB60000A2D1F /* explosion.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = explosion.png; sourceTree = "<group>"; };
 		9E044F5719644E2300F62514 /* LieroRemake.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LieroRemake.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E044F5A19644E2300F62514 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		9E044F5C19644E2300F62514 /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
@@ -138,6 +145,8 @@
 			children = (
 				23A5C779196576D6000A2D1F /* Bullet.h */,
 				23A5C77A196576D6000A2D1F /* Bullet.m */,
+				23A5C7951966DEE8000A2D1F /* Smg_kaliber.h */,
+				23A5C7961966DEE8000A2D1F /* Smg_kaliber.m */,
 			);
 			name = Bullets;
 			sourceTree = "<group>";
@@ -266,6 +275,8 @@
 		9E044FA519644EDB00F62514 /* Sprites */ = {
 			isa = PBXGroup;
 			children = (
+				23A5C7981966EB60000A2D1F /* explosion.png */,
+				23A5C7931966DCC2000A2D1F /* 9mm.png */,
 				9E044FAE19644F4A00F62514 /* platform.png */,
 				23A5C78619659981000A2D1F /* pistol_bullet.png */,
 				9E044FAF19644F4A00F62514 /* charGenom.png */,
@@ -366,12 +377,14 @@
 			files = (
 				9E044FBD19644F4A00F62514 /* char24.png in Resources */,
 				23A5C78D19659F55000A2D1F /* WormRight.atlas in Resources */,
+				23A5C7941966DCC2000A2D1F /* 9mm.png in Resources */,
 				9E044FBC19644F4A00F62514 /* char23.png in Resources */,
 				9E044F7919644E2300F62514 /* Images.xcassets in Resources */,
 				9E044F6719644E2300F62514 /* InfoPlist.strings in Resources */,
 				9E044FAB19644F0C00F62514 /* aim.png in Resources */,
 				9E044FB619644F4A00F62514 /* platform.png in Resources */,
 				9E044FB719644F4A00F62514 /* charGenom.png in Resources */,
+				23A5C7991966EB60000A2D1F /* explosion.png in Resources */,
 				23A5C78719659981000A2D1F /* pistol_bullet.png in Resources */,
 				9E044FBB19644F4A00F62514 /* char2.png in Resources */,
 				9E044FBA19644F4A00F62514 /* char21.png in Resources */,
@@ -401,6 +414,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9E044FA919644F0200F62514 /* Aim.m in Sources */,
+				23A5C7971966DEE8000A2D1F /* Smg_kaliber.m in Sources */,
 				9E044FA219644EBB00F62514 /* Player.m in Sources */,
 				9E044F9E19644EBB00F62514 /* Audio.m in Sources */,
 				9E044F9F19644EBB00F62514 /* Enemy.m in Sources */,
