@@ -108,6 +108,7 @@
 		9E044FBF19659C2100F62514 /* MainMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenu.m; sourceTree = "<group>"; };
 		9E25FD801966A578004AFE24 /* cursor2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cursor2.png; sourceTree = "<group>"; };
 		9E25FD821966AC5D004AFE24 /* KeyHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyHeader.h; sourceTree = "<group>"; };
+		9E25FD8319676014004AFE24 /* MenuSong.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = MenuSong.m4a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -283,6 +284,7 @@
 		9E044FA619644EE300F62514 /* Audio */ = {
 			isa = PBXGroup;
 			children = (
+				9E25FD8319676014004AFE24 /* MenuSong.m4a */,
 			);
 			name = Audio;
 			sourceTree = "<group>";
