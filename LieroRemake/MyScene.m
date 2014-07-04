@@ -13,7 +13,7 @@
 
 static const uint32_t player_category = 0x1 << 0;
 static const uint32_t enemy_category = 0x1 << 3;
-//static const uint32_t bullet_category = 0x1 << 4;
+static const uint32_t bullet_category = 0x1 << 4;
 
 -(id)initWithSize:(CGSize)size {
     if (self = [super initWithSize:size]) {
@@ -83,7 +83,7 @@ static const uint32_t enemy_category = 0x1 << 3;
 }
 -(void)keyDown:(NSEvent *)theEvent{
     
-    NSLog(@"%i",theEvent.keyCode);
+    //NSLog(@"%i",theEvent.keyCode);
     switch (theEvent.keyCode) {
 
 		case 6:
@@ -176,9 +176,21 @@ static const uint32_t enemy_category = 0x1 << 3;
 
 -(void) didBeginContact:(SKPhysicsContact *)contact {
     
-	SKPhysicsBody* first_body;
-    SKPhysicsBody* second_body;
+	// Collision between enemy and a bullet
+   	if (((contact.bodyA.categoryBitMask == bullet_category) &&
+        (contact.bodyB.categoryBitMask == enemy_category))
+        					||
+        ((contact.bodyB.categoryBitMask == bullet_category) &&
+        (contact.bodyA.categoryBitMask == enemy_category))) {
+        NSLog(@"vad hande nu=!?!");
+    	[enemy.sprite removeFromParent];
+        enemy = NULL;
+        [self createEnemy];
+    }
     
+    
+    //NSLog(@"BodyA: %i, BodyB: %i",contact.bodyA.collisionBitMask,contact.bodyB.collisionBitMask);
+    /*
     if(contact.bodyA.categoryBitMask < contact.bodyB.categoryBitMask) {
         first_body = contact.bodyA;
         second_body = contact.bodyB;
@@ -188,7 +200,7 @@ static const uint32_t enemy_category = 0x1 << 3;
     }
     
     if((first_body.categoryBitMask & enemy_category) == 1) {
-        //NSLog(@"enemy?");
+        NSLog(@"enemy?");
     }
     if((first_body.categoryBitMask & player_category) == 1 && (first_body.collisionBitMask != -1) && (second_body.collisionBitMask != -1)) {
         //NSLog(@"player and enemy collide BOOM BOOM BOOM");
@@ -200,12 +212,20 @@ static const uint32_t enemy_category = 0x1 << 3;
         player = NULL;
         [self createPlayer];
     }
-    if((second_body.categoryBitMask & enemy_category) == 1) {
+    if((first_body.categoryBitMask & enemy_category) == 1 && (first_body.collisionBitMask != -1) && (second_body.collisionBitMask != -1)) {
+        NSLog(@"vad hande nu=!?!");
+    	[enemy.sprite removeFromParent];
+        enemy = NULL;
+        [self createEnemy];
+    }
+    //if((second_body.categoryBitMask & enemy_category) == 1) {
     //	NSLog(@"vad hande nu=!?!");
-    }
-    if((second_body.categoryBitMask & player_category) == 1) {
+    //}
+    if((second_body.categoryBitMask & player_category) == 1) { //TROR DETTA ÄR MARK OCH SPELARE
       //  NSLog(@"WTFTWTFWF=!?!, category %i, testBit %i",second_body.categoryBitMask,second_body.contactTestBitMask);
+    	NSLog(@"!!!""##");
     }
+*/
 }
 
 /*

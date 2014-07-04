@@ -33,6 +33,10 @@ static const uint32_t bullet_category = 0x1 << 4;
     sprite.physicsBody.restitution=1;
     sprite.physicsBody.linearDamping=0.2f;
     sprite.physicsBody.angularDamping=0;
+    
+    sprite.physicsBody.categoryBitMask = bullet_category;
+    sprite.physicsBody.collisionBitMask = player_category | enemy_category;
+    sprite.physicsBody.contactTestBitMask = player_category | enemy_category;
 
 	return self;
 }
