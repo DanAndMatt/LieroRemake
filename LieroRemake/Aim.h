@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Mattias Linder. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <SpriteKit/SpriteKit.h>
+
+@class Aim;
 @interface Aim : NSObject
 
 @property SKSpriteNode *sprite;

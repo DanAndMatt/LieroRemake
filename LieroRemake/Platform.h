@@ -6,9 +6,7 @@
 //  Copyright (c) 2014 Daniel Vaknine. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <Cocoa/Cocoa.h>
-#import <SpriteKit/SpriteKit.h>
+@class Platform;
 @interface Platform : NSObject{
     SKSpriteNode *sprite;
 }

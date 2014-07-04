@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Daniel Vaknine. All rights reserved.
 //
 
-#import "MapEditor.h"
+#import "KeyHeader.h"
 
 @implementation MapEditor
 
@@ -32,24 +32,20 @@
 }
 
 -(void)keyDown:(NSEvent *)theEvent{
-    NSLog(@"%i",theEvent.keyCode);
+   // NSLog(@"%i",theEvent.keyCode);
     switch (theEvent.keyCode) {
-        case 1: //S Save
+        case KEY_S:
             [self savePlatforms];
             break;
-            
-        case 7: //X RemoveLastPlatform
+        case KEY_X:
             [self removeLastPlatform];
             break;
-        case 46: //M MAP
+        case KEY_M:
             break;
-            
-        case 8: //C Clean
+        case KEY_C:
             [self removePlatforms];
             break;
-            
-            
-        case 53: //ESq
+        case KEY_ESQ:
             [self changeToMenuScene];
             break;
         default:

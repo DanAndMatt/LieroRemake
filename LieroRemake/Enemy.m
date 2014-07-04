@@ -6,8 +6,7 @@
 //  Copyright (c) 2014 Daniel Vaknine. All rights reserved.
 //
 
-#import "Enemy.h"
-
+#import "KeyHeader.h"
 @implementation Enemy
 
 @synthesize hp,sprite,x,y,name,location,hpLabel,angle,isMovingRight,isStopingPlayer,isMovingLeft,isJumping;

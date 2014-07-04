@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Mattias Linder. All rights reserved.
 //
 
-#import "Aim.h"
+#import "KeyHeader.h"
 @interface Aim() 
 
 -(void) moveAimDown:(float)player_x_pos :(float)player_y_pos :(bool)aims_right;

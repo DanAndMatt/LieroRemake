@@ -6,13 +6,9 @@
 //  Copyright (c) 2014 Daniel Vaknine. All rights reserved.
 //
 
-#import "Bullet.h"
 
+#import "KeyHeader.h"
 @implementation Bullet
-
-static const uint32_t player_category = 0x1 << 0;
-static const uint32_t enemy_category = 0x1 << 3;
-static const uint32_t bullet_category = 0x1 << 4;
 
 @synthesize damage,angle,sprite,explode_area,velocity,acceleration;
 

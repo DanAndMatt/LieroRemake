@@ -6,14 +6,6 @@
 //  Copyright (c) 2014 Daniel Vaknine. All rights reserved.
 //
 
-#import <SpriteKit/SpriteKit.h>
-#import "Player.h"
-#import "Platform.h"
-#import "Enemy.h"
-#import "Audio.h"
-#import "MapEditor.h"
-#import "Bullet.h"
-#import "MainMenu.h"
 @class MyScene;
 @interface MyScene : SKScene <SKPhysicsContactDelegate> //This tells that we are using the SKPhysicsContactDelegate delegate
 

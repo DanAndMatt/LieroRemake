@@ -6,11 +6,10 @@
 //  Copyright (c) 2014 Daniel Vaknine. All rights reserved.
 //
 
-#import "AppDelegate.h"
-
+#import "KeyHeader.h"
 @implementation AppDelegate
 
-@synthesize window = _window,mapScene,gameScene,menuScene;
+@synthesize window = _window,mapScene,menuScene;
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {

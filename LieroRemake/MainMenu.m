@@ -6,14 +6,10 @@
 //  Copyright (c) 2014 Daniel Vaknine. All rights reserved.
 //
 
-#import "MainMenu.h"
+#import "KeyHeader.h"
 
 @implementation MainMenu
-#define KEY_M 46
-#define KEY_N 45
-#define KEY_LEFT 123
-#define KEY_RIGHT 124
-#define KEY_ENTER 36
+
 @synthesize mapLabel,gameLabel,cursorSprite,pressedEnterKey,cursor;
 
 
@@ -71,7 +67,7 @@
 }
 
 -(void)keyDown:(NSEvent *)theEvent{
-    NSLog(@"%i",theEvent.keyCode);
+    //NSLog(@"%i",theEvent.keyCode);
     switch(theEvent.keyCode){
         case KEY_LEFT:
             cursor = KEY_LEFT;
