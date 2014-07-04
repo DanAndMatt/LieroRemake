@@ -20,6 +20,9 @@
 
 @property SKLabelNode *gameLabel;
 @property SKLabelNode *mapLabel;
+@property SKSpriteNode *cursorSprite;
+@property bool pressedEnterKey;
+@property int cursor;
 
 -(id)initYo: (CGSize)size;
 @end

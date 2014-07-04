@@ -41,6 +41,7 @@
 		9E044FBC19644F4A00F62514 /* char23.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E044FB419644F4A00F62514 /* char23.png */; };
 		9E044FBD19644F4A00F62514 /* char24.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E044FB519644F4A00F62514 /* char24.png */; };
 		9E044FC019659C2100F62514 /* MainMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E044FBF19659C2100F62514 /* MainMenu.m */; };
+		9E25FD811966A578004AFE24 /* cursor2.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E25FD801966A578004AFE24 /* cursor2.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -105,6 +106,7 @@
 		9E044FB519644F4A00F62514 /* char24.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = char24.png; sourceTree = "<group>"; };
 		9E044FBE19659C2100F62514 /* MainMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenu.h; sourceTree = "<group>"; };
 		9E044FBF19659C2100F62514 /* MainMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenu.m; sourceTree = "<group>"; };
+		9E25FD801966A578004AFE24 /* cursor2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cursor2.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -265,6 +267,7 @@
 				23A5C78619659981000A2D1F /* pistol_bullet.png */,
 				9E044FAF19644F4A00F62514 /* charGenom.png */,
 				9E044FB019644F4A00F62514 /* char1.png */,
+				9E25FD801966A578004AFE24 /* cursor2.png */,
 				9E044FB119644F4A00F62514 /* char22.png */,
 				9E044FB219644F4A00F62514 /* char21.png */,
 				9E044FB319644F4A00F62514 /* char2.png */,
@@ -371,6 +374,7 @@
 				9E044F6D19644E2300F62514 /* Credits.rtf in Resources */,
 				9E044FB819644F4A00F62514 /* char1.png in Resources */,
 				23A5C78F1965A23E000A2D1F /* WormLeft.atlas in Resources */,
+				9E25FD811966A578004AFE24 /* cursor2.png in Resources */,
 				9E044FAD19644F2B00F62514 /* RightLeg.atlas in Resources */,
 				9E044F6F19644E2300F62514 /* MainMenu.xib in Resources */,
 				9E044FB919644F4A00F62514 /* char22.png in Resources */,
