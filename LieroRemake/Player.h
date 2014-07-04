@@ -6,10 +6,11 @@
 //  Copyright (c) 2014 Daniel Vaknine. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
-#import <SpriteKit/SpriteKit.h>
+
 #import "Aim.h"
-#import "Bullet.h"
+
+
+@class Player;
 @interface Player : NSObject
 
 

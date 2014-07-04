@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Daniel Vaknine. All rights reserved.
 //
 
-#import "MyScene.h" 
+#import "KeyHeader.h"
 
 @implementation MyScene
 @synthesize player,platform,platformList,enemy,paths,docDir,fullFileName,audio;
@@ -86,7 +86,7 @@ static const uint32_t bullet_category = 0x1 << 4;
     //NSLog(@"%i",theEvent.keyCode);
     switch (theEvent.keyCode) {
 
-		case 6:
+		case KEY_Z: //Z
         {
             //z, is for shooting
             //(float)_angle :(float)_velocity :(float)_acceleration :(int)_damage :(NSString*)sprite_name :(float)_explode_area :(float)x_pos :(float)y_pos
@@ -98,26 +98,26 @@ static const uint32_t bullet_category = 0x1 << 4;
             //NSLog(@"++++++++++++++");
         }
             break;
-        case 49: //Space
+        case KEY_SPACE: //Space
             [player jumpPlayer];
             break;
-        case 124: //Right
+        case KEY_RIGHT: //Right
             [player setMovingRightToTrue];
             break;
-        case 123: //left
+        case KEY_LEFT: //left
             [player setMovingLeftToTrue];
             break;
-        case 46: //M MAP
+        case KEY_M: //M MAP
             break;
             
-        case 125: //Down
+        case KEY_DOWN: //Down
             player.aim.down = true;
             break;
-        case 126: //UP
+        case KEY_UP: //UP
             player.aim.up = true;
             break;
             
-        case 53: //ESq
+        case KEY_ESQ: //ESq
             [self changeToMenuScene];
             break;
         default:
@@ -128,17 +128,17 @@ static const uint32_t bullet_category = 0x1 << 4;
 
 -(void)keyUp:(NSEvent *)theEvent{
     switch (theEvent.keyCode) {
-        case 124: //RIGHT
+        case KEY_RIGHT: //RIGHT
             player.isMovingRight = false;
             break;
-        case 123: //LEFT
+        case KEY_LEFT: //LEFT
             player.isMovingLeft = false;
             break;
             
-        case 125: //Down
+        case KEY_DOWN: //Down
             player.aim.down = false;
             break;
-        case 126: //UP
+        case KEY_UP: //UP
             player.aim.up = false;
             break;
         default:

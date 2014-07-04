@@ -6,8 +6,8 @@
 //  Copyright (c) 2014 Daniel Vaknine. All rights reserved.
 //
 
-#import "Bullet.h"
 
+#import "KeyHeader.h"
 @implementation Bullet
 
 static const uint32_t player_category = 0x1 << 0;

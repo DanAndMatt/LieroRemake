@@ -6,8 +6,7 @@
 //  Copyright (c) 2014 Daniel Vaknine. All rights reserved.
 //
 
-#import "Player.h"
-
+#import "KeyHeader.h"
 @implementation Player
 
 @synthesize hp,sprite,x,y,name,location,hpLabel,angle,isMovingRight,isStopingPlayer,isMovingLeft,isJumping,aim,aims_right,bullets,bullet_index,sprite_textures;

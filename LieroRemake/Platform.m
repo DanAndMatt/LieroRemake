@@ -6,8 +6,7 @@
 //  Copyright (c) 2014 Daniel Vaknine. All rights reserved.
 //
 
-#import "Platform.h"
-
+#import "KeyHeader.h"
 @implementation Platform
 
 @synthesize sprite;
