@@ -10,19 +10,39 @@
 
 @implementation MapEditor
 
-@synthesize player,platform,platformList,enemy,paths,docDir,fullFileName,audio;
+@synthesize player,platform,platformList,enemy,paths,docDir,fullFileName,audio,currentIcon;
 
 
 -(id)initWithSize:(CGSize)size {
     if (self = [super initWithSize:size]) {
         [self loadPlatforms];
-
+        [self createDock];
+        
     }
     return self;
 }
 
 
 
+-(void)createDock{
+    currentIcon = 0;
+    float xMidle =self.frame.size.width/2;
+    float y = 50;
+    SKSpriteNode *dockSprite = [SKSpriteNode spriteNodeWithImageNamed:@"DockForMapEditor.png"];
+    dockSprite.position = CGPointMake(xMidle,y);
+    [self addChild:dockSprite];
+    
+    
+    SKSpriteNode *dockIcon1 = [SKSpriteNode spriteNodeWithImageNamed:@"platform"];
+    dockIcon1.position = CGPointMake((xMidle-45), y);
+    dockIcon1.name = @"brickIcon";
+    [self addChild:dockIcon1];
+    
+    SKSpriteNode *dockIcon2 = [SKSpriteNode spriteNodeWithImageNamed:@"char22"];
+    dockIcon2.position = CGPointMake(xMidle-140, y);
+    dockIcon2.name = @"charIcon";
+    [self addChild:dockIcon2];
+}
 -(void)changeToMenuScene{
     SKTransition *reveal = [SKTransition
                             revealWithDirection:SKTransitionDirectionDown duration:1.0];
@@ -58,8 +78,25 @@
 
 -(void)mouseDown:(NSEvent *)theEvent {
     CGPoint location = [theEvent locationInNode:self];
+    NSLog(@"[X: %f Y: %f]",location.x,location.y);
+    SKNode *node = [self nodeAtPoint:location];
+    NSLog(@"%@",node.name);
+    if([node.name isEqualToString:@"brickIcon"]){
+        currentIcon = ICON_BRICK;
+    }
+    if([node.name isEqualToString:@"charIcon"]){
+        currentIcon = ICON_CHAR;
+    }
     
-    [self createPlatform:location.x :location.y];
+    if(currentIcon == ICON_BRICK && location.y > 120){
+        [self createPlatform:location.x :location.y];
+        
+    }
+    if(currentIcon == ICON_CHAR && location.y > 120){
+        [self createChar:location.x :location.y];
+        
+    }
+    //[self createPlatform:location.x :location.y];
 }
 
 
@@ -67,10 +104,18 @@
  * L O A D   & &  S A V E   && R E M O V E
  */
 
+-(void)createChar:(float)x : (float)y{
+
+    SKSpriteNode *charSprite =  [SKSpriteNode spriteNodeWithImageNamed:@"char22"];
+    charSprite.position = CGPointMake(x, y);
+    charSprite.name = @"charSprite";
+    [self addChild:charSprite];
+}
 -(void)createPlatform: (float)x : (float)y{
     
     platform = [[Platform alloc]init];
     [platform createPlatform:x :y : @"platform"];
+    platform.sprite.name = @"platform";
     [platformList addObject:platform];
     [self addChild:platform.sprite];
 }

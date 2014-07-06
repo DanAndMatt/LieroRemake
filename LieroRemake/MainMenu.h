@@ -14,6 +14,6 @@
 @property SKSpriteNode *cursorSprite;
 @property bool pressedEnterKey;
 @property int cursor;
-
+@property Audio *menuSong;
 -(id)initYo: (CGSize)size;
 @end

@@ -19,4 +19,5 @@
 @property NSString *docDir;
 @property NSString *fullFileName;
 @property Audio *audio;
+@property int currentIcon;
 @end

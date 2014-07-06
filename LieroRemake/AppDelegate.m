@@ -13,16 +13,19 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-
-    
     menuScene = [[MainMenu alloc ]initYo:CGSizeMake(1024, 768)];
     
     menuScene.scaleMode = SKSceneScaleModeAspectFit;
     [self.skView presentScene:menuScene];
     self.skView.showsFPS = YES;
     self.skView.showsNodeCount = YES;
+
 }
 
+- (IBAction)startMenu:(id)sender {
+
+
+}
 
 
 - (BOOL)applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)sender {
