@@ -45,6 +45,8 @@
 		9E044FBD19644F4A00F62514 /* char24.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E044FB519644F4A00F62514 /* char24.png */; };
 		9E044FC019659C2100F62514 /* MainMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E044FBF19659C2100F62514 /* MainMenu.m */; };
 		9E25FD811966A578004AFE24 /* cursor2.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E25FD801966A578004AFE24 /* cursor2.png */; };
+		9E448795196993EB0013FE2B /* DockForMapEditor.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E448794196993EB0013FE2B /* DockForMapEditor.png */; };
+		9E44879719699B220013FE2B /* DockForMapEditorShell.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E44879619699B220013FE2B /* DockForMapEditorShell.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -115,7 +117,8 @@
 		9E044FBF19659C2100F62514 /* MainMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenu.m; sourceTree = "<group>"; };
 		9E25FD801966A578004AFE24 /* cursor2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cursor2.png; sourceTree = "<group>"; };
 		9E25FD821966AC5D004AFE24 /* KeyHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyHeader.h; sourceTree = "<group>"; };
-		9E25FD8319676014004AFE24 /* MenuSong.m4a */ = {isa = PBXFileReference; lastKnownFileType = file; path = MenuSong.m4a; sourceTree = "<group>"; };
+		9E448794196993EB0013FE2B /* DockForMapEditor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DockForMapEditor.png; sourceTree = "<group>"; };
+		9E44879619699B220013FE2B /* DockForMapEditorShell.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DockForMapEditorShell.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -276,8 +279,10 @@
 			isa = PBXGroup;
 			children = (
 				23A5C7981966EB60000A2D1F /* explosion.png */,
+				9E448794196993EB0013FE2B /* DockForMapEditor.png */,
 				23A5C7931966DCC2000A2D1F /* 9mm.png */,
 				9E044FAE19644F4A00F62514 /* platform.png */,
+				9E44879619699B220013FE2B /* DockForMapEditorShell.png */,
 				23A5C78619659981000A2D1F /* pistol_bullet.png */,
 				9E044FAF19644F4A00F62514 /* charGenom.png */,
 				9E044FB019644F4A00F62514 /* char1.png */,
@@ -295,7 +300,6 @@
 		9E044FA619644EE300F62514 /* Audio */ = {
 			isa = PBXGroup;
 			children = (
-				9E25FD8319676014004AFE24 /* MenuSong.m4a */,
 			);
 			name = Audio;
 			sourceTree = "<group>";
@@ -391,6 +395,8 @@
 				9E044F6D19644E2300F62514 /* Credits.rtf in Resources */,
 				9E044FB819644F4A00F62514 /* char1.png in Resources */,
 				23A5C78F1965A23E000A2D1F /* WormLeft.atlas in Resources */,
+				9E448795196993EB0013FE2B /* DockForMapEditor.png in Resources */,
+				9E44879719699B220013FE2B /* DockForMapEditorShell.png in Resources */,
 				9E25FD811966A578004AFE24 /* cursor2.png in Resources */,
 				9E044FAD19644F2B00F62514 /* RightLeg.atlas in Resources */,
 				9E044F6F19644E2300F62514 /* MainMenu.xib in Resources */,

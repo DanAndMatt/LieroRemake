@@ -39,6 +39,7 @@
         
         pressedEnterKey = false;
         cursor = KEY_LEFT;
+        
     }
     return self;
 }

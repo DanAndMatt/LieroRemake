@@ -24,6 +24,9 @@
 #define KEY_Z 6
 
 
+#define ICON_BRICK 1
+#define ICON_CHAR 2
+
 #import <SpriteKit/SpriteKit.h>
 #import <Cocoa/Cocoa.h>
 #import <Foundation/Foundation.h>
