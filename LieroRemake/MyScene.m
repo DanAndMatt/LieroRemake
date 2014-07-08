@@ -245,9 +245,8 @@ static const uint32_t bullet_category = 0x1 << 4;
                 CGPoint location = CGPointMake(bullet.position.x, bullet.position.y);
                 SKSpriteNode* explosion = [SKSpriteNode spriteNodeWithImageNamed:@"explosion"];
 				explosion.position = location;
-                
-                [self addChild:explosion];
                 explosion.name = @"explosionId";
+                [self addChild:explosion];
                 //make it move
                 NSMutableArray *explosionFrames = [NSMutableArray array];
                 SKTextureAtlas *explosionAtlas =
@@ -261,20 +260,21 @@ static const uint32_t bullet_category = 0x1 << 4;
                 //SKNode *explosionNode = [self childNodeWithName:@"explosionNode"];
                 SKAction *animate = [SKAction animateWithTextures:explosionFrames timePerFrame:0.05 resize:YES restore:YES];
 				[animate setDuration:1.0];
-                
-                //animate.timingMode = SKActionTimingEaseInEaseOut;
-                //animate = [SKAction ];
-                //animate.duration = 0.14;
-                //[];
-                
-                [explosion runAction:animate];
-				[explosion removeFromParent];
-                //[explosion runAction:[SKAction removeFromParent]];
+
+                [explosion runAction:animate withKey:@"theExplosion"];
+
                 [bullet runAction:[SKAction removeFromParent]];
             }
        }
 }
 
+
+-(void)removeExplosionAction{
+    SKNode *node = [self childNodeWithName:@"explosionId"];
+    if(![node hasActions]){
+        [node removeFromParent];
+    }
+}
 /*
  *  U P D A T E
  */
@@ -283,6 +283,7 @@ static const uint32_t bullet_category = 0x1 << 4;
     [player moveDirection];
     [player.aim updateAim:player.sprite.position.x :player.sprite.position.y :player.aims_right];
     [player moveBullets];
+    [self removeExplosionAction];
     
 }
 

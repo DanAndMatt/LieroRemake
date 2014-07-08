@@ -404,6 +404,7 @@
 				9E044F7919644E2300F62514 /* Images.xcassets in Resources */,
 				9E044F6719644E2300F62514 /* InfoPlist.strings in Resources */,
 				9E044FAB19644F0C00F62514 /* aim.png in Resources */,
+				23561CFB196BDFFD00514EAD /* explosions.atlas in Resources */,
 				9E44879C196AB7FC0013FE2B /* RainParticle.sks in Resources */,
 				9E044FB619644F4A00F62514 /* platform.png in Resources */,
 				9E4487A1196AFAED0013FE2B /* MapEditor32pxGrid.png in Resources */,

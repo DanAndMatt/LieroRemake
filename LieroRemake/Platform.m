@@ -15,11 +15,11 @@
 
 -(void)encodeWithCoder:(NSCoder *)encoder{
     [encoder encodeObject:self.sprite forKey:@"sprite"];
-    NSLog(@"encoded sprite");
+  //  NSLog(@"encoded sprite");
 }
 
 -(id)initWithCoder:(NSCoder *) decoder {
-        NSLog(@"decoded sprite");
+    //    NSLog(@"decoded sprite");
     if(self = [super init]){
       self.sprite = [decoder decodeObjectForKey:@"sprite"];
     }
