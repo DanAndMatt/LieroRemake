@@ -232,7 +232,7 @@ static const uint32_t bullet_category = 0x1 << 4;
 				explosion.position = location;
                 
                 [self addChild:explosion];
-                
+                explosion.name = @"explosionId";
                 //make it move
                 NSMutableArray *explosionFrames = [NSMutableArray array];
                 SKTextureAtlas *explosionAtlas =
@@ -251,8 +251,9 @@ static const uint32_t bullet_category = 0x1 << 4;
                 //animate = [SKAction ];
                 //animate.duration = 0.14;
                 //[];
+                
                 [explosion runAction:animate];
-
+				[explosion removeFromParent];
                 //[explosion runAction:[SKAction removeFromParent]];
                 [bullet runAction:[SKAction removeFromParent]];
             }
