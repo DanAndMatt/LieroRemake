@@ -225,10 +225,35 @@ static const uint32_t bullet_category = 0x1 << 4;
 				[bullet runAction:[SKAction removeFromParent]];
 			} else {
                 SKNode* bullet = contact.bodyB.node;
+
+                //add explosion sprite
                 CGPoint location = CGPointMake(bullet.position.x, bullet.position.y);
                 SKSpriteNode* explosion = [SKSpriteNode spriteNodeWithImageNamed:@"explosion"];
 				explosion.position = location;
+                
                 [self addChild:explosion];
+                
+                //make it move
+                NSMutableArray *explosionFrames = [NSMutableArray array];
+                SKTextureAtlas *explosionAtlas =
+                [SKTextureAtlas atlasNamed:@"explosions"];
+                for (int i = 1; i <= explosionAtlas.textureNames.count; ++i)
+                {
+                    NSString *texture =
+                    [NSString stringWithFormat:@"explosion%d", i];
+                    [explosionFrames addObject:[explosionAtlas textureNamed:texture]];
+                }
+                //SKNode *explosionNode = [self childNodeWithName:@"explosionNode"];
+                SKAction *animate = [SKAction animateWithTextures:explosionFrames timePerFrame:0.05 resize:YES restore:YES];
+				[animate setDuration:1.0];
+                
+                //animate.timingMode = SKActionTimingEaseInEaseOut;
+                //animate = [SKAction ];
+                //animate.duration = 0.14;
+                //[];
+                [explosion runAction:animate];
+
+                //[explosion runAction:[SKAction removeFromParent]];
                 [bullet runAction:[SKAction removeFromParent]];
             }
        }

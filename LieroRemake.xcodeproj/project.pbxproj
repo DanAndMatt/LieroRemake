@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		23561CFB196BDFFD00514EAD /* explosions.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 23561CFA196BDFFD00514EAD /* explosions.atlas */; };
 		23A5C77B196576D6000A2D1F /* Bullet.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A5C77A196576D6000A2D1F /* Bullet.m */; };
 		23A5C78719659981000A2D1F /* pistol_bullet.png in Resources */ = {isa = PBXBuildFile; fileRef = 23A5C78619659981000A2D1F /* pistol_bullet.png */; };
 		23A5C78D19659F55000A2D1F /* WormRight.atlas in Resources */ = {isa = PBXBuildFile; fileRef = 23A5C78C19659F55000A2D1F /* WormRight.atlas */; };
@@ -60,6 +61,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		23561CFA196BDFFD00514EAD /* explosions.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = explosions.atlas; sourceTree = "<group>"; };
 		23A5C779196576D6000A2D1F /* Bullet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bullet.h; sourceTree = "<group>"; };
 		23A5C77A196576D6000A2D1F /* Bullet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Bullet.m; sourceTree = "<group>"; };
 		23A5C78619659981000A2D1F /* pistol_bullet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pistol_bullet.png; sourceTree = "<group>"; };
@@ -197,6 +199,7 @@
 		9E044F6219644E2300F62514 /* LieroRemake */ = {
 			isa = PBXGroup;
 			children = (
+				23561CFA196BDFFD00514EAD /* explosions.atlas */,
 				23A5C78E1965A23E000A2D1F /* WormLeft.atlas */,
 				23A5C78C19659F55000A2D1F /* WormRight.atlas */,
 				9E044FAC19644F2B00F62514 /* RightLeg.atlas */,
@@ -386,6 +389,7 @@
 				9E044F7919644E2300F62514 /* Images.xcassets in Resources */,
 				9E044F6719644E2300F62514 /* InfoPlist.strings in Resources */,
 				9E044FAB19644F0C00F62514 /* aim.png in Resources */,
+				23561CFB196BDFFD00514EAD /* explosions.atlas in Resources */,
 				9E044FB619644F4A00F62514 /* platform.png in Resources */,
 				9E044FB719644F4A00F62514 /* charGenom.png in Resources */,
 				23A5C7991966EB60000A2D1F /* explosion.png in Resources */,

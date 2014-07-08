@@ -122,7 +122,7 @@
     SKTextureAtlas *atlas = [SKTextureAtlas atlasNamed:atlas_name];
     for(int i = 0; i < suffix; i++){
         SKTexture *texture =[atlas textureNamed:[stringArray objectAtIndex:i]];
-        [sprite_textures addObject:texture ];
+        [sprite_textures addObject:texture];
     }
     
 
