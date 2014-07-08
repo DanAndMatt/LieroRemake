@@ -47,6 +47,11 @@
 		9E25FD811966A578004AFE24 /* cursor2.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E25FD801966A578004AFE24 /* cursor2.png */; };
 		9E448795196993EB0013FE2B /* DockForMapEditor.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E448794196993EB0013FE2B /* DockForMapEditor.png */; };
 		9E44879719699B220013FE2B /* DockForMapEditorShell.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E44879619699B220013FE2B /* DockForMapEditorShell.png */; };
+		9E448799196AACCB0013FE2B /* backgroundSpirte.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E448798196AACCB0013FE2B /* backgroundSpirte.png */; };
+		9E44879C196AB7FC0013FE2B /* RainParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 9E44879A196AB7FC0013FE2B /* RainParticle.sks */; };
+		9E44879D196AB7FC0013FE2B /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E44879B196AB7FC0013FE2B /* spark.png */; };
+		9E44879F196ABD280013FE2B /* RainbowBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E44879E196ABD280013FE2B /* RainbowBG.png */; };
+		9E4487A1196AFAED0013FE2B /* MapEditor32pxGrid.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E4487A0196AFAED0013FE2B /* MapEditor32pxGrid.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -119,6 +124,11 @@
 		9E25FD821966AC5D004AFE24 /* KeyHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyHeader.h; sourceTree = "<group>"; };
 		9E448794196993EB0013FE2B /* DockForMapEditor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DockForMapEditor.png; sourceTree = "<group>"; };
 		9E44879619699B220013FE2B /* DockForMapEditorShell.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DockForMapEditorShell.png; sourceTree = "<group>"; };
+		9E448798196AACCB0013FE2B /* backgroundSpirte.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backgroundSpirte.png; sourceTree = "<group>"; };
+		9E44879A196AB7FC0013FE2B /* RainParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = RainParticle.sks; sourceTree = "<group>"; };
+		9E44879B196AB7FC0013FE2B /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
+		9E44879E196ABD280013FE2B /* RainbowBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RainbowBG.png; sourceTree = "<group>"; };
+		9E4487A0196AFAED0013FE2B /* MapEditor32pxGrid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MapEditor32pxGrid.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -250,6 +260,8 @@
 				9E044F9B19644EBB00F62514 /* Platform.m */,
 				9E044F9C19644EBB00F62514 /* Player.h */,
 				9E044F9D19644EBB00F62514 /* Player.m */,
+				9E44879A196AB7FC0013FE2B /* RainParticle.sks */,
+				9E44879B196AB7FC0013FE2B /* spark.png */,
 				9E044F9619644EBB00F62514 /* Enemy.h */,
 				9E044F9719644EBB00F62514 /* Enemy.m */,
 				9E044F9419644EBB00F62514 /* Audio.h */,
@@ -278,6 +290,7 @@
 		9E044FA519644EDB00F62514 /* Sprites */ = {
 			isa = PBXGroup;
 			children = (
+				9E448798196AACCB0013FE2B /* backgroundSpirte.png */,
 				23A5C7981966EB60000A2D1F /* explosion.png */,
 				9E448794196993EB0013FE2B /* DockForMapEditor.png */,
 				23A5C7931966DCC2000A2D1F /* 9mm.png */,
@@ -289,7 +302,9 @@
 				9E25FD801966A578004AFE24 /* cursor2.png */,
 				9E044FB119644F4A00F62514 /* char22.png */,
 				9E044FB219644F4A00F62514 /* char21.png */,
+				9E4487A0196AFAED0013FE2B /* MapEditor32pxGrid.png */,
 				9E044FB319644F4A00F62514 /* char2.png */,
+				9E44879E196ABD280013FE2B /* RainbowBG.png */,
 				9E044FB419644F4A00F62514 /* char23.png */,
 				9E044FB519644F4A00F62514 /* char24.png */,
 				9E044FAA19644F0C00F62514 /* aim.png */,
@@ -386,11 +401,14 @@
 				9E044F7919644E2300F62514 /* Images.xcassets in Resources */,
 				9E044F6719644E2300F62514 /* InfoPlist.strings in Resources */,
 				9E044FAB19644F0C00F62514 /* aim.png in Resources */,
+				9E44879C196AB7FC0013FE2B /* RainParticle.sks in Resources */,
 				9E044FB619644F4A00F62514 /* platform.png in Resources */,
+				9E4487A1196AFAED0013FE2B /* MapEditor32pxGrid.png in Resources */,
 				9E044FB719644F4A00F62514 /* charGenom.png in Resources */,
 				23A5C7991966EB60000A2D1F /* explosion.png in Resources */,
 				23A5C78719659981000A2D1F /* pistol_bullet.png in Resources */,
 				9E044FBB19644F4A00F62514 /* char2.png in Resources */,
+				9E44879F196ABD280013FE2B /* RainbowBG.png in Resources */,
 				9E044FBA19644F4A00F62514 /* char21.png in Resources */,
 				9E044F6D19644E2300F62514 /* Credits.rtf in Resources */,
 				9E044FB819644F4A00F62514 /* char1.png in Resources */,
@@ -398,6 +416,8 @@
 				9E448795196993EB0013FE2B /* DockForMapEditor.png in Resources */,
 				9E44879719699B220013FE2B /* DockForMapEditorShell.png in Resources */,
 				9E25FD811966A578004AFE24 /* cursor2.png in Resources */,
+				9E44879D196AB7FC0013FE2B /* spark.png in Resources */,
+				9E448799196AACCB0013FE2B /* backgroundSpirte.png in Resources */,
 				9E044FAD19644F2B00F62514 /* RightLeg.atlas in Resources */,
 				9E044F6F19644E2300F62514 /* MainMenu.xib in Resources */,
 				9E044FB919644F4A00F62514 /* char22.png in Resources */,

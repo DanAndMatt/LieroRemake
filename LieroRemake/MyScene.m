@@ -9,7 +9,7 @@
 #import "KeyHeader.h"
 
 @implementation MyScene
-@synthesize player,platform,platformList,enemy,paths,docDir,fullFileName,audio;
+@synthesize player,platform,platformList,enemy,paths,docDir,fullFileName,audio,engineEmitter;
 
 static const uint32_t player_category = 0x1 << 0;
 static const uint32_t enemy_category = 0x1 << 3;
@@ -26,12 +26,23 @@ static const uint32_t bullet_category = 0x1 << 4;
         self.physicsWorld.contactDelegate = self;
         //--------------
         
+       [self createBackground];
         [self loadPlatforms];
         [self createEnemy];
         [self createPlayer];
         [player superAnimateFunction:@"worm" :3 :@"WormRight"];
+        [self createRain];
     }
     return self;
+}
+
+
+-(void)createBackground{
+    SKSpriteNode *backgroundSprite = [SKSpriteNode spriteNodeWithImageNamed:@"RainbowBG.png"];
+    backgroundSprite.anchorPoint = CGPointMake(0, 0);
+    backgroundSprite.position = CGPointMake(0, 0);
+    backgroundSprite.name = @"MySceneBackgroundSprite";
+    [self addChild:backgroundSprite];
 }
 
 /*
@@ -40,6 +51,7 @@ static const uint32_t bullet_category = 0x1 << 4;
 
 -(void)createPlayer{
     player = [[Player alloc]init];
+    player.sprite.name = @"Player";
     [self addChild:player.sprite];
     // [player animateChar];
     player.sprite.physicsBody.categoryBitMask = player_category;
@@ -50,6 +62,7 @@ static const uint32_t bullet_category = 0x1 << 4;
 }
 -(void)createEnemy{
     enemy = [[Enemy alloc]init];
+    enemy.sprite.name = @"Enemy";
     //[self addChild:enemy.sprite];
     enemy.sprite.physicsBody.categoryBitMask = enemy_category;
 	enemy.sprite.physicsBody.collisionBitMask = player_category;
@@ -59,14 +72,16 @@ static const uint32_t bullet_category = 0x1 << 4;
 }
 
 
--(void)startRaing{
-    SKSpriteNode *rainSprite = [SKSpriteNode spriteNodeWithImageNamed:@"char22"];
-    rainSprite.position = CGPointMake(rand()*1000%1024, 600);
-    rainSprite.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:rainSprite.size];
-    [self addChild:rainSprite];
+-(void)createRain{
+    engineEmitter = [NSKeyedUnarchiver
+                          unarchiveObjectWithFile:
+                          [[NSBundle mainBundle]
+                           pathForResource:@"RainParticle" ofType:@"sks"]];
+    engineEmitter.position = CGPointMake(self.frame.size.width/2 +100, self.frame.size.height);
+    engineEmitter.name = @"rainParticle";
+    [self addChild:engineEmitter];
+    engineEmitter.hidden = NO;
 }
-
-
 
 
 
@@ -244,4 +259,5 @@ static const uint32_t bullet_category = 0x1 << 4;
     [player moveBullets];
     
 }
+
 @end

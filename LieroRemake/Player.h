@@ -33,8 +33,6 @@
 @property NSMutableArray* bullets;
 @property int bullet_index;
 
-
-
 @property NSMutableArray *sprite_textures;
 
 

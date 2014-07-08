@@ -15,6 +15,8 @@
 
 -(id)initWithSize:(CGSize)size {
     if (self = [super initWithSize:size]) {
+        
+        [self loadMapGrid];
         [self loadPlatforms];
         [self createDock];
         
@@ -22,7 +24,13 @@
     return self;
 }
 
-
+-(void)loadMapGrid{
+    SKSpriteNode *backgroundSprite = [SKSpriteNode spriteNodeWithImageNamed:@"MapEditor32pxGrid.png"];
+    backgroundSprite.name = @"Background";
+    backgroundSprite.anchorPoint = CGPointMake(0, 0);
+    backgroundSprite.position = CGPointMake(0, 0);
+    [self addChild:backgroundSprite];
+}
 
 -(void)createDock{
     currentIcon = 0;
@@ -74,6 +82,10 @@
 }
 
 
+-(void)drawGrid{
+
+    
+}
 
 
 -(void)mouseDown:(NSEvent *)theEvent {

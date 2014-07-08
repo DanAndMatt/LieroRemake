@@ -17,4 +17,6 @@
 @property NSString *docDir;
 @property NSString *fullFileName;
 @property Audio *audio;
+@property (strong, nonatomic) SKEmitterNode *engineEmitter;
+
 @end

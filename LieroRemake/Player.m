@@ -41,6 +41,8 @@
 }
 
 
+
+
 -(void)createAim{
     aim = [[Aim alloc]init:sprite.position.x :sprite.position.y];
     aims_right = true;
@@ -100,13 +102,20 @@
 
 
 -(void)jumpPlayer{
+    x = sprite.position.x;
+    y = sprite.position.y;
+    SKAction *moveUp = [SKAction moveBy:CGVectorMake(0, 150) duration:0.2];
+    SKAction *moveDown = [SKAction moveBy:CGVectorMake(0, -150) duration:0.3];
+    SKAction *seq = [SKAction sequence:@[moveUp,moveDown]];
+    [sprite runAction:seq];
     
+    /*
     if(isJumping == true){
-        x = sprite.position.x;
-        y = sprite.position.y;
+
         sprite.position = CGPointMake(x, y+50);
         isJumping = true;
     }
+     */
 }
 
 
