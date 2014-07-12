@@ -11,7 +11,7 @@
 
 @implementation MapEditor
 
-@synthesize player,platform,platformList,enemy,paths,docDir,fullFileName,audio,currentIcon,cursorBrickSprite,cursorCharSprite,dockIcon1,dockIcon2,mousePostionLabel,isErasing,platformLabel,eraseLabel;
+@synthesize player,platform,platformList,enemy,paths,docDir,fullFileName,audio,currentIcon,cursorBrickSprite,cursorCharSprite,dockIcon1,dockIcon2,mousePostionLabel,isErasing,platformLabel,eraseLabel,saveLabel,currentToolLabel;
 
 
 -(id)initWithSize:(CGSize)size {
@@ -50,13 +50,31 @@
     [self addChild:platformLabel];
     
     eraseLabel = [SKLabelNode labelNodeWithFontNamed:@"chalkduster"];
-    eraseLabel.position = CGPointMake(100, self.frame.size.height-150);
+    eraseLabel.position = CGPointMake(100, self.frame.size.height-140);
     
-    eraseLabel.text = @"Erase = FALSE";
+    eraseLabel.text = @"Erase: FALSE";
     eraseLabel.fontSize = 15;
     eraseLabel.fontColor = [SKColor blackColor];
     eraseLabel.zPosition = 0.5;
     [self addChild:eraseLabel];
+    
+    saveLabel = [SKLabelNode labelNodeWithFontNamed:@"chalkduster"];
+    saveLabel.position = CGPointMake(100, self.frame.size.height-160);
+    
+    saveLabel.text = @"Loaded: ";
+    saveLabel.fontSize = 15;
+    saveLabel.fontColor = [SKColor blackColor];
+    saveLabel.zPosition = 0.5;
+    [self addChild:saveLabel];
+    
+    currentToolLabel = [SKLabelNode labelNodeWithFontNamed:@"chalkduster"];
+    currentToolLabel.position = CGPointMake(100, self.frame.size.height-180);
+    
+    currentToolLabel.text = @"Tool: Mouse";
+    currentToolLabel.fontSize = 15;
+    currentToolLabel.fontColor = [SKColor blackColor];
+    currentToolLabel.zPosition = 0.5;
+    [self addChild:currentToolLabel];
     
     
     
@@ -108,10 +126,14 @@
     platformLabel.text = [NSString stringWithFormat:@"Pressed: %@",node.name];
     if([node.name isEqualToString:@"brickIcon"]){
         currentIcon = ICON_BRICK;
+        currentToolLabel.text = @"Tool: Box";
+
         
     }
     if([node.name isEqualToString:@"cloudIcon"]){
         currentIcon = ICON_CLOUD;
+        currentToolLabel.text = @"Tool: Cloud";
+
     }
     
     
@@ -120,7 +142,6 @@
         for (int i = 0; i < platformList.count; i++) {
             NSString *str = [NSString stringWithFormat:@"platform%i",i];
             if([node.name isEqualToString:str]){
-                NSLog(@"Deleted %@",str);
                 SKNode *node = [self childNodeWithName:str];
                 [node removeFromParent];
                 [platformList removeObjectIdenticalTo:[platformList objectAtIndex:i]];
@@ -141,6 +162,7 @@
             [self createPlatform:gridPosition.x :gridPosition.y : @"Cload"];
             
         }
+        saveLabel.text =@"Not Saved";
     }
     
     
@@ -174,12 +196,12 @@
         case KEY_SPACE:
             if(isErasing == true){
                 isErasing = false;
-                eraseLabel.text =@"ERASE = FALSE";
+                eraseLabel.text =@"ERASE: FALSE";
 
             }
             else if(isErasing == false){
                 isErasing = true;
-                eraseLabel.text =@"ERASE = TRUE";
+                eraseLabel.text =@"ERASE: TRUE";
 
             }
             break;
@@ -213,15 +235,6 @@
 
 -(void)createDock{
     currentIcon = 0;
-    /*
-    float xMidle =self.frame.size.width/2;
-    float y = 50;
-    SKSpriteNode *dockSprite = [SKSpriteNode spriteNodeWithImageNamed:@"DockForMapEditor.png"];
-    dockSprite.position = CGPointMake(xMidle,y);
-    dockSprite.zPosition = 0.2;
-    dockSprite.name =@"dockSprite";
-    [self addChild:dockSprite];
-    */
     
     dockIcon1 = [SKSpriteNode spriteNodeWithImageNamed:@"HeartShapedBox.png"];
     dockIcon1.position = [self checkPostionInGrid:CGPointMake(14*TILE_SIZE,TILE_SIZE )];
@@ -290,7 +303,8 @@
     docDir = [paths objectAtIndex:0];
     fullFileName = [NSString stringWithFormat:@"%@/platforms",docDir];
     [NSKeyedArchiver archiveRootObject:platformList toFile:fullFileName];
-    NSLog(@"Saved at: %@",fullFileName);
+    saveLabel.text = [NSString stringWithFormat:@"Saved Map"];
+
     
 }
 
@@ -299,8 +313,9 @@
     docDir = [paths objectAtIndex:0];
     fullFileName = [NSString stringWithFormat:@"%@/platforms",docDir];
     platformList = [NSKeyedUnarchiver unarchiveObjectWithFile:fullFileName];
-    NSLog(@"Loaded at: %@",fullFileName);
-    
+    //NSLog(@"Loaded at: %@",fullFileName);
+    saveLabel.text = [NSString stringWithFormat:@"Loaded Map"];
+
     for(Platform *p in platformList){
         [self addChild:p.sprite];
     }

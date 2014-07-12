@@ -28,5 +28,7 @@
 @property Boolean isErasing;
 @property SKLabelNode *eraseLabel;
 @property SKLabelNode *platformLabel;
+@property SKLabelNode *saveLabel;
+@property SKLabelNode *currentToolLabel;
 @end
 
