@@ -20,4 +20,13 @@
 @property NSString *fullFileName;
 @property Audio *audio;
 @property int currentIcon;
+@property SKSpriteNode *cursorBrickSprite;
+@property SKSpriteNode *cursorCharSprite;
+@property SKSpriteNode *dockIcon1;
+@property SKSpriteNode *dockIcon2;
+@property SKLabelNode *mousePostionLabel;
+@property Boolean isErasing;
+@property SKLabelNode *eraseLabel;
+@property SKLabelNode *platformLabel;
 @end
+

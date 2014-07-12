@@ -123,6 +123,7 @@ static const uint32_t bullet_category = 0x1 << 4;
         }
             break;
         case KEY_SPACE: //Space
+            player.isJumping = YES;
             [player jumpPlayer];
             break;
         case KEY_RIGHT: //Right
@@ -132,6 +133,7 @@ static const uint32_t bullet_category = 0x1 << 4;
             [player setMovingLeftToTrue];
             break;
         case KEY_M: //M MAP
+            player.sprite.position = CGPointMake(100, 600);
             break;
             
         case KEY_DOWN: //Down

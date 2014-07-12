@@ -104,18 +104,9 @@
 -(void)jumpPlayer{
     x = sprite.position.x;
     y = sprite.position.y;
-    SKAction *moveUp = [SKAction moveBy:CGVectorMake(0, 150) duration:0.2];
-    SKAction *moveDown = [SKAction moveBy:CGVectorMake(0, -150) duration:0.3];
-    SKAction *seq = [SKAction sequence:@[moveUp,moveDown]];
-    [sprite runAction:seq];
-    
-    /*
-    if(isJumping == true){
-
-        sprite.position = CGPointMake(x, y+50);
-        isJumping = true;
-    }
-     */
+    SKAction *moveUp = [SKAction moveBy:CGVectorMake(0, 150) duration:0.3];
+    [sprite runAction:moveUp];
+        isJumping = false;
 }
 
 

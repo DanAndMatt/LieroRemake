@@ -115,19 +115,6 @@
                     <customView id="Wjy-UC-qi6" customClass="SKView">
                         <rect key="frame" x="0.0" y="0.0" width="800" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BJe-7u-wLC">
-                                <rect key="frame" x="359" y="283" width="82" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="Button" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Cpw-8Z-QVz">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="startMenu:" target="Voe-Tx-rLC" id="bpO-cK-Cjt"/>
-                                </connections>
-                            </button>
-                        </subviews>
                     </customView>
                 </subviews>
                 <constraints>

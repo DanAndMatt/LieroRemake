@@ -23,9 +23,13 @@
 #define KEY_S 1
 #define KEY_Z 6
 
+#define SCREEN_WIDHT 1024
+#define SCREEN_HEIGHT 768
+#define TILE_SIZE 32
+
 
 #define ICON_BRICK 1
-#define ICON_CHAR 2
+#define ICON_CLOUD 2
 
 #import <SpriteKit/SpriteKit.h>
 #import <Cocoa/Cocoa.h>

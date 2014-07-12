@@ -8,59 +8,162 @@
 
 #import "KeyHeader.h"
 
+
 @implementation MapEditor
 
-@synthesize player,platform,platformList,enemy,paths,docDir,fullFileName,audio,currentIcon;
+@synthesize player,platform,platformList,enemy,paths,docDir,fullFileName,audio,currentIcon,cursorBrickSprite,cursorCharSprite,dockIcon1,dockIcon2,mousePostionLabel,isErasing,platformLabel,eraseLabel;
 
 
 -(id)initWithSize:(CGSize)size {
     if (self = [super initWithSize:size]) {
-        
+        NSTrackingArea *trackingArea= [[NSTrackingArea alloc]initWithRect:[self.view bounds] options:NSTrackingActiveAlways | NSTrackingMouseEnteredAndExited | NSTrackingMouseMoved | NSTrackingInVisibleRect owner:self.scene  userInfo:nil];
+        [self.view addTrackingArea:trackingArea];
+        self.backgroundColor = [SKColor grayColor];
+       // NSLog(trackingArea.debugDescription);
+        [self createMousePositionLabel];
         [self loadMapGrid];
         [self loadPlatforms];
         [self createDock];
-        
+
     }
     return self;
 }
 
--(void)loadMapGrid{
-    SKSpriteNode *backgroundSprite = [SKSpriteNode spriteNodeWithImageNamed:@"MapEditor32pxGrid.png"];
-    backgroundSprite.name = @"Background";
-    backgroundSprite.anchorPoint = CGPointMake(0, 0);
-    backgroundSprite.position = CGPointMake(0, 0);
-    [self addChild:backgroundSprite];
+
+
+-(void)createMousePositionLabel{
+    mousePostionLabel = [SKLabelNode labelNodeWithFontNamed:@"chalkduster"];
+    mousePostionLabel.position = CGPointMake(100, self.frame.size.height-100);
+    mousePostionLabel.text = @"Hi";
+    mousePostionLabel.fontColor = [SKColor blackColor];
+    mousePostionLabel.fontSize = 15;
+    mousePostionLabel.zPosition = 0.5;
+    [self addChild:mousePostionLabel];
+    
+    platformLabel = [SKLabelNode labelNodeWithFontNamed:@"chalkduster"];
+    platformLabel.position = CGPointMake(100, self.frame.size.height-120);
+    
+    platformLabel.text =@"Platform: ";
+    platformLabel.fontSize = 15;
+    platformLabel.fontColor = [SKColor blackColor];
+    platformLabel.zPosition = 0.5;
+    [self addChild:platformLabel];
+    
+    eraseLabel = [SKLabelNode labelNodeWithFontNamed:@"chalkduster"];
+    eraseLabel.position = CGPointMake(100, self.frame.size.height-150);
+    
+    eraseLabel.text = @"Erase = FALSE";
+    eraseLabel.fontSize = 15;
+    eraseLabel.fontColor = [SKColor blackColor];
+    eraseLabel.zPosition = 0.5;
+    [self addChild:eraseLabel];
+    
+    
+    
+
 }
 
--(void)createDock{
-    currentIcon = 0;
-    float xMidle =self.frame.size.width/2;
-    float y = 50;
-    SKSpriteNode *dockSprite = [SKSpriteNode spriteNodeWithImageNamed:@"DockForMapEditor.png"];
-    dockSprite.position = CGPointMake(xMidle,y);
-    [self addChild:dockSprite];
+
+/*
+ *
+ * MOuse Events AND KEYBOARD
+ *
+ */
+
+-(NSPoint)checkPostionInGrid:(NSPoint)location{
     
+    int modX = (int)location.x / TILE_SIZE;
+    int modY = (int)location.y / TILE_SIZE;
+    int x = 0;
+    int y = 0;
+   // CGPoint gridPostion = CGPointMake(0, 0);
+    for(x = 0; x < SCREEN_WIDHT/TILE_SIZE; x++){
+        if(modX == x){
+            for(y = 0; y < SCREEN_HEIGHT/TILE_SIZE; y++){
+                if(modY == y){
+                    location = CGPointMake(x*TILE_SIZE + TILE_SIZE/2,y*TILE_SIZE + TILE_SIZE/2);
+                    //NSLog(@"NEW POS: [X: %d, Y: %d ]",(int)gridPostion.x,(int)gridPostion.y);
+                    break;
+                }
+            }
+        }
+        
+    }
+    NSString * string =[ NSString stringWithFormat:@"X: %d Y: %d\n[%d|%d]",(int)location.x,(int)location.y,modX,modY];
+    mousePostionLabel.text = string;
     
-    SKSpriteNode *dockIcon1 = [SKSpriteNode spriteNodeWithImageNamed:@"platform"];
-    dockIcon1.position = CGPointMake((xMidle-45), y);
-    dockIcon1.name = @"brickIcon";
-    [self addChild:dockIcon1];
-    
-    SKSpriteNode *dockIcon2 = [SKSpriteNode spriteNodeWithImageNamed:@"char22"];
-    dockIcon2.position = CGPointMake(xMidle-140, y);
-    dockIcon2.name = @"charIcon";
-    [self addChild:dockIcon2];
+    return location;
 }
--(void)changeToMenuScene{
-    SKTransition *reveal = [SKTransition
-                            revealWithDirection:SKTransitionDirectionDown duration:1.0];
-    MainMenu *newScene = [[MainMenu alloc] initYo: CGSizeMake(1024,768)];
+
+
+
+-(void)mouseDown:(NSEvent *)theEvent {
+
     
-    [self.scene.view presentScene:newScene transition:reveal ];
+
+    CGPoint location = [theEvent locationInNode:self];
+    
+    SKNode *node = [self nodeAtPoint:location];
+    //NSLog(@"%@",node.name);
+    platformLabel.text = [NSString stringWithFormat:@"Pressed: %@",node.name];
+    if([node.name isEqualToString:@"brickIcon"]){
+        currentIcon = ICON_BRICK;
+        
+    }
+    if([node.name isEqualToString:@"cloudIcon"]){
+        currentIcon = ICON_CLOUD;
+    }
+    
+    
+    
+	if(isErasing == true){
+        for (int i = 0; i < platformList.count; i++) {
+            NSString *str = [NSString stringWithFormat:@"platform%i",i];
+            if([node.name isEqualToString:str]){
+                NSLog(@"Deleted %@",str);
+                SKNode *node = [self childNodeWithName:str];
+                [node removeFromParent];
+                [platformList removeObjectIdenticalTo:[platformList objectAtIndex:i]];
+                platformLabel.text = [NSString stringWithFormat:@"Removed: %@",str];
+
+                [self renamePlatforms];
+                break;
+            }
+        }
+    }
+    
+    else if (isErasing == false && [node.name isEqualToString:@"Background"] == true){
+        CGPoint gridPosition = [self checkPostionInGrid:location];
+        if(currentIcon == ICON_BRICK){
+            [self createPlatform:gridPosition.x :gridPosition.y :@"HeartShapedBox"];
+        }
+        if(currentIcon == ICON_CLOUD){
+            [self createPlatform:gridPosition.x :gridPosition.y : @"Cload"];
+            
+        }
+    }
+    
+    
+    
+
+
+}
+
+
+
+-(void)renamePlatforms{
+    int i = 0;
+    for(i = 0; i < platformList.count; i++){
+        NSString *str = [NSString stringWithFormat:@"platform%i",i];
+        Platform *p = [platformList objectAtIndex:i];
+        p.sprite.name = str;
+    }
+
+
 }
 
 -(void)keyDown:(NSEvent *)theEvent{
-   // NSLog(@"%i",theEvent.keyCode);
+    // NSLog(@"%i",theEvent.keyCode);
     switch (theEvent.keyCode) {
         case KEY_S:
             [self savePlatforms];
@@ -68,7 +171,17 @@
         case KEY_X:
             [self removeLastPlatform];
             break;
-        case KEY_M:
+        case KEY_SPACE:
+            if(isErasing == true){
+                isErasing = false;
+                eraseLabel.text =@"ERASE = FALSE";
+
+            }
+            else if(isErasing == false){
+                isErasing = true;
+                eraseLabel.text =@"ERASE = TRUE";
+
+            }
             break;
         case KEY_C:
             [self removePlatforms];
@@ -82,54 +195,76 @@
 }
 
 
--(void)drawGrid{
+/*
+ *
+ * MAP CRETATOR
+ *
+ */
 
-    
+-(void)loadMapGrid{
+    SKSpriteNode *backgroundSprite = [SKSpriteNode spriteNodeWithImageNamed:@"MapEditor32pxGrid.png"];
+    backgroundSprite.name = @"Background";
+    backgroundSprite.anchorPoint = CGPointMake(0, 0);
+    backgroundSprite.position = CGPointMake(0, 0);
+    backgroundSprite.zPosition = 0.1;
+    [self addChild:backgroundSprite];
 }
 
 
--(void)mouseDown:(NSEvent *)theEvent {
-    CGPoint location = [theEvent locationInNode:self];
-    NSLog(@"[X: %f Y: %f]",location.x,location.y);
-    SKNode *node = [self nodeAtPoint:location];
-    NSLog(@"%@",node.name);
-    if([node.name isEqualToString:@"brickIcon"]){
-        currentIcon = ICON_BRICK;
-    }
-    if([node.name isEqualToString:@"charIcon"]){
-        currentIcon = ICON_CHAR;
-    }
+-(void)createDock{
+    currentIcon = 0;
+    /*
+    float xMidle =self.frame.size.width/2;
+    float y = 50;
+    SKSpriteNode *dockSprite = [SKSpriteNode spriteNodeWithImageNamed:@"DockForMapEditor.png"];
+    dockSprite.position = CGPointMake(xMidle,y);
+    dockSprite.zPosition = 0.2;
+    dockSprite.name =@"dockSprite";
+    [self addChild:dockSprite];
+    */
     
-    if(currentIcon == ICON_BRICK && location.y > 120){
-        [self createPlatform:location.x :location.y];
-        
-    }
-    if(currentIcon == ICON_CHAR && location.y > 120){
-        [self createChar:location.x :location.y];
-        
-    }
-    //[self createPlatform:location.x :location.y];
+    dockIcon1 = [SKSpriteNode spriteNodeWithImageNamed:@"HeartShapedBox.png"];
+    dockIcon1.position = [self checkPostionInGrid:CGPointMake(14*TILE_SIZE,TILE_SIZE )];
+    dockIcon1.name = @"brickIcon";
+    dockIcon1.zPosition = 0.3;
+    [self addChild:dockIcon1];
+    
+    dockIcon2 = [SKSpriteNode spriteNodeWithImageNamed:@"Cload.png"];
+    dockIcon2.position = [self checkPostionInGrid:CGPointMake(11*TILE_SIZE,TILE_SIZE )];
+    dockIcon2.name = @"cloudIcon";
+    dockIcon2.zPosition = 0.3;
+    [self addChild:dockIcon2];
 }
+-(void)changeToMenuScene{
+    SKTransition *reveal = [SKTransition
+                            revealWithDirection:SKTransitionDirectionDown duration:1.0];
+    MainMenu *newScene = [[MainMenu alloc] initYo: CGSizeMake(1024,768)];
+    
+    [self.scene.view presentScene:newScene transition:reveal ];
+}
+
+
+
 
 
 /*
+ *
  * L O A D   & &  S A V E   && R E M O V E
+ *
  */
 
--(void)createChar:(float)x : (float)y{
 
-    SKSpriteNode *charSprite =  [SKSpriteNode spriteNodeWithImageNamed:@"char22"];
-    charSprite.position = CGPointMake(x, y);
-    charSprite.name = @"charSprite";
-    [self addChild:charSprite];
-}
--(void)createPlatform: (float)x : (float)y{
-    
+
+-(void)createPlatform: (float)x : (float)y : (NSString*) spriteName{
+    int size = (int)platformList.count;
+    NSString *str = [NSString stringWithFormat:@"platform%i",size];
     platform = [[Platform alloc]init];
-    [platform createPlatform:x :y : @"platform"];
-    platform.sprite.name = @"platform";
+    [platform createPlatform:x :y : spriteName];
+    platform.sprite.name = str;
+    platform.sprite.zPosition = 0.2;
     [platformList addObject:platform];
     [self addChild:platform.sprite];
+    platformLabel.text = [NSString stringWithFormat:@"Created: %@",str];
 }
 
 
@@ -147,9 +282,8 @@
         [p.sprite removeFromParent];
         [platformList removeLastObject];
     }
-
-    
 }
+
 -(void)savePlatforms{
     //NSLog(@"Platform i listan %d", (int)platforms.count);
     paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);

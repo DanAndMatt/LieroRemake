@@ -53,6 +53,8 @@
 		9E44879D196AB7FC0013FE2B /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E44879B196AB7FC0013FE2B /* spark.png */; };
 		9E44879F196ABD280013FE2B /* RainbowBG.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E44879E196ABD280013FE2B /* RainbowBG.png */; };
 		9E4487A1196AFAED0013FE2B /* MapEditor32pxGrid.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E4487A0196AFAED0013FE2B /* MapEditor32pxGrid.png */; };
+		9E606CC9196DBDDF00060347 /* HeartShapedBox.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E606CC8196DBDDF00060347 /* HeartShapedBox.png */; };
+		9EC637E91970A1230070B1E7 /* Cload.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EC637E81970A1230070B1E7 /* Cload.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -131,6 +133,8 @@
 		9E44879B196AB7FC0013FE2B /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 		9E44879E196ABD280013FE2B /* RainbowBG.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RainbowBG.png; sourceTree = "<group>"; };
 		9E4487A0196AFAED0013FE2B /* MapEditor32pxGrid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MapEditor32pxGrid.png; sourceTree = "<group>"; };
+		9E606CC8196DBDDF00060347 /* HeartShapedBox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HeartShapedBox.png; sourceTree = "<group>"; };
+		9EC637E81970A1230070B1E7 /* Cload.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Cload.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -277,8 +281,8 @@
 			isa = PBXGroup;
 			children = (
 				9E044F6E19644E2300F62514 /* MainMenu.xib */,
-				9E044F9819644EBB00F62514 /* MapEditor.h */,
 				9E25FD821966AC5D004AFE24 /* KeyHeader.h */,
+				9E044F9819644EBB00F62514 /* MapEditor.h */,
 				9E044F9919644EBB00F62514 /* MapEditor.m */,
 				9E044F7019644E2300F62514 /* MyScene.m */,
 				9E044F7219644E2300F62514 /* MyScene.h */,
@@ -293,6 +297,8 @@
 		9E044FA519644EDB00F62514 /* Sprites */ = {
 			isa = PBXGroup;
 			children = (
+				9EC637E81970A1230070B1E7 /* Cload.png */,
+				9E606CC8196DBDDF00060347 /* HeartShapedBox.png */,
 				9E448798196AACCB0013FE2B /* backgroundSpirte.png */,
 				23A5C7981966EB60000A2D1F /* explosion.png */,
 				9E448794196993EB0013FE2B /* DockForMapEditor.png */,
@@ -398,11 +404,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				9E044FBD19644F4A00F62514 /* char24.png in Resources */,
+				9E606CC9196DBDDF00060347 /* HeartShapedBox.png in Resources */,
 				23A5C78D19659F55000A2D1F /* WormRight.atlas in Resources */,
 				23A5C7941966DCC2000A2D1F /* 9mm.png in Resources */,
 				9E044FBC19644F4A00F62514 /* char23.png in Resources */,
 				9E044F7919644E2300F62514 /* Images.xcassets in Resources */,
 				9E044F6719644E2300F62514 /* InfoPlist.strings in Resources */,
+				9EC637E91970A1230070B1E7 /* Cload.png in Resources */,
 				9E044FAB19644F0C00F62514 /* aim.png in Resources */,
 				23561CFB196BDFFD00514EAD /* explosions.atlas in Resources */,
 				9E44879C196AB7FC0013FE2B /* RainParticle.sks in Resources */,
