@@ -19,11 +19,9 @@
     hpLabel = [SKLabelNode labelNodeWithFontNamed:@"Arial"];
     hpLabel.text = [NSString stringWithFormat:@"%@: %d",name, hp];
     hpLabel.fontSize = 20;
-    hpLabel.position = CGPointMake(200, 300);
     sprite = [SKSpriteNode spriteNodeWithImageNamed:@"char2"];
-    sprite.position = CGPointMake(200, 200);
-    
-    location = CGPointMake(700, 600);
+    sprite.zPosition = 1;
+    location = CGPointMake(200, 600);
     sprite.position = location;
     //Fysik
     sprite.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:sprite.size];

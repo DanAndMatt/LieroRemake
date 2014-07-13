@@ -45,6 +45,8 @@
 		9E044FBC19644F4A00F62514 /* char23.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E044FB419644F4A00F62514 /* char23.png */; };
 		9E044FBD19644F4A00F62514 /* char24.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E044FB519644F4A00F62514 /* char24.png */; };
 		9E044FC019659C2100F62514 /* MainMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E044FBF19659C2100F62514 /* MainMenu.m */; };
+		9E1A5EB219718FD0002FD5FD /* Raining.wav in Resources */ = {isa = PBXBuildFile; fileRef = 9E1A5EB119718FD0002FD5FD /* Raining.wav */; };
+		9E1A5EB419719170002FD5FD /* Shot.wav in Resources */ = {isa = PBXBuildFile; fileRef = 9E1A5EB319719170002FD5FD /* Shot.wav */; };
 		9E25FD811966A578004AFE24 /* cursor2.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E25FD801966A578004AFE24 /* cursor2.png */; };
 		9E448795196993EB0013FE2B /* DockForMapEditor.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E448794196993EB0013FE2B /* DockForMapEditor.png */; };
 		9E44879719699B220013FE2B /* DockForMapEditorShell.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E44879619699B220013FE2B /* DockForMapEditorShell.png */; };
@@ -55,6 +57,9 @@
 		9E4487A1196AFAED0013FE2B /* MapEditor32pxGrid.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E4487A0196AFAED0013FE2B /* MapEditor32pxGrid.png */; };
 		9E606CC9196DBDDF00060347 /* HeartShapedBox.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E606CC8196DBDDF00060347 /* HeartShapedBox.png */; };
 		9EC637E91970A1230070B1E7 /* Cload.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EC637E81970A1230070B1E7 /* Cload.png */; };
+		9EC637EB197176E60070B1E7 /* Water.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EC637EA197176E60070B1E7 /* Water.png */; };
+		9EC637ED1971879E0070B1E7 /* Brick.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EC637EC1971879E0070B1E7 /* Brick.png */; };
+		9EC637EF19718A910070B1E7 /* SmokeParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 9EC637EE19718A910070B1E7 /* SmokeParticle.sks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -124,6 +129,8 @@
 		9E044FB519644F4A00F62514 /* char24.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = char24.png; sourceTree = "<group>"; };
 		9E044FBE19659C2100F62514 /* MainMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainMenu.h; sourceTree = "<group>"; };
 		9E044FBF19659C2100F62514 /* MainMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenu.m; sourceTree = "<group>"; };
+		9E1A5EB119718FD0002FD5FD /* Raining.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Raining.wav; sourceTree = "<group>"; };
+		9E1A5EB319719170002FD5FD /* Shot.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Shot.wav; sourceTree = "<group>"; };
 		9E25FD801966A578004AFE24 /* cursor2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cursor2.png; sourceTree = "<group>"; };
 		9E25FD821966AC5D004AFE24 /* KeyHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyHeader.h; sourceTree = "<group>"; };
 		9E448794196993EB0013FE2B /* DockForMapEditor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DockForMapEditor.png; sourceTree = "<group>"; };
@@ -135,6 +142,9 @@
 		9E4487A0196AFAED0013FE2B /* MapEditor32pxGrid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MapEditor32pxGrid.png; sourceTree = "<group>"; };
 		9E606CC8196DBDDF00060347 /* HeartShapedBox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HeartShapedBox.png; sourceTree = "<group>"; };
 		9EC637E81970A1230070B1E7 /* Cload.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Cload.png; sourceTree = "<group>"; };
+		9EC637EA197176E60070B1E7 /* Water.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Water.png; sourceTree = "<group>"; };
+		9EC637EC1971879E0070B1E7 /* Brick.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Brick.png; sourceTree = "<group>"; };
+		9EC637EE19718A910070B1E7 /* SmokeParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = SmokeParticle.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -268,6 +278,7 @@
 				9E044F9C19644EBB00F62514 /* Player.h */,
 				9E044F9D19644EBB00F62514 /* Player.m */,
 				9E44879A196AB7FC0013FE2B /* RainParticle.sks */,
+				9EC637EE19718A910070B1E7 /* SmokeParticle.sks */,
 				9E44879B196AB7FC0013FE2B /* spark.png */,
 				9E044F9619644EBB00F62514 /* Enemy.h */,
 				9E044F9719644EBB00F62514 /* Enemy.m */,
@@ -297,6 +308,7 @@
 		9E044FA519644EDB00F62514 /* Sprites */ = {
 			isa = PBXGroup;
 			children = (
+				9EC637EA197176E60070B1E7 /* Water.png */,
 				9EC637E81970A1230070B1E7 /* Cload.png */,
 				9E606CC8196DBDDF00060347 /* HeartShapedBox.png */,
 				9E448798196AACCB0013FE2B /* backgroundSpirte.png */,
@@ -304,6 +316,7 @@
 				9E448794196993EB0013FE2B /* DockForMapEditor.png */,
 				23A5C7931966DCC2000A2D1F /* 9mm.png */,
 				9E044FAE19644F4A00F62514 /* platform.png */,
+				9EC637EC1971879E0070B1E7 /* Brick.png */,
 				9E44879619699B220013FE2B /* DockForMapEditorShell.png */,
 				23A5C78619659981000A2D1F /* pistol_bullet.png */,
 				9E044FAF19644F4A00F62514 /* charGenom.png */,
@@ -324,6 +337,8 @@
 		9E044FA619644EE300F62514 /* Audio */ = {
 			isa = PBXGroup;
 			children = (
+				9E1A5EB319719170002FD5FD /* Shot.wav */,
+				9E1A5EB119718FD0002FD5FD /* Raining.wav */,
 			);
 			name = Audio;
 			sourceTree = "<group>";
@@ -404,11 +419,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				9E044FBD19644F4A00F62514 /* char24.png in Resources */,
+				9E1A5EB419719170002FD5FD /* Shot.wav in Resources */,
 				9E606CC9196DBDDF00060347 /* HeartShapedBox.png in Resources */,
 				23A5C78D19659F55000A2D1F /* WormRight.atlas in Resources */,
+				9EC637EB197176E60070B1E7 /* Water.png in Resources */,
 				23A5C7941966DCC2000A2D1F /* 9mm.png in Resources */,
 				9E044FBC19644F4A00F62514 /* char23.png in Resources */,
 				9E044F7919644E2300F62514 /* Images.xcassets in Resources */,
+				9E1A5EB219718FD0002FD5FD /* Raining.wav in Resources */,
+				9EC637ED1971879E0070B1E7 /* Brick.png in Resources */,
 				9E044F6719644E2300F62514 /* InfoPlist.strings in Resources */,
 				9EC637E91970A1230070B1E7 /* Cload.png in Resources */,
 				9E044FAB19644F0C00F62514 /* aim.png in Resources */,
@@ -423,6 +442,7 @@
 				9E44879F196ABD280013FE2B /* RainbowBG.png in Resources */,
 				9E044FBA19644F4A00F62514 /* char21.png in Resources */,
 				9E044F6D19644E2300F62514 /* Credits.rtf in Resources */,
+				9EC637EF19718A910070B1E7 /* SmokeParticle.sks in Resources */,
 				9E044FB819644F4A00F62514 /* char1.png in Resources */,
 				23A5C78F1965A23E000A2D1F /* WormLeft.atlas in Resources */,
 				9E448795196993EB0013FE2B /* DockForMapEditor.png in Resources */,

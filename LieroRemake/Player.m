@@ -30,6 +30,7 @@
     location = CGPointMake(100, 600);
     sprite.position = location;
     //Fysik
+    sprite.zPosition = 1.0;
     sprite.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:sprite.size];
     sprite.physicsBody.mass= 70;
     sprite.physicsBody.categoryBitMask = 10;
@@ -91,7 +92,7 @@
     y = sprite.position.y;
     
     if(isMovingRight == true){
-        sprite.position = CGPointMake(x+5,y);
+       sprite.position = CGPointMake(x+5,y);
     }
     if (isMovingLeft == true){
         sprite.position = CGPointMake(x-5, y);
@@ -101,12 +102,13 @@
 }
 
 
--(void)jumpPlayer{
+-(void)jump{
     x = sprite.position.x;
     y = sprite.position.y;
-    SKAction *moveUp = [SKAction moveBy:CGVectorMake(0, 150) duration:0.3];
-    [sprite runAction:moveUp];
+  //  SKAction *moveUp = [SKAction moveBy:CGVectorMake(0, 150) duration:0.3];
+    //[sprite runAction:moveUp];
         isJumping = false;
+    sprite.physicsBody.velocity = CGVectorMake(0, 800);
 }
 
 

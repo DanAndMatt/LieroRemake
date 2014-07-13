@@ -30,6 +30,8 @@
 
 #define ICON_BRICK 1
 #define ICON_CLOUD 2
+#define ICON_WATER 3
+#define ICON_HEART 4
 
 #import <SpriteKit/SpriteKit.h>
 #import <Cocoa/Cocoa.h>

@@ -9,7 +9,7 @@
 #import "KeyHeader.h"
 
 @implementation MyScene
-@synthesize player,platform,platformList,enemy,paths,docDir,fullFileName,audio,engineEmitter;
+@synthesize player,platform,platformList,enemy,paths,docDir,fullFileName,audio,engineEmitter,engineSmokeEmitter,myWorld,camera;
 
 static const uint32_t player_category = 0x1 << 0;
 static const uint32_t enemy_category = 0x1 << 3;
@@ -19,30 +19,62 @@ static const uint32_t bullet_category = 0x1 << 4;
     if (self = [super initWithSize:size]) {
         /* Setup your scene here */
         self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
-        
+      //  self.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:self.frame.size];
        self.backgroundColor = [SKColor colorWithRed:0.40 green:0.15 blue:0.3 alpha:1.0];
         // ----NEW------
         //self.physicsWorld.gravity = CGVectorMake(0, 0);
         self.physicsWorld.contactDelegate = self;
         //--------------
         
-       [self createBackground];
+       //[self createBackground];
+        //
+
+        [self setUpWorldAndCamera];
         [self loadPlatforms];
         [self createEnemy];
-        [self createPlayer];
         [player superAnimateFunction:@"worm" :3 :@"WormRight"];
         [self createRain];
+        [self createSmoke];
+        [self playThemeSong];
+        
+
+        
     }
     return self;
 }
 
+
+-(void)setUpWorldAndCamera{
+    self.anchorPoint = CGPointMake(0.5, 0.5);
+    myWorld = [SKNode node];
+    myWorld.name = @"theWorld";
+    [self addChild:myWorld];
+    [self createPlayer];
+    [myWorld addChild:player.sprite];
+}
+
+-(void)didSimulatePhysics{
+    [self centerOnNode:[myWorld childNodeWithName:@"Player"]];
+}
+
+-(void)centerOnNode:(SKNode*)node{
+    CGPoint cameraPositionInScene = [node.scene convertPoint:node.position fromNode:node.parent];
+    node.parent.position = CGPointMake(node.parent.position.x - cameraPositionInScene.x, node.parent.position.y - cameraPositionInScene.y);
+}
+
+-(void)playThemeSong{
+    SKAction *song = [SKAction playSoundFileNamed:@"Raining.wav" waitForCompletion:YES];
+    song = [SKAction repeatActionForever:song];
+    [self runAction:song];
+}
 
 -(void)createBackground{
     SKSpriteNode *backgroundSprite = [SKSpriteNode spriteNodeWithImageNamed:@"RainbowBG.png"];
     backgroundSprite.anchorPoint = CGPointMake(0, 0);
     backgroundSprite.position = CGPointMake(0, 0);
     backgroundSprite.name = @"MySceneBackgroundSprite";
-    [self addChild:backgroundSprite];
+    //[self addChild:backgroundSprite];
+    [myWorld addChild:backgroundSprite];
 }
 
 /*
@@ -52,22 +84,24 @@ static const uint32_t bullet_category = 0x1 << 4;
 -(void)createPlayer{
     player = [[Player alloc]init];
     player.sprite.name = @"Player";
-    [self addChild:player.sprite];
+    //[self addChild:player.sprite];
     // [player animateChar];
+    //[player.sprite.physicsBody setAffectedByGravity:false];
     player.sprite.physicsBody.categoryBitMask = player_category;
     player.sprite.physicsBody.collisionBitMask = enemy_category | bullet_category;
     player.sprite.physicsBody.contactTestBitMask = enemy_category | bullet_category;
-    [self addChild:player.aim.sprite];
+    [myWorld addChild:player.aim.sprite];
     
 }
 -(void)createEnemy{
     enemy = [[Enemy alloc]init];
     enemy.sprite.name = @"Enemy";
     //[self addChild:enemy.sprite];
+    //[enemy.sprite.physicsBody setAffectedByGravity:false];
     enemy.sprite.physicsBody.categoryBitMask = enemy_category;
 	enemy.sprite.physicsBody.collisionBitMask = player_category;
     enemy.sprite.physicsBody.contactTestBitMask = player_category;
-    [self addChild:enemy.sprite];
+    [myWorld addChild:enemy.sprite];
     
 }
 
@@ -79,10 +113,22 @@ static const uint32_t bullet_category = 0x1 << 4;
                            pathForResource:@"RainParticle" ofType:@"sks"]];
     engineEmitter.position = CGPointMake(self.frame.size.width/2 +100, self.frame.size.height);
     engineEmitter.name = @"rainParticle";
-    [self addChild:engineEmitter];
+   // [self addChild:engineEmitter];
     engineEmitter.hidden = NO;
 }
 
+
+
+-(void)createSmoke{
+    engineSmokeEmitter = [NSKeyedUnarchiver
+                     unarchiveObjectWithFile:
+                     [[NSBundle mainBundle]
+                      pathForResource:@"SmokeParticle" ofType:@"sks"]];
+    engineSmokeEmitter.position = CGPointMake(848, 400);
+    engineSmokeEmitter.name = @"smokeParticle";
+   // [self addChild:engineSmokeEmitter];
+    engineSmokeEmitter.hidden = NO;
+}
 
 
 
@@ -109,22 +155,27 @@ static const uint32_t bullet_category = 0x1 << 4;
 			Bullet* bulleter = [player.bullets objectAtIndex:player.bullet_index];
 			player.bullet_index++;
             //NSLog(@"-------------");
-            [self addChild:bulleter.sprite];
+           // [self addChild:bulleter.sprite];
+            [myWorld addChild:bulleter.sprite];
             //NSLog(@"++++++++++++++");
         }
             break;
         case KEY_C:
         {
+            SKAction *audioShot = [SKAction playSoundFileNamed:@"Shot.wav" waitForCompletion:YES];
+            [self runAction:audioShot];
             [player createSmgKaliber:player.aim.angle :player.sprite.position.x :player.sprite.position.y];
 			Bullet* b = [player.bullets objectAtIndex:player.bullet_index];
 			player.bullet_index++;
             //NSLog(@"-------------");
-            [self addChild:b.sprite];
+            //[self addChild:b.sprite];
+
+            [myWorld addChild:b.sprite];
         }
             break;
         case KEY_SPACE: //Space
             player.isJumping = YES;
-            [player jumpPlayer];
+            [player jump];
             break;
         case KEY_RIGHT: //Right
             [player setMovingRightToTrue];
@@ -195,7 +246,7 @@ static const uint32_t bullet_category = 0x1 << 4;
     fullFileName = [NSString stringWithFormat:@"%@/platforms",docDir];
     platformList = [NSKeyedUnarchiver unarchiveObjectWithFile:fullFileName];
     for(Platform *p in platformList){
-        [self addChild:p.sprite];
+        [myWorld addChild:p.sprite];
     }
     
 }
@@ -248,7 +299,8 @@ static const uint32_t bullet_category = 0x1 << 4;
                 SKSpriteNode* explosion = [SKSpriteNode spriteNodeWithImageNamed:@"explosion"];
 				explosion.position = location;
                 explosion.name = @"explosionId";
-                [self addChild:explosion];
+                //[self addChild:explosion];
+                [myWorld addChild:explosion];
                 //make it move
                 NSMutableArray *explosionFrames = [NSMutableArray array];
                 SKTextureAtlas *explosionAtlas =
@@ -286,6 +338,8 @@ static const uint32_t bullet_category = 0x1 << 4;
     [player.aim updateAim:player.sprite.position.x :player.sprite.position.y :player.aims_right];
     [player moveBullets];
     [self removeExplosionAction];
+    
+    //NSLog(@"Player Postion X: %i Y: %i",(int)player.sprite.position.x,(int)player.sprite.position.y);
     
 }
 

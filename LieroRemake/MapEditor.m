@@ -8,10 +8,9 @@
 
 #import "KeyHeader.h"
 
-
 @implementation MapEditor
 
-@synthesize player,platform,platformList,enemy,paths,docDir,fullFileName,audio,currentIcon,cursorBrickSprite,cursorCharSprite,dockIcon1,dockIcon2,mousePostionLabel,isErasing,platformLabel,eraseLabel,saveLabel,currentToolLabel;
+@synthesize player,platform,platformList,enemy,paths,docDir,fullFileName,audio,currentIcon,cursorBrickSprite,cursorCharSprite,dockIcon1,dockIcon2,mousePostionLabel,isErasing,platformLabel,eraseLabel,saveLabel,currentToolLabel,dockIcon3,dockIcon4;
 
 
 -(id)initWithSize:(CGSize)size {
@@ -29,6 +28,14 @@
     return self;
 }
 
+
+/* * * * * * * *
+ *             *
+ *             *
+ * L A B E L S *
+ *             *
+ *             *
+ * * * * * * * */
 
 
 -(void)createMousePositionLabel{
@@ -82,88 +89,26 @@
 }
 
 
-/*
- *
- * MOuse Events AND KEYBOARD
- *
- */
 
--(NSPoint)checkPostionInGrid:(NSPoint)location{
-    
-    int modX = (int)location.x / TILE_SIZE;
-    int modY = (int)location.y / TILE_SIZE;
-    int x = 0;
-    int y = 0;
-   // CGPoint gridPostion = CGPointMake(0, 0);
-    for(x = 0; x < SCREEN_WIDHT/TILE_SIZE; x++){
-        if(modX == x){
-            for(y = 0; y < SCREEN_HEIGHT/TILE_SIZE; y++){
-                if(modY == y){
-                    location = CGPointMake(x*TILE_SIZE + TILE_SIZE/2,y*TILE_SIZE + TILE_SIZE/2);
-                    //NSLog(@"NEW POS: [X: %d, Y: %d ]",(int)gridPostion.x,(int)gridPostion.y);
-                    break;
-                }
-            }
-        }
-        
-    }
-    NSString * string =[ NSString stringWithFormat:@"X: %d Y: %d\n[%d|%d]",(int)location.x,(int)location.y,modX,modY];
-    mousePostionLabel.text = string;
-    
-    return location;
-}
-
+/* * * * * * * *
+ *             *
+ *             *
+ * M O U S E   *
+ *    &        *
+ *  K E Y S    *
+ *             *
+ * * * * * * * */
 
 
 -(void)mouseDown:(NSEvent *)theEvent {
 
-    
-
     CGPoint location = [theEvent locationInNode:self];
-    
     SKNode *node = [self nodeAtPoint:location];
-    //NSLog(@"%@",node.name);
-    platformLabel.text = [NSString stringWithFormat:@"Pressed: %@",node.name];
-    if([node.name isEqualToString:@"brickIcon"]){
-        currentIcon = ICON_BRICK;
-        currentToolLabel.text = @"Tool: Box";
+    
+    [self checkMouseLocationOnMapAndCallCreateFunctions:node :location];
 
-        
-    }
-    if([node.name isEqualToString:@"cloudIcon"]){
-        currentIcon = ICON_CLOUD;
-        currentToolLabel.text = @"Tool: Cloud";
+    
 
-    }
-    
-    
-    
-	if(isErasing == true){
-        for (int i = 0; i < platformList.count; i++) {
-            NSString *str = [NSString stringWithFormat:@"platform%i",i];
-            if([node.name isEqualToString:str]){
-                SKNode *node = [self childNodeWithName:str];
-                [node removeFromParent];
-                [platformList removeObjectIdenticalTo:[platformList objectAtIndex:i]];
-                platformLabel.text = [NSString stringWithFormat:@"Removed: %@",str];
-
-                [self renamePlatforms];
-                break;
-            }
-        }
-    }
-    
-    else if (isErasing == false && [node.name isEqualToString:@"Background"] == true){
-        CGPoint gridPosition = [self checkPostionInGrid:location];
-        if(currentIcon == ICON_BRICK){
-            [self createPlatform:gridPosition.x :gridPosition.y :@"HeartShapedBox"];
-        }
-        if(currentIcon == ICON_CLOUD){
-            [self createPlatform:gridPosition.x :gridPosition.y : @"Cload"];
-            
-        }
-        saveLabel.text =@"Not Saved";
-    }
     
     
     
@@ -171,7 +116,7 @@
 
 }
 
-
+//NÄR EN PLATFORMS TAS BORT UPPDATERAS HELA LISTAN POSITIONER
 
 -(void)renamePlatforms{
     int i = 0;
@@ -217,11 +162,14 @@
 }
 
 
-/*
- *
- * MAP CRETATOR
- *
- */
+/* * * * * * * *
+ *             *
+ *             *
+ *    M A P    *
+ *      &      *
+ *   D O C K   *
+ *             *
+ * * * * * * * */
 
 -(void)loadMapGrid{
     SKSpriteNode *backgroundSprite = [SKSpriteNode spriteNodeWithImageNamed:@"MapEditor32pxGrid.png"];
@@ -236,17 +184,29 @@
 -(void)createDock{
     currentIcon = 0;
     
-    dockIcon1 = [SKSpriteNode spriteNodeWithImageNamed:@"HeartShapedBox.png"];
-    dockIcon1.position = [self checkPostionInGrid:CGPointMake(14*TILE_SIZE,TILE_SIZE )];
-    dockIcon1.name = @"brickIcon";
+    dockIcon1 = [SKSpriteNode spriteNodeWithImageNamed:@"HeartShapedBox"];
+    dockIcon1.position = [self checkPostionInGrid:CGPointMake(TILE_SIZE,11*TILE_SIZE )];
+    dockIcon1.name = @"heartIcon";
     dockIcon1.zPosition = 0.3;
     [self addChild:dockIcon1];
     
-    dockIcon2 = [SKSpriteNode spriteNodeWithImageNamed:@"Cload.png"];
-    dockIcon2.position = [self checkPostionInGrid:CGPointMake(11*TILE_SIZE,TILE_SIZE )];
+    dockIcon2 = [SKSpriteNode spriteNodeWithImageNamed:@"Cload"];
+    dockIcon2.position = [self checkPostionInGrid:CGPointMake(TILE_SIZE,12*TILE_SIZE )];
     dockIcon2.name = @"cloudIcon";
     dockIcon2.zPosition = 0.3;
     [self addChild:dockIcon2];
+    
+    dockIcon3 = [SKSpriteNode spriteNodeWithImageNamed:@"Water"];
+    dockIcon3.position = [self checkPostionInGrid:CGPointMake(TILE_SIZE,13*TILE_SIZE )];
+    dockIcon3.name = @"waterIcon";
+    dockIcon3.zPosition = 0.3;
+    [self addChild:dockIcon3];
+    
+    dockIcon4 = [SKSpriteNode spriteNodeWithImageNamed:@"Brick"];
+    dockIcon4.position = [self checkPostionInGrid:CGPointMake(TILE_SIZE,14*TILE_SIZE )];
+    dockIcon4.name = @"brickIcon";
+    dockIcon4.zPosition = 0.3;
+    [self addChild:dockIcon4];
 }
 -(void)changeToMenuScene{
     SKTransition *reveal = [SKTransition
@@ -260,11 +220,92 @@
 
 
 
-/*
- *
- * L O A D   & &  S A V E   && R E M O V E
- *
- */
+
+-(NSPoint)checkPostionInGrid:(NSPoint)location{
+    
+    int modX = (int)location.x / TILE_SIZE;
+    int modY = (int)location.y / TILE_SIZE;
+    int x = 0;
+    int y = 0;
+    
+    for(x = 0; x < SCREEN_WIDHT/TILE_SIZE; x++){
+        if(modX == x){
+            for(y = 0; y < SCREEN_HEIGHT/TILE_SIZE; y++){
+                if(modY == y){
+                    location = CGPointMake(x*TILE_SIZE + TILE_SIZE/2,y*TILE_SIZE + TILE_SIZE/2);
+                    break;
+                }
+            }
+        }
+        
+    }
+    NSString * string =[ NSString stringWithFormat:@"X: %d Y: %d\n[%d|%d]",(int)location.x,(int)location.y,modX,modY];
+    mousePostionLabel.text = string;
+    
+    return location;
+}
+
+
+
+
+-(void)checkMouseLocationOnMapAndCallCreateFunctions: (SKNode*)node : (CGPoint)location{
+    platformLabel.text = [NSString stringWithFormat:@"Pressed: %@",node.name];
+    if([node.name isEqualToString:@"heartIcon"]){
+        currentIcon = ICON_HEART;
+        currentToolLabel.text = @"Tool: Box";
+        
+        
+    }
+    if([node.name isEqualToString:@"cloudIcon"]){
+        currentIcon = ICON_CLOUD;
+        currentToolLabel.text = @"Tool: Cloud";
+        
+    }
+    if([node.name isEqualToString:@"waterIcon"]){
+        currentIcon = ICON_WATER;
+        currentToolLabel.text = @"Tool: Water";
+        
+    }
+    if([node.name isEqualToString:@"brickIcon"]){
+        currentIcon = ICON_BRICK;
+        currentToolLabel.text = @"Tool: Brick";
+        
+    }
+    
+    if(isErasing == true){
+        for (int i = 0; i < platformList.count; i++) {
+            NSString *str = [NSString stringWithFormat:@"platform%i",i];
+            if([node.name isEqualToString:str]){
+                SKNode *node = [self childNodeWithName:str];
+                [node removeFromParent];
+                [platformList removeObjectIdenticalTo:[platformList objectAtIndex:i]];
+                platformLabel.text = [NSString stringWithFormat:@"Removed: %@",str];
+                
+                [self renamePlatforms];
+                break;
+            }
+        }
+    }
+    
+    else if (isErasing == false && [node.name isEqualToString:@"Background"] == true){
+        CGPoint gridPosition = [self checkPostionInGrid:location];
+        if(currentIcon == ICON_HEART){
+            [self createPlatform:gridPosition.x :gridPosition.y :@"HeartShapedBox"];
+        }
+        if(currentIcon == ICON_BRICK){
+            [self createPlatform:gridPosition.x :gridPosition.y :@"Brick"];
+        }
+        if(currentIcon == ICON_CLOUD){
+            [self createPlatform:gridPosition.x :gridPosition.y : @"Cload"];
+            
+        }
+        if(currentIcon == ICON_WATER){
+            [self createPlatform:gridPosition.x :gridPosition.y : @"Water"];
+            
+        }
+        saveLabel.text =@"Not Saved";
+    }
+}
 
 
 
@@ -275,6 +316,12 @@
     [platform createPlatform:x :y : spriteName];
     platform.sprite.name = str;
     platform.sprite.zPosition = 0.2;
+    if([spriteName isEqualToString:@"HeartShapedBox"] || [spriteName isEqualToString:@"Brick"]){
+        platform.sprite.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:platform.sprite.size];
+        [platform.sprite.physicsBody setAffectedByGravity:false];
+        [platform.sprite.physicsBody setAllowsRotation:false];
+        [platform.sprite.physicsBody setDynamic:false];
+    }
     [platformList addObject:platform];
     [self addChild:platform.sprite];
     platformLabel.text = [NSString stringWithFormat:@"Created: %@",str];
@@ -296,6 +343,17 @@
         [platformList removeLastObject];
     }
 }
+
+
+
+
+
+/*
+ *
+ * L O A D   & &  S A V E   && R E M O V E
+ *
+ */
+
 
 -(void)savePlatforms{
     //NSLog(@"Platform i listan %d", (int)platforms.count);

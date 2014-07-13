@@ -18,5 +18,8 @@
 @property NSString *fullFileName;
 @property Audio *audio;
 @property (strong, nonatomic) SKEmitterNode *engineEmitter;
+@property (strong, nonatomic) SKEmitterNode *engineSmokeEmitter;
+@property SKNode *myWorld;
+@property SKNode *camera;
 
 @end

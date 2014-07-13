@@ -24,6 +24,8 @@
 @property SKSpriteNode *cursorCharSprite;
 @property SKSpriteNode *dockIcon1;
 @property SKSpriteNode *dockIcon2;
+@property SKSpriteNode *dockIcon3;
+@property SKSpriteNode *dockIcon4;
 @property SKLabelNode *mousePostionLabel;
 @property Boolean isErasing;
 @property SKLabelNode *eraseLabel;

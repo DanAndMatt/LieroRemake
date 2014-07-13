@@ -33,10 +33,7 @@
     sprite = [SKSpriteNode spriteNodeWithImageNamed:name];
     //sprite.anchorPoint = CGPointMake(0, 0);
     sprite.position = CGPointMake(x, y);
-    sprite.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:sprite.size];
-    [sprite.physicsBody setAffectedByGravity:false];
-    [sprite.physicsBody setAllowsRotation:false];
-    [sprite.physicsBody setDynamic:false];
+
 }
 
 @end
