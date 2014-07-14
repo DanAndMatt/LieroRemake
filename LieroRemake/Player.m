@@ -39,6 +39,7 @@
     
 	bullets = [[NSMutableArray alloc] init];
     bullet_index = 0;
+    bullet_type = 0;
 }
 
 
@@ -104,11 +105,22 @@
 -(SKSpriteNode*)shoot{
     //SKAction *audioShot = [SKAction playSoundFileNamed:@"Shot.wav" waitForCompletion:YES];
     //[self runAction:audioShot];
-    [self createSmgKaliber:aim.angle :sprite.position.x :sprite.position.y];
+
+    switch (bullet_type) {
+        case SMG:{
+            [self createSmgKaliber:aim.angle :sprite.position.x :sprite.position.y];
+        }
+            break;
+        case GRENADE:{
+            [self createBullet:aim.angle :10.0 :1.0 :1 :@"pistol_bullet" :1.0 :sprite.position.x :sprite.position.y];
+        }
+            break;
+    }
     Bullet* b = [bullets objectAtIndex:bullet_index];
     bullet_index++;
     return b.sprite;
-
+    
+    
 }
 -(void)jump{
     x = sprite.position.x;

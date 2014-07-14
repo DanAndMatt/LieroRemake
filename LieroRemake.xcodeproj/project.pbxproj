@@ -61,6 +61,7 @@
 		9EC637EB197176E60070B1E7 /* Water.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EC637EA197176E60070B1E7 /* Water.png */; };
 		9EC637ED1971879E0070B1E7 /* Brick.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EC637EC1971879E0070B1E7 /* Brick.png */; };
 		9EC637EF19718A910070B1E7 /* SmokeParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 9EC637EE19718A910070B1E7 /* SmokeParticle.sks */; };
+		9EE1E04B1974131700F66D39 /* Collision.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EE1E04A1974131700F66D39 /* Collision.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -148,6 +149,8 @@
 		9EC637EA197176E60070B1E7 /* Water.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Water.png; sourceTree = "<group>"; };
 		9EC637EC1971879E0070B1E7 /* Brick.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Brick.png; sourceTree = "<group>"; };
 		9EC637EE19718A910070B1E7 /* SmokeParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = SmokeParticle.sks; sourceTree = "<group>"; };
+		9EE1E0491974131700F66D39 /* Collision.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Collision.h; sourceTree = "<group>"; };
+		9EE1E04A1974131700F66D39 /* Collision.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Collision.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -226,6 +229,7 @@
 		9E044F6219644E2300F62514 /* LieroRemake */ = {
 			isa = PBXGroup;
 			children = (
+				9EE1E04D1974133D00F66D39 /* Controller */,
 				23561CFA196BDFFD00514EAD /* explosions.atlas */,
 				23A5C78E1965A23E000A2D1F /* WormLeft.atlas */,
 				23A5C78C19659F55000A2D1F /* WormRight.atlas */,
@@ -346,6 +350,15 @@
 				9E1A5EB119718FD0002FD5FD /* Raining.wav */,
 			);
 			name = Audio;
+			sourceTree = "<group>";
+		};
+		9EE1E04D1974133D00F66D39 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				9EE1E0491974131700F66D39 /* Collision.h */,
+				9EE1E04A1974131700F66D39 /* Collision.m */,
+			);
+			name = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -486,6 +499,7 @@
 				23A5C77B196576D6000A2D1F /* Bullet.m in Sources */,
 				9E044F7119644E2300F62514 /* MyScene.m in Sources */,
 				9E044F6919644E2300F62514 /* main.m in Sources */,
+				9EE1E04B1974131700F66D39 /* Collision.m in Sources */,
 				9E044F7419644E2300F62514 /* AppDelegate.m in Sources */,
 				9E044FA019644EBB00F62514 /* MapEditor.m in Sources */,
 				9E1A5EB71972D465002FD5FD /* Camera.m in Sources */,

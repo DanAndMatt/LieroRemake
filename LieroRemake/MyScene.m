@@ -37,7 +37,6 @@ static const uint32_t bullet_category = 0x1 << 4;
         [self createSmoke];
         [self playThemeSong];
         
-
         
     }
     return self;
@@ -84,9 +83,6 @@ static const uint32_t bullet_category = 0x1 << 4;
 -(void)createPlayer{
     player = [[Player alloc]init];
     player.sprite.name = @"Player";
-    //[self addChild:player.sprite];
-    // [player animateChar];
-    //[player.sprite.physicsBody setAffectedByGravity:false];
     player.sprite.physicsBody.categoryBitMask = player_category;
     player.sprite.physicsBody.collisionBitMask = enemy_category | bullet_category;
     player.sprite.physicsBody.contactTestBitMask = enemy_category | bullet_category;
@@ -151,13 +147,12 @@ static const uint32_t bullet_category = 0x1 << 4;
         {
             player.bullet_type = GRENADE;
             player.isShooting = true;
-            
-            
         }
             break;
         case KEY_C:
         {
-            //[myWorld addChild:[player shoot]];
+            player.isShooting = true;
+            player.bullet_type = SMG;
         }
             break;
         case KEY_SPACE: //Space
@@ -191,6 +186,7 @@ static const uint32_t bullet_category = 0x1 << 4;
 }
 
 -(void)keyUp:(NSEvent *)theEvent{
+                //player.isShooting = true;
     switch (theEvent.keyCode) {
         case KEY_Z: //Z
 			player.isShooting = false;
@@ -204,7 +200,6 @@ static const uint32_t bullet_category = 0x1 << 4;
         case KEY_LEFT: //LEFT
             player.isMovingLeft = false;
             break;
-            
         case KEY_DOWN: //Down
             player.aim.down = false;
             break;
@@ -213,6 +208,7 @@ static const uint32_t bullet_category = 0x1 << 4;
             break;
         default:
             break;
+
     }
 }
 
@@ -317,32 +313,6 @@ static const uint32_t bullet_category = 0x1 << 4;
        }
 }
 
--(void) shoot {
-	if(player.isShooting) {
-		switch(player.bullet_type) {
-    		case SMG:
-            {
-            	//SKAction *audioShot = [SKAction playSoundFileNamed:@"Shot.wav" waitForCompletion:YES];
-                //[self runAction:audioShot];
-                [player createSmgKaliber:player.aim.angle :player.sprite.position.x :player.sprite.position.y];
-                Bullet* b = [player.bullets objectAtIndex:player.bullet_index];
-                player.bullet_index++;
-                [myWorld addChild:b.sprite];
-            }
-                break;
-            case GRENADE:
-                
-                //SKAction *audioShot = [SKAction playSoundFileNamed:@"Shot.wav" waitForCompletion:YES];
-                //[self runAction:audioShot];
-                //---------------
-                [player createBullet:player.aim.angle :10.0 :1.0 :1 :@"pistol_bullet" :1.0 :player.sprite.position.x :player.sprite.position.y];
-                Bullet* bulleter = [player.bullets objectAtIndex:player.bullet_index];
-                player.bullet_index++;
-                [myWorld addChild:bulleter.sprite];
-                break;
-    	}
-    }
-}
 
 -(void)removeExplosionAction{
     SKNode *node = [self childNodeWithName:@"explosionId"];
@@ -359,9 +329,12 @@ static const uint32_t bullet_category = 0x1 << 4;
     [player.aim updateAim:player.sprite.position.x :player.sprite.position.y :player.aims_right];
     [player moveBullets];
     [self removeExplosionAction];
-    [self shoot];
+    
     //NSLog(@"Player Postion X: %i Y: %i",(int)player.sprite.position.x,(int)player.sprite.position.y);
-    [myWorld addChild:[player shoot]];
+    if(player.isShooting){
+            [myWorld addChild:[player shoot]];
+    }
+
     
 }
 
