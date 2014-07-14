@@ -13,7 +13,6 @@ static const int speed = 32;
 
 -(id)initWithPosition: (CGPoint)position{
     if(self = [super init]){
-        NSLog(@"Camera Funkar");
         node = [SKNode node];
         node.position = position;
     }
