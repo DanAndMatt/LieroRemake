@@ -6,7 +6,8 @@
 //  Copyright (c) 2014 Daniel Vaknine. All rights reserved.
 //
 
-#import "Collision.h"
+//#import "Collision.h"
+#import "KeyHeader.h"
 
 @implementation Collision
 

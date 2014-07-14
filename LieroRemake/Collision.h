@@ -6,8 +6,11 @@
 //  Copyright (c) 2014 Daniel Vaknine. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 
+@class Collision;
 @interface Collision : NSObject
+
+
+
 
 @end

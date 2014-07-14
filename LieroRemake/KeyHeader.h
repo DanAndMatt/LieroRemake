@@ -47,6 +47,7 @@
 #import "Audio.h"
 #import "Aim.h"
 #import "Bullet.h"
+#import "Collision.h"
 
 #import "MainMenu.h"
 #import "MapEditor.h"

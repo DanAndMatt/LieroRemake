@@ -22,5 +22,6 @@
 @property SKNode *myWorld;
 @property SKNode *camera;
 
+@property SKLabelNode *positionLabel;
 @end
 

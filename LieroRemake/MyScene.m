@@ -9,7 +9,7 @@
 #import "KeyHeader.h"
 
 @implementation MyScene
-@synthesize player,platform,platformList,enemy,paths,docDir,fullFileName,audio,engineEmitter,engineSmokeEmitter,myWorld,camera;
+@synthesize player,platform,platformList,enemy,paths,docDir,fullFileName,audio,engineEmitter,engineSmokeEmitter,myWorld,camera,positionLabel;
 
 static const uint32_t player_category = 0x1 << 0;
 static const uint32_t enemy_category = 0x1 << 3;
@@ -30,6 +30,7 @@ static const uint32_t bullet_category = 0x1 << 4;
         //
 
         [self setUpWorldAndCamera];
+        [self setUpLabels];
         [self loadPlatforms];
         [self createEnemy];
         [player superAnimateFunction:@"worm" :3 :@"WormRight"];
@@ -43,8 +44,18 @@ static const uint32_t bullet_category = 0x1 << 4;
 }
 
 
+
+-(void)setUpLabels{
+    self.positionLabel  = [SKLabelNode labelNodeWithFontNamed:@"Arial"];
+    positionLabel.position = CGPointMake(player.sprite.position.x, player.sprite.position.y + 100);
+    positionLabel.fontColor = [SKColor redColor];
+    positionLabel.fontSize = 30;
+    [myWorld addChild:positionLabel];
+    
+    
+}
 -(void)setUpWorldAndCamera{
-    self.anchorPoint = CGPointMake(0.5, 0.2);
+    self.anchorPoint = CGPointMake(0.2, 0.2);
     myWorld = [SKNode node];
     myWorld.name = @"theWorld";
     [self addChild:myWorld];
@@ -248,71 +259,74 @@ static const uint32_t bullet_category = 0x1 << 4;
  */
 -(void) didBeginContact:(SKPhysicsContact *)contact {
     
-	// Collision between enemy and a bullet
+    [self checkCollision:contact];
+}
+
+
+-(void)checkCollision :(SKPhysicsContact*) contact{
+    // Collision between enemy and a bullet
    	if (((contact.bodyA.categoryBitMask == bullet_category) &&
-        (contact.bodyB.categoryBitMask == enemy_category))
-        					||
+         (contact.bodyB.categoryBitMask == enemy_category))
+        ||
         ((contact.bodyB.categoryBitMask == bullet_category) &&
-        (contact.bodyA.categoryBitMask == enemy_category))) {
-       
-    	[enemy.sprite removeFromParent];
-        enemy = NULL;
-        [self createEnemy];
-    
-    }
+         (contact.bodyA.categoryBitMask == enemy_category))) {
+            [enemy.sprite removeFromParent];
+            enemy = NULL;
+            [self createEnemy];
+            
+        }
     // Collision beetween player and a bullet
     if(((contact.bodyA.categoryBitMask == bullet_category) &&
         (contact.bodyB.categoryBitMask == player_category))
-       						||
+       ||
        ((contact.bodyB.categoryBitMask == bullet_category) &&
         (contact.bodyA.categoryBitMask == player_category))) {
-    
-    	[player.sprite removeFromParent];
-        [player.aim.sprite removeFromParent];
-        player.aim = NULL;
-        player = NULL;
-        [self createPlayer]; 
-    }
+           
+           [player.sprite removeFromParent];
+           [player.aim.sprite removeFromParent];
+           player.aim = NULL;
+           player = NULL;
+           [self createPlayer];
+       }
     //Collision between the floor and a bullet
     if(((contact.bodyA.categoryBitMask == bullet_category) &&
         (contact.bodyB.categoryBitMask == -1))
-       						||
+       ||
        ((contact.bodyB.categoryBitMask == bullet_category) &&
         (contact.bodyA.categoryBitMask == -1))) {
-			if (contact.bodyA.categoryBitMask == bullet_category) {
-                SKNode* bullet = contact.bodyA.node;
-				[bullet runAction:[SKAction removeFromParent]];
-			} else {
-                SKNode* bullet = contact.bodyB.node;
-
-                //add explosion sprite
-                CGPoint location = CGPointMake(bullet.position.x, bullet.position.y);
-                SKSpriteNode* explosion = [SKSpriteNode spriteNodeWithImageNamed:@"explosion"];
-				explosion.position = location;
-                explosion.name = @"explosionId";
-                //[self addChild:explosion];
-                [myWorld addChild:explosion];
-                //make it move
-                NSMutableArray *explosionFrames = [NSMutableArray array];
-                SKTextureAtlas *explosionAtlas =
-                [SKTextureAtlas atlasNamed:@"explosions"];
-                for (int i = 1; i <= explosionAtlas.textureNames.count; ++i)
-                {
-                    NSString *texture =
-                    [NSString stringWithFormat:@"explosion%d", i];
-                    [explosionFrames addObject:[explosionAtlas textureNamed:texture]];
-                }
-                //SKNode *explosionNode = [self childNodeWithName:@"explosionNode"];
-                SKAction *animate = [SKAction animateWithTextures:explosionFrames timePerFrame:0.05 resize:YES restore:YES];
-				[animate setDuration:1.0];
-
-                [explosion runAction:animate withKey:@"theExplosion"];
-
-                [bullet runAction:[SKAction removeFromParent]];
-            }
+           if (contact.bodyA.categoryBitMask == bullet_category) {
+               SKNode* bullet = contact.bodyA.node;
+               [bullet runAction:[SKAction removeFromParent]];
+           } else {
+               SKNode* bullet = contact.bodyB.node;
+               
+               //add explosion sprite
+               CGPoint location = CGPointMake(bullet.position.x, bullet.position.y);
+               SKSpriteNode* explosion = [SKSpriteNode spriteNodeWithImageNamed:@"explosion"];
+               explosion.position = location;
+               explosion.name = @"explosionId";
+               //[self addChild:explosion];
+               [myWorld addChild:explosion];
+               //make it move
+               NSMutableArray *explosionFrames = [NSMutableArray array];
+               SKTextureAtlas *explosionAtlas =
+               [SKTextureAtlas atlasNamed:@"explosions"];
+               for (int i = 1; i <= explosionAtlas.textureNames.count; ++i)
+               {
+                   NSString *texture =
+                   [NSString stringWithFormat:@"explosion%d", i];
+                   [explosionFrames addObject:[explosionAtlas textureNamed:texture]];
+               }
+               //SKNode *explosionNode = [self childNodeWithName:@"explosionNode"];
+               SKAction *animate = [SKAction animateWithTextures:explosionFrames timePerFrame:0.05 resize:YES restore:YES];
+               [animate setDuration:1.0];
+               
+               [explosion runAction:animate withKey:@"theExplosion"];
+               
+               [bullet runAction:[SKAction removeFromParent]];
+           }
        }
 }
-
 
 -(void)removeExplosionAction{
     SKNode *node = [self childNodeWithName:@"explosionId"];
@@ -335,7 +349,9 @@ static const uint32_t bullet_category = 0x1 << 4;
             [myWorld addChild:[player shoot]];
     }
 
-    
+    positionLabel.position = CGPointMake(player.sprite.position.x, player.sprite.position.y + 100);
+    NSString *info = [NSString stringWithFormat:@"X:%i Y:%i ",(int)player.sprite.position.x,(int)player.sprite.position.y];
+    positionLabel.text = info;
 }
 
 @end
