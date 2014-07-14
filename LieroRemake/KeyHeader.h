@@ -33,6 +33,9 @@
 #define ICON_WATER 3
 #define ICON_HEART 4
 
+#define SMG 1
+#define GRENADE 2
+
 #import <SpriteKit/SpriteKit.h>
 #import <Cocoa/Cocoa.h>
 #import <Foundation/Foundation.h>

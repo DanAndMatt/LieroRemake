@@ -21,6 +21,7 @@
 @property float y;
 @property CGPoint location;
 @property NSString *name;
+@property int bullet_type;
 @property SKLabelNode *hpLabel;
 @property SKSpriteNode *sprite;
 @property float angle;
@@ -28,6 +29,7 @@
 @property BOOL isStopingPlayer;
 @property BOOL isMovingLeft;
 @property BOOL isJumping;
+@property BOOL isShooting;
 @property Aim *aim;
 @property BOOL aims_right;
 @property NSMutableArray* bullets;
