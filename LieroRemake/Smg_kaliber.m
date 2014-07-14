@@ -15,7 +15,7 @@ static const uint32_t enemy_category = 0x1 << 3;
 static const uint32_t bullet_category = 0x1 << 4;
 
 -(NSObject*)init:(float)_angle :(float)x_pos :(float)y_pos {
-    self.velocity = 30.0;
+    self.velocity = 15.0;
     self.acceleration = 3.0;
     self.damage = 4.0;
     self.explode_area = 2.0;

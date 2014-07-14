@@ -32,8 +32,11 @@
 @property BOOL isShooting;
 @property Aim *aim;
 @property BOOL aims_right;
-@property NSMutableArray* bullets;
+@property NSMutableArray* bullet_list;
 @property int bullet_index;
+@property NSTimer* timer;
+@property int grenade_ammo;
+@property int smg_ammo;
 
 @property NSMutableArray *sprite_textures;
 

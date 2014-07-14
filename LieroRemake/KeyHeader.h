@@ -36,6 +36,9 @@
 #define SMG 1
 #define GRENADE 2
 
+#define SMG_NEW_MAGAZINE 30
+#define GRENADE_NEW_MAGAZINE 5
+
 #import <SpriteKit/SpriteKit.h>
 #import <Cocoa/Cocoa.h>
 #import <Foundation/Foundation.h>

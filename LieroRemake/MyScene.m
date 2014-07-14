@@ -37,6 +37,7 @@ static const uint32_t bullet_category = 0x1 << 4;
         [self createRain];
         [self createSmoke];
         [self playThemeSong];
+        //timer = [NSTimer scheduledTimerWithTimeInterval:5.0f target:self selector:@selector(someMethod) userInfo:nil repeats:YES];
         
         
     }
@@ -334,6 +335,10 @@ static const uint32_t bullet_category = 0x1 << 4;
         [node removeFromParent];
     }
 }
+
+-(void)someMethod {
+	NSLog(@"Nu har det gatt 5 sek");
+}
 /*
  *  U P D A T E
  */
@@ -346,7 +351,10 @@ static const uint32_t bullet_category = 0x1 << 4;
     
     //NSLog(@"Player Postion X: %i Y: %i",(int)player.sprite.position.x,(int)player.sprite.position.y);
     if(player.isShooting){
-            [myWorld addChild:[player shoot]];
+        SKSpriteNode* bullet_sprite= [player shoot];
+		if(bullet_sprite != nil) {
+	        [myWorld addChild:bullet_sprite];
+        }
     }
 
     positionLabel.position = CGPointMake(player.sprite.position.x, player.sprite.position.y + 100);
