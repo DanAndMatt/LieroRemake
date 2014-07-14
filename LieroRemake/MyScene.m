@@ -45,7 +45,7 @@ static const uint32_t bullet_category = 0x1 << 4;
 
 
 -(void)setUpWorldAndCamera{
-    self.anchorPoint = CGPointMake(0.5, 0.5);
+    self.anchorPoint = CGPointMake(0.5, 0.2);
     myWorld = [SKNode node];
     myWorld.name = @"theWorld";
     [self addChild:myWorld];

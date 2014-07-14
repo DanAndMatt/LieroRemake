@@ -47,6 +47,7 @@
 		9E044FC019659C2100F62514 /* MainMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E044FBF19659C2100F62514 /* MainMenu.m */; };
 		9E1A5EB219718FD0002FD5FD /* Raining.wav in Resources */ = {isa = PBXBuildFile; fileRef = 9E1A5EB119718FD0002FD5FD /* Raining.wav */; };
 		9E1A5EB419719170002FD5FD /* Shot.wav in Resources */ = {isa = PBXBuildFile; fileRef = 9E1A5EB319719170002FD5FD /* Shot.wav */; };
+		9E1A5EB71972D465002FD5FD /* Camera.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E1A5EB61972D465002FD5FD /* Camera.m */; };
 		9E25FD811966A578004AFE24 /* cursor2.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E25FD801966A578004AFE24 /* cursor2.png */; };
 		9E448795196993EB0013FE2B /* DockForMapEditor.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E448794196993EB0013FE2B /* DockForMapEditor.png */; };
 		9E44879719699B220013FE2B /* DockForMapEditorShell.png in Resources */ = {isa = PBXBuildFile; fileRef = 9E44879619699B220013FE2B /* DockForMapEditorShell.png */; };
@@ -131,6 +132,8 @@
 		9E044FBF19659C2100F62514 /* MainMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainMenu.m; sourceTree = "<group>"; };
 		9E1A5EB119718FD0002FD5FD /* Raining.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Raining.wav; sourceTree = "<group>"; };
 		9E1A5EB319719170002FD5FD /* Shot.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Shot.wav; sourceTree = "<group>"; };
+		9E1A5EB51972D465002FD5FD /* Camera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Camera.h; sourceTree = "<group>"; };
+		9E1A5EB61972D465002FD5FD /* Camera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Camera.m; sourceTree = "<group>"; };
 		9E25FD801966A578004AFE24 /* cursor2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cursor2.png; sourceTree = "<group>"; };
 		9E25FD821966AC5D004AFE24 /* KeyHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KeyHeader.h; sourceTree = "<group>"; };
 		9E448794196993EB0013FE2B /* DockForMapEditor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DockForMapEditor.png; sourceTree = "<group>"; };
@@ -295,6 +298,8 @@
 				9E25FD821966AC5D004AFE24 /* KeyHeader.h */,
 				9E044F9819644EBB00F62514 /* MapEditor.h */,
 				9E044F9919644EBB00F62514 /* MapEditor.m */,
+				9E1A5EB51972D465002FD5FD /* Camera.h */,
+				9E1A5EB61972D465002FD5FD /* Camera.m */,
 				9E044F7019644E2300F62514 /* MyScene.m */,
 				9E044F7219644E2300F62514 /* MyScene.h */,
 				9E044F7319644E2300F62514 /* AppDelegate.m */,
@@ -483,6 +488,7 @@
 				9E044F6919644E2300F62514 /* main.m in Sources */,
 				9E044F7419644E2300F62514 /* AppDelegate.m in Sources */,
 				9E044FA019644EBB00F62514 /* MapEditor.m in Sources */,
+				9E1A5EB71972D465002FD5FD /* Camera.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

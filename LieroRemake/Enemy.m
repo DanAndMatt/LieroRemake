@@ -21,7 +21,7 @@
     hpLabel.fontSize = 20;
     sprite = [SKSpriteNode spriteNodeWithImageNamed:@"char2"];
     sprite.zPosition = 1;
-    location = CGPointMake(200, 600);
+    location = CGPointMake(400, 600);
     sprite.position = location;
     //Fysik
     sprite.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:sprite.size];

@@ -7,13 +7,13 @@
 //
 
 
-
 @class MapEditor;
 
 @interface MapEditor : SKScene
 @property Player *player;
 @property Enemy *enemy;
 @property Platform *platform;
+@property Camera *camera;
 @property NSMutableArray *platformList;
 @property NSArray *paths;
 @property NSString *docDir;
@@ -32,5 +32,6 @@
 @property SKLabelNode *platformLabel;
 @property SKLabelNode *saveLabel;
 @property SKLabelNode *currentToolLabel;
+@property SKNode *myWorld;
 @end
 

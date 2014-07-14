@@ -7,10 +7,10 @@
 //
 
 #import "KeyHeader.h"
-
+#import "Camera.h"
 @implementation MapEditor
 
-@synthesize player,platform,platformList,enemy,paths,docDir,fullFileName,audio,currentIcon,cursorBrickSprite,cursorCharSprite,dockIcon1,dockIcon2,mousePostionLabel,isErasing,platformLabel,eraseLabel,saveLabel,currentToolLabel,dockIcon3,dockIcon4;
+@synthesize player,platform,platformList,enemy,paths,docDir,fullFileName,audio,currentIcon,cursorBrickSprite,cursorCharSprite,dockIcon1,dockIcon2,mousePostionLabel,isErasing,platformLabel,eraseLabel,saveLabel,currentToolLabel,dockIcon3,dockIcon4,myWorld,camera;
 
 
 -(id)initWithSize:(CGSize)size {
@@ -19,6 +19,14 @@
         [self.view addTrackingArea:trackingArea];
         self.backgroundColor = [SKColor grayColor];
        // NSLog(trackingArea.debugDescription);
+        //[self setUpWorldAndCamera];
+        
+        
+        myWorld = [SKNode node];
+        myWorld.name = @"theWorld";
+        [self addChild:myWorld];
+
+        
         [self createMousePositionLabel];
         [self loadMapGrid];
         [self loadPlatforms];
@@ -45,8 +53,8 @@
     mousePostionLabel.fontColor = [SKColor blackColor];
     mousePostionLabel.fontSize = 15;
     mousePostionLabel.zPosition = 0.5;
-    [self addChild:mousePostionLabel];
-    
+   // [self addChild:mousePostionLabel];
+    [myWorld addChild:mousePostionLabel];
     platformLabel = [SKLabelNode labelNodeWithFontNamed:@"chalkduster"];
     platformLabel.position = CGPointMake(100, self.frame.size.height-120);
     
@@ -54,7 +62,8 @@
     platformLabel.fontSize = 15;
     platformLabel.fontColor = [SKColor blackColor];
     platformLabel.zPosition = 0.5;
-    [self addChild:platformLabel];
+   // [self addChild:platformLabel];
+    [myWorld addChild:platformLabel];
     
     eraseLabel = [SKLabelNode labelNodeWithFontNamed:@"chalkduster"];
     eraseLabel.position = CGPointMake(100, self.frame.size.height-140);
@@ -63,7 +72,8 @@
     eraseLabel.fontSize = 15;
     eraseLabel.fontColor = [SKColor blackColor];
     eraseLabel.zPosition = 0.5;
-    [self addChild:eraseLabel];
+  //  [self addChild:eraseLabel];
+    [myWorld addChild:eraseLabel];
     
     saveLabel = [SKLabelNode labelNodeWithFontNamed:@"chalkduster"];
     saveLabel.position = CGPointMake(100, self.frame.size.height-160);
@@ -72,7 +82,8 @@
     saveLabel.fontSize = 15;
     saveLabel.fontColor = [SKColor blackColor];
     saveLabel.zPosition = 0.5;
-    [self addChild:saveLabel];
+   // [self addChild:saveLabel];
+    [myWorld addChild:saveLabel];
     
     currentToolLabel = [SKLabelNode labelNodeWithFontNamed:@"chalkduster"];
     currentToolLabel.position = CGPointMake(100, self.frame.size.height-180);
@@ -81,7 +92,8 @@
     currentToolLabel.fontSize = 15;
     currentToolLabel.fontColor = [SKColor blackColor];
     currentToolLabel.zPosition = 0.5;
-    [self addChild:currentToolLabel];
+    //[self addChild:currentToolLabel];
+    [myWorld addChild:currentToolLabel];
     
     
     
@@ -104,7 +116,6 @@
 
     CGPoint location = [theEvent locationInNode:self];
     SKNode *node = [self nodeAtPoint:location];
-    
     [self checkMouseLocationOnMapAndCallCreateFunctions:node :location];
 
     
@@ -156,10 +167,57 @@
         case KEY_ESQ:
             [self changeToMenuScene];
             break;
+            
+        case KEY_UP:
+            [camera moveCameraUp];
+            mousePostionLabel.position = CGPointMake(mousePostionLabel.position.x, mousePostionLabel.position.y+32);
+            eraseLabel.position = CGPointMake(eraseLabel.position.x, eraseLabel.position.y+32);
+            break;
+        case KEY_DOWN:
+            [camera moveCameraDown];
+            mousePostionLabel.position = CGPointMake(mousePostionLabel.position.x, mousePostionLabel.position.y-32);
+                        eraseLabel.position = CGPointMake(eraseLabel.position.x, eraseLabel.position.y-32);
+            
+
+            break;
+        case KEY_RIGHT:
+            [camera moveCameraRight];
+            mousePostionLabel.position = CGPointMake(mousePostionLabel.position.x+32, mousePostionLabel.position.y);
+                        eraseLabel.position = CGPointMake(eraseLabel.position.x+32, eraseLabel.position.y);
+
+            break;
+        case KEY_LEFT:
+            [camera moveCameraLeft];
+            mousePostionLabel.position = CGPointMake(mousePostionLabel.position.x-32, mousePostionLabel.position.y);
+                        eraseLabel.position = CGPointMake(eraseLabel.position.x-32, eraseLabel.position.y);
+
         default:
             break;
     }
 }
+
+
+-(void)setUpWorldAndCamera{
+    self.anchorPoint = CGPointMake(0.5, 0.5);
+    myWorld = [SKNode node];
+    myWorld.name = @"theWorld";
+    camera = [[Camera alloc ]initWithPosition:CGPointMake(self.frame.size.width/2,self.frame.size.height/2)];
+    camera.node.name = @"camera";
+    [self addChild:myWorld];
+    [myWorld addChild:camera.node];
+}
+
+-(void)didSimulatePhysics{
+    //[self centerOnNode:[myWorld childNodeWithName:@"camera"]];
+}
+
+-(void)centerOnNode:(SKNode*)node{
+    CGPoint cameraPositionInScene = [node.scene convertPoint:node.position fromNode:node.parent];
+    node.parent.position = CGPointMake(node.parent.position.x - cameraPositionInScene.x, node.parent.position.y - cameraPositionInScene.y);
+}
+
+
+
 
 
 /* * * * * * * *
@@ -172,12 +230,19 @@
  * * * * * * * */
 
 -(void)loadMapGrid{
-    SKSpriteNode *backgroundSprite = [SKSpriteNode spriteNodeWithImageNamed:@"MapEditor32pxGrid.png"];
-    backgroundSprite.name = @"Background";
-    backgroundSprite.anchorPoint = CGPointMake(0, 0);
-    backgroundSprite.position = CGPointMake(0, 0);
-    backgroundSprite.zPosition = 0.1;
-    [self addChild:backgroundSprite];
+    SKSpriteNode *backgroundSprite1 = [SKSpriteNode spriteNodeWithImageNamed:@"MapEditor32pxGrid.png"];
+    backgroundSprite1.name = @"Background";
+    backgroundSprite1.anchorPoint = CGPointMake(0, 0);
+    backgroundSprite1.position = CGPointMake(0, 0);
+    backgroundSprite1.zPosition = 0.1;
+    SKSpriteNode *backgroundSprite2 = [SKSpriteNode spriteNodeWithImageNamed:@"MapEditor32pxGrid.png"];
+    backgroundSprite2.name = @"Background";
+    backgroundSprite2.anchorPoint = CGPointMake(0, 0);
+    backgroundSprite2.position = CGPointMake(SCREEN_WIDHT, 0);
+    backgroundSprite2.zPosition = 0.1;
+    //[self addChild:backgroundSprite];
+    [myWorld addChild:backgroundSprite1];
+    [myWorld addChild:backgroundSprite2];
 }
 
 
@@ -185,28 +250,32 @@
     currentIcon = 0;
     
     dockIcon1 = [SKSpriteNode spriteNodeWithImageNamed:@"HeartShapedBox"];
-    dockIcon1.position = [self checkPostionInGrid:CGPointMake(TILE_SIZE,11*TILE_SIZE )];
+    dockIcon1.position = [self checkPostionInGrid:CGPointMake(TILE_SIZE,11*TILE_SIZE)];
     dockIcon1.name = @"heartIcon";
     dockIcon1.zPosition = 0.3;
-    [self addChild:dockIcon1];
+    //[self addChild:dockIcon1];
+    [myWorld addChild:dockIcon1];
     
     dockIcon2 = [SKSpriteNode spriteNodeWithImageNamed:@"Cload"];
-    dockIcon2.position = [self checkPostionInGrid:CGPointMake(TILE_SIZE,12*TILE_SIZE )];
+    dockIcon2.position = [self checkPostionInGrid:CGPointMake(TILE_SIZE,12*TILE_SIZE)];
     dockIcon2.name = @"cloudIcon";
     dockIcon2.zPosition = 0.3;
-    [self addChild:dockIcon2];
+    //[self addChild:dockIcon2];
+    [myWorld addChild:dockIcon2];
     
     dockIcon3 = [SKSpriteNode spriteNodeWithImageNamed:@"Water"];
-    dockIcon3.position = [self checkPostionInGrid:CGPointMake(TILE_SIZE,13*TILE_SIZE )];
+    dockIcon3.position = [self checkPostionInGrid:CGPointMake(TILE_SIZE,13*TILE_SIZE)];
     dockIcon3.name = @"waterIcon";
     dockIcon3.zPosition = 0.3;
-    [self addChild:dockIcon3];
+    //[self addChild:dockIcon3];
+    [myWorld addChild:dockIcon3];
     
     dockIcon4 = [SKSpriteNode spriteNodeWithImageNamed:@"Brick"];
     dockIcon4.position = [self checkPostionInGrid:CGPointMake(TILE_SIZE,14*TILE_SIZE )];
     dockIcon4.name = @"brickIcon";
     dockIcon4.zPosition = 0.3;
-    [self addChild:dockIcon4];
+    [myWorld addChild:dockIcon4];
+    //[self addChild:dockIcon4];
 }
 -(void)changeToMenuScene{
     SKTransition *reveal = [SKTransition
@@ -250,6 +319,7 @@
 
 -(void)checkMouseLocationOnMapAndCallCreateFunctions: (SKNode*)node : (CGPoint)location{
     platformLabel.text = [NSString stringWithFormat:@"Pressed: %@",node.name];
+    [self checkPostionInGrid:location];
     if([node.name isEqualToString:@"heartIcon"]){
         currentIcon = ICON_HEART;
         currentToolLabel.text = @"Tool: Box";
@@ -276,11 +346,10 @@
         for (int i = 0; i < platformList.count; i++) {
             NSString *str = [NSString stringWithFormat:@"platform%i",i];
             if([node.name isEqualToString:str]){
-                SKNode *node = [self childNodeWithName:str];
-                [node removeFromParent];
-                [platformList removeObjectIdenticalTo:[platformList objectAtIndex:i]];
-                platformLabel.text = [NSString stringWithFormat:@"Removed: %@",str];
-                
+                Platform *p = [platformList objectAtIndex:i];
+                [p.sprite removeFromParent];
+                [platformList removeObject:p];
+                platformLabel.text = [NSString stringWithFormat:@"Removed: %@",str];                
                 [self renamePlatforms];
                 break;
             }
@@ -323,7 +392,8 @@
         [platform.sprite.physicsBody setDynamic:false];
     }
     [platformList addObject:platform];
-    [self addChild:platform.sprite];
+   // [self addChild:platform.sprite];
+    [myWorld addChild:platform.sprite];
     platformLabel.text = [NSString stringWithFormat:@"Created: %@",str];
 }
 
@@ -332,8 +402,8 @@
     [platformList removeAllObjects];
     [self savePlatforms];
     [self removeAllChildren];
-    [self addChild:player.sprite];
-    [self addChild:enemy.sprite];
+    //[self addChild:player.sprite];
+    //[self addChild:enemy.sprite];
 }
 
 -(void)removeLastPlatform{
@@ -375,7 +445,8 @@
     saveLabel.text = [NSString stringWithFormat:@"Loaded Map"];
 
     for(Platform *p in platformList){
-        [self addChild:p.sprite];
+      //  [self addChild:p.sprite];
+        [myWorld addChild:p.sprite];
     }
     
 }

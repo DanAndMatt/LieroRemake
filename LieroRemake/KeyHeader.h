@@ -37,7 +37,7 @@
 #import <Cocoa/Cocoa.h>
 #import <Foundation/Foundation.h>
 
-
+#import "Camera.h"
 #import "Player.h"
 #import "Platform.h"
 #import "Enemy.h"
