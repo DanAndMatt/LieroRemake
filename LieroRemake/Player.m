@@ -10,7 +10,7 @@
 
 @implementation Player
 
-@synthesize hp,sprite,x,y,name,location,hpLabel,angle,isMovingRight,isStopingPlayer,isMovingLeft,isJumping,aim,aims_right,bullets,bullet_index,sprite_textures;
+@synthesize hp,sprite,x,y,name,location,hpLabel,angle,isMovingRight,isStopingPlayer,isMovingLeft,isJumping,aim,aims_right,bullets,bullet_index,sprite_textures,bullet_type,isShooting;
 
 
 
