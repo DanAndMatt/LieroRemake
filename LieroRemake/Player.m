@@ -10,11 +10,13 @@
 
 @implementation Player
 
-@synthesize hp,sprite,x,y,name,location,hpLabel,angle,isMovingRight,isStopingPlayer,isMovingLeft,isJumping,aim,aims_right,bullets,bullet_index,sprite_textures,bullet_type,isShooting;
+@synthesize hp,sprite,x,y,name,location,hpLabel,angle,isMovingRight,isStopingPlayer,isMovingLeft,isJumping,aim,aims_right,bullet_list,bullet_index,sprite_textures,bullet_type,isShooting,timer,grenade_ammo,smg_ammo;
 
 
 
 -(void)createPlayer{
+    smg_ammo = SMG_NEW_MAGAZINE;
+    grenade_ammo = GRENADE_NEW_MAGAZINE;
     isJumping = true;
     name = @"Player";
     hp = 10;
@@ -25,8 +27,11 @@
     hpLabel.position = CGPointMake(100 , 100);
     //sprite = [SKSpriteNode spriteNodeWithImageNamed:@"BothLeg"];
     
-    SKTexture *f1 = [SKTexture textureWithImageNamed:@"BothLeg.png"];
+    //SKTexture *f1 = [SKTexture textureWithImageNamed:@"BothLeg.png"];
+    SKTexture *f1 = [SKTexture textureWithImageNamed:@"Frog_walk_forward.png"];
     sprite = [SKSpriteNode spriteNodeWithTexture:f1];
+    sprite.xScale *= 6.0;
+    sprite.yScale *= 6.0;
     location = CGPointMake(100, 600);
     sprite.position = location;
     //Fysik
@@ -37,12 +42,14 @@
     [sprite.physicsBody setAllowsRotation:false];
     [sprite.physicsBody setDynamic:true];
     
-	bullets = [[NSMutableArray alloc] init];
+	bullet_list = [[NSMutableArray alloc] init];
     bullet_index = 0;
     bullet_type = 0;
+    timer = [NSTimer scheduledTimerWithTimeInterval:0.0 target:self selector:@selector(hej) userInfo:self repeats:NO];
 }
 
-
+-(void)reload { NSLog(@"reloaded");                    smg_ammo = SMG_NEW_MAGAZINE; }
+-(void)hej{NSLog(@"jek");}
 
 
 -(void)createAim{
@@ -53,13 +60,13 @@
 
 -(void)createBullet:(float)_angle :(float)_velocity :(float)_acceleration :(int)_damage :(NSString *)sprite_name :(float)_explode_area :(float)x_pos :(float)y_pos {
 	Bullet* bullet = [[Bullet alloc] init:_angle :_velocity :_acceleration :_damage :sprite_name :_explode_area :x_pos :y_pos];
-    [bullets addObject:bullet];
+    [bullet_list addObject:bullet];
     //NSLog(@"CREATED BULLET");
 }
 
 -(void)createSmgKaliber:(float)_angle :(float)x_pos :(float)y_pos {
 	Smg_kaliber* bullet = [[Smg_kaliber alloc] init:_angle :x_pos :y_pos];
-    [bullets addObject:bullet];
+    [bullet_list addObject:bullet];
 }
 
 -(id)init{
@@ -105,23 +112,40 @@
 -(SKSpriteNode*)shoot{
     //SKAction *audioShot = [SKAction playSoundFileNamed:@"Shot.wav" waitForCompletion:YES];
     //[self runAction:audioShot];
+    if(timer.isValid) {
+        return nil;
+    } else {
+	    switch (bullet_type) {
+    	    case SMG: {
+                if(smg_ammo > 0) {
+        			[self createSmgKaliber:aim.angle :sprite.position.x :sprite.position.y];
+                    smg_ammo--;
+                } else {
+                	//TIMER WIHO
+					NSLog(@"Reloading");
+                    timer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(reload) userInfo:self repeats:NO];
+                    return nil;
 
-    switch (bullet_type) {
-        case SMG:{
-            [self createSmgKaliber:aim.angle :sprite.position.x :sprite.position.y];
-        }
-            break;
-        case GRENADE:{
-            [self createBullet:aim.angle :10.0 :1.0 :1 :@"pistol_bullet" :1.0 :sprite.position.x :sprite.position.y];
-        }
-            break;
+                }
+            	break;
+        	case GRENADE:
+                if(grenade_ammo > 0) {
+            	[self createBullet:aim.angle :10.0 :1.0 :1 :@"pistol_bullet" :1.0 :sprite.position.x :sprite.position.y];
+                grenade_ammo--;
+                } else {
+                	//TIMER WIHO
+                    grenade_ammo = GRENADE_NEW_MAGAZINE;
+                    return nil;
+                }
+            	break;
+            }
+    	}
+        Bullet* b = [bullet_list objectAtIndex:bullet_index];
+    	bullet_index++;
+    	return b.sprite;
     }
-    Bullet* b = [bullets objectAtIndex:bullet_index];
-    bullet_index++;
-    return b.sprite;
-    
-    
 }
+
 -(void)jump{
     x = sprite.position.x;
     y = sprite.position.y;
@@ -150,7 +174,9 @@
 
 }
 
+-(void)handle_timer {
 
+}
 
 -(void)animateMovement{
     SKAction *animation = [SKAction animateWithTextures:sprite_textures timePerFrame:0.05];
@@ -160,7 +186,7 @@
 
 -(void)moveBullets {
 	for(int i = 0; i < bullet_index; i++) {
-    	Bullet* bullet = [bullets objectAtIndex:i];
+    	Bullet* bullet = [bullet_list objectAtIndex:i];
         bullet.sprite.position = CGPointMake(bullet.sprite.position.x + cos(bullet.angle)*bullet.velocity, bullet.sprite.position.y + sin(bullet.angle)*bullet.velocity);
     }
 }
