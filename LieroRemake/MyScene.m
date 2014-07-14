@@ -162,15 +162,7 @@ static const uint32_t bullet_category = 0x1 << 4;
             break;
         case KEY_C:
         {
-            SKAction *audioShot = [SKAction playSoundFileNamed:@"Shot.wav" waitForCompletion:YES];
-            [self runAction:audioShot];
-            [player createSmgKaliber:player.aim.angle :player.sprite.position.x :player.sprite.position.y];
-			Bullet* b = [player.bullets objectAtIndex:player.bullet_index];
-			player.bullet_index++;
-            //NSLog(@"-------------");
-            //[self addChild:b.sprite];
-
-            [myWorld addChild:b.sprite];
+            //[myWorld addChild:[player shoot]];
         }
             break;
         case KEY_SPACE: //Space
@@ -340,6 +332,7 @@ static const uint32_t bullet_category = 0x1 << 4;
     [self removeExplosionAction];
     
     //NSLog(@"Player Postion X: %i Y: %i",(int)player.sprite.position.x,(int)player.sprite.position.y);
+    [myWorld addChild:[player shoot]];
     
 }
 

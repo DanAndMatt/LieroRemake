@@ -47,4 +47,6 @@
 -(void)createSmgKaliber:(float)_angle :(float)x_pos :(float)y_pos;
 -(void)moveBullets;
 -(void)animateMovement;
+
+-(SKSpriteNode*)shoot;
 @end

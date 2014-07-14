@@ -101,7 +101,15 @@
     
 }
 
+-(SKSpriteNode*)shoot{
+    //SKAction *audioShot = [SKAction playSoundFileNamed:@"Shot.wav" waitForCompletion:YES];
+    //[self runAction:audioShot];
+    [self createSmgKaliber:aim.angle :sprite.position.x :sprite.position.y];
+    Bullet* b = [bullets objectAtIndex:bullet_index];
+    bullet_index++;
+    return b.sprite;
 
+}
 -(void)jump{
     x = sprite.position.x;
     y = sprite.position.y;
