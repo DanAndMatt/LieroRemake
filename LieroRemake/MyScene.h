@@ -23,5 +23,6 @@
 @property SKNode *camera;
 
 @property SKLabelNode *positionLabel;
+@property SKLabelNode *collisionLabel;
 @end
 

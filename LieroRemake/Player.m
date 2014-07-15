@@ -10,7 +10,7 @@
 
 @implementation Player
 
-@synthesize hp,sprite,x,y,name,location,hpLabel,angle,isMovingRight,isStopingPlayer,isMovingLeft,isJumping,aim,aims_right,bullet_list,bullet_index,sprite_textures,bullet_type,isShooting,timer,grenade_ammo,smg_ammo;
+@synthesize hp,sprite,x,y,name,location,hpLabel,angle,isMovingRight,isStopingPlayer,isMovingLeft,isJumping,aim,aims_right,bullet_list,bullet_index,sprite_textures,bullet_type,isShooting,timer,grenade_ammo,smg_ammo,isRealoading;
 
 
 
@@ -48,7 +48,17 @@
     timer = [NSTimer scheduledTimerWithTimeInterval:0.0 target:self selector:@selector(hej) userInfo:self repeats:NO];
 }
 
--(void)reload { NSLog(@"reloaded");                    smg_ammo = SMG_NEW_MAGAZINE; }
+-(SKAction*)reload {
+    NSLog(@"reloaded");
+    smg_ammo = SMG_NEW_MAGAZINE;
+    SKAction *reloadSound = [SKAction playSoundFileNamed:@"ReloadSound.wav" waitForCompletion:true];
+    isRealoading = false;
+    return reloadSound;
+}
+
+
+
+
 -(void)hej{NSLog(@"jek");}
 
 
@@ -122,8 +132,8 @@
                     smg_ammo--;
                 } else {
                 	//TIMER WIHO
-					NSLog(@"Reloading");
-                    timer = [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(reload) userInfo:self repeats:NO];
+                    isRealoading = true;
+                    timer = [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(hej) userInfo:self repeats:NO];
                     return nil;
 
                 }

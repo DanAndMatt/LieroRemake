@@ -63,6 +63,7 @@
 		9EC637ED1971879E0070B1E7 /* Brick.png in Resources */ = {isa = PBXBuildFile; fileRef = 9EC637EC1971879E0070B1E7 /* Brick.png */; };
 		9EC637EF19718A910070B1E7 /* SmokeParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = 9EC637EE19718A910070B1E7 /* SmokeParticle.sks */; };
 		9EE1E04B1974131700F66D39 /* Collision.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EE1E04A1974131700F66D39 /* Collision.m */; };
+		9EE1E04F19742D8400F66D39 /* ReloadSound.wav in Resources */ = {isa = PBXBuildFile; fileRef = 9EE1E04E19742D8400F66D39 /* ReloadSound.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -153,6 +154,7 @@
 		9EC637EE19718A910070B1E7 /* SmokeParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = SmokeParticle.sks; sourceTree = "<group>"; };
 		9EE1E0491974131700F66D39 /* Collision.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Collision.h; sourceTree = "<group>"; };
 		9EE1E04A1974131700F66D39 /* Collision.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Collision.m; sourceTree = "<group>"; };
+		9EE1E04E19742D8400F66D39 /* ReloadSound.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = ReloadSound.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -350,6 +352,7 @@
 			isa = PBXGroup;
 			children = (
 				9E1A5EB319719170002FD5FD /* Shot.wav */,
+				9EE1E04E19742D8400F66D39 /* ReloadSound.wav */,
 				9E1A5EB119718FD0002FD5FD /* Raining.wav */,
 			);
 			name = Audio;
@@ -458,6 +461,7 @@
 				9E4487A1196AFAED0013FE2B /* MapEditor32pxGrid.png in Resources */,
 				9E044FB719644F4A00F62514 /* charGenom.png in Resources */,
 				23A5C7991966EB60000A2D1F /* explosion.png in Resources */,
+				9EE1E04F19742D8400F66D39 /* ReloadSound.wav in Resources */,
 				23A5C78719659981000A2D1F /* pistol_bullet.png in Resources */,
 				9E044FBB19644F4A00F62514 /* char2.png in Resources */,
 				9E44879F196ABD280013FE2B /* RainbowBG.png in Resources */,

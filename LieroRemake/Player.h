@@ -37,7 +37,7 @@
 @property NSTimer* timer;
 @property int grenade_ammo;
 @property int smg_ammo;
-
+@property bool isRealoading;
 @property NSMutableArray *sprite_textures;
 
 
@@ -52,6 +52,8 @@
 -(void)createSmgKaliber:(float)_angle :(float)x_pos :(float)y_pos;
 -(void)moveBullets;
 -(void)animateMovement;
+
+-(SKAction*)reload;
 
 -(SKSpriteNode*)shoot;
 @end

@@ -22,6 +22,17 @@
 #define KEY_X 7
 #define KEY_S 1
 #define KEY_Z 6
+#define KEY_1 18
+#define KEY_2 19
+#define KEY_3 20
+#define KEY_4 21
+#define KEY_5 22
+#define KEY_6 23
+#define KEY_7 24
+#define KEY_8 25
+#define KEY_9 26
+#define KEY_0 29
+#define KEY_BACKSTEP 51
 
 #define SCREEN_WIDHT 1024
 #define SCREEN_HEIGHT 768

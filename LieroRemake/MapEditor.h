@@ -20,6 +20,7 @@
 @property NSString *fullFileName;
 @property Audio *audio;
 @property int currentIcon;
+@property int currentTool;
 @property SKSpriteNode *cursorBrickSprite;
 @property SKSpriteNode *cursorCharSprite;
 @property SKSpriteNode *dockIcon1;

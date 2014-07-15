@@ -10,8 +10,12 @@
 #import "Camera.h"
 @implementation MapEditor
 
-@synthesize player,platform,platformList,enemy,paths,docDir,fullFileName,audio,currentIcon,cursorBrickSprite,cursorCharSprite,dockIcon1,dockIcon2,mousePostionLabel,isErasing,platformLabel,eraseLabel,saveLabel,currentToolLabel,dockIcon3,dockIcon4,myWorld,camera;
-
+@synthesize player,platform,platformList,enemy,paths,docDir,fullFileName,audio,currentTool,cursorBrickSprite,cursorCharSprite,dockIcon1,dockIcon2,mousePostionLabel,isErasing,platformLabel,eraseLabel,saveLabel,currentToolLabel,dockIcon3,dockIcon4,myWorld,camera;
+static const uint32_t player_category = 0x1 << 0;
+static const uint32_t enemy_category = 0x1 << 3;
+static const uint32_t bullet_category = 0x1 << 4;
+static const uint32_t rain_particle_category = 0x1 <<5;
+static const uint32_t platform_category = 0x1 << 6;
 
 -(id)initWithSize:(CGSize)size {
     if (self = [super initWithSize:size]) {
@@ -19,13 +23,13 @@
         [self.view addTrackingArea:trackingArea];
         self.backgroundColor = [SKColor grayColor];
        // NSLog(trackingArea.debugDescription);
-        //[self setUpWorldAndCamera];
+        [self setUpWorldAndCamera];
         
-        
+        /*
         myWorld = [SKNode node];
         myWorld.name = @"theWorld";
         [self addChild:myWorld];
-
+*/
         
         [self createMousePositionLabel];
         [self loadMapGrid];
@@ -118,15 +122,13 @@
     SKNode *node = [self nodeAtPoint:location];
     [self checkMouseLocationOnMapAndCallCreateFunctions:node :location];
 
-    
-
-    
-    
-    
-
-
 }
 
+-(void)mouseDragged:(NSEvent *)theEvent{
+    CGPoint location = [theEvent locationInNode:self];
+    SKNode *node = [self nodeAtPoint:location];
+    [self checkMouseLocationOnMapAndCallCreateFunctions:node :location];
+}
 //NÄR EN PLATFORMS TAS BORT UPPDATERAS HELA LISTAN POSITIONER
 
 -(void)renamePlatforms{
@@ -141,12 +143,32 @@
 }
 
 -(void)keyDown:(NSEvent *)theEvent{
-    // NSLog(@"%i",theEvent.keyCode);
+    NSLog(@"%i",theEvent.keyCode);
     switch (theEvent.keyCode) {
+            
+        case KEY_1:
+            currentTool = ICON_BRICK;
+            currentToolLabel.text = @"Tool: Brick";
+            break;
+        case KEY_2:
+            currentTool = ICON_CLOUD;
+            currentToolLabel.text = @"Tool: Cloud";
+
+            break;
+        case KEY_3:
+            currentTool = ICON_HEART;
+            currentToolLabel.text = @"Tool: Box";
+            break;
+        case KEY_4:
+            currentTool = ICON_WATER;
+            currentToolLabel.text = @"Tool: Water";
+
+            break;
+            
         case KEY_S:
             [self savePlatforms];
             break;
-        case KEY_X:
+        case KEY_BACKSTEP:
             [self removeLastPlatform];
             break;
         case KEY_SPACE:
@@ -169,28 +191,49 @@
             break;
             
         case KEY_UP:
+            if(camera.node.position.y < 0){
             [camera moveCameraUp];
             mousePostionLabel.position = CGPointMake(mousePostionLabel.position.x, mousePostionLabel.position.y+32);
             eraseLabel.position = CGPointMake(eraseLabel.position.x, eraseLabel.position.y+32);
+            platformLabel.position = CGPointMake(platformLabel.position.x, platformLabel.position.y+32);
+            saveLabel.position = CGPointMake(saveLabel.position.x, saveLabel.position.y+32);
+            currentToolLabel.position = CGPointMake(currentToolLabel.position.x, currentToolLabel.position.y +32);
+            }
             break;
         case KEY_DOWN:
+            if(camera.node.position.y > -SCREEN_HEIGHT){
             [camera moveCameraDown];
             mousePostionLabel.position = CGPointMake(mousePostionLabel.position.x, mousePostionLabel.position.y-32);
-                        eraseLabel.position = CGPointMake(eraseLabel.position.x, eraseLabel.position.y-32);
+            eraseLabel.position = CGPointMake(eraseLabel.position.x, eraseLabel.position.y-32);
             
-
+            platformLabel.position = CGPointMake(platformLabel.position.x, platformLabel.position.y-32);
+            saveLabel.position = CGPointMake(saveLabel.position.x, saveLabel.position.y-32);
+            currentToolLabel.position = CGPointMake(currentToolLabel.position.x, currentToolLabel.position.y -32);
+            }
             break;
         case KEY_RIGHT:
+            if(camera.node.position.x < SCREEN_WIDHT){
+
             [camera moveCameraRight];
             mousePostionLabel.position = CGPointMake(mousePostionLabel.position.x+32, mousePostionLabel.position.y);
-                        eraseLabel.position = CGPointMake(eraseLabel.position.x+32, eraseLabel.position.y);
+            eraseLabel.position = CGPointMake(eraseLabel.position.x+32, eraseLabel.position.y);
 
+            platformLabel.position = CGPointMake(platformLabel.position.x+32, platformLabel.position.y);
+            saveLabel.position = CGPointMake(saveLabel.position.x+32, saveLabel.position.y);
+            currentToolLabel.position = CGPointMake(currentToolLabel.position.x+32, currentToolLabel.position.y);
+            }
             break;
         case KEY_LEFT:
+            if(camera.node.position.x > 0){
             [camera moveCameraLeft];
             mousePostionLabel.position = CGPointMake(mousePostionLabel.position.x-32, mousePostionLabel.position.y);
-                        eraseLabel.position = CGPointMake(eraseLabel.position.x-32, eraseLabel.position.y);
+            eraseLabel.position = CGPointMake(eraseLabel.position.x-32, eraseLabel.position.y);
+            
+            platformLabel.position = CGPointMake(platformLabel.position.x-32, platformLabel.position.y);
+            saveLabel.position = CGPointMake(saveLabel.position.x-32, saveLabel.position.y);
 
+            currentToolLabel.position = CGPointMake(currentToolLabel.position.x-32, currentToolLabel.position.y);
+            }
         default:
             break;
     }
@@ -198,17 +241,18 @@
 
 
 -(void)setUpWorldAndCamera{
-    self.anchorPoint = CGPointMake(0.5, 0.5);
+    self.anchorPoint = CGPointMake(0.0, 0.0);
     myWorld = [SKNode node];
     myWorld.name = @"theWorld";
-    camera = [[Camera alloc ]initWithPosition:CGPointMake(self.frame.size.width/2,self.frame.size.height/2)];
+    //camera = [[Camera alloc ]initWithPosition:CGPointMake(self.frame.size.width/2,self.frame.size.height/2)];
+    camera = [[Camera alloc ]initWithPosition:CGPointMake(0,0)];
     camera.node.name = @"camera";
     [self addChild:myWorld];
     [myWorld addChild:camera.node];
 }
 
 -(void)didSimulatePhysics{
-    //[self centerOnNode:[myWorld childNodeWithName:@"camera"]];
+    [self centerOnNode:[myWorld childNodeWithName:@"camera"]];
 }
 
 -(void)centerOnNode:(SKNode*)node{
@@ -235,19 +279,36 @@
     backgroundSprite1.anchorPoint = CGPointMake(0, 0);
     backgroundSprite1.position = CGPointMake(0, 0);
     backgroundSprite1.zPosition = 0.1;
+    
     SKSpriteNode *backgroundSprite2 = [SKSpriteNode spriteNodeWithImageNamed:@"MapEditor32pxGrid.png"];
     backgroundSprite2.name = @"Background";
     backgroundSprite2.anchorPoint = CGPointMake(0, 0);
     backgroundSprite2.position = CGPointMake(SCREEN_WIDHT, 0);
     backgroundSprite2.zPosition = 0.1;
-    //[self addChild:backgroundSprite];
+    
+    SKSpriteNode *backgroundSprite3 = [SKSpriteNode spriteNodeWithImageNamed:@"MapEditor32pxGrid.png"];
+    backgroundSprite3.name = @"Background";
+    backgroundSprite3.anchorPoint = CGPointMake(0, 0);
+    backgroundSprite3.position = CGPointMake(SCREEN_WIDHT, -SCREEN_HEIGHT);
+    backgroundSprite3.zPosition = 0.1;
+    
+    
+    SKSpriteNode *backgroundSprite4 = [SKSpriteNode spriteNodeWithImageNamed:@"MapEditor32pxGrid.png"];
+    backgroundSprite4.name = @"Background";
+    backgroundSprite4.anchorPoint = CGPointMake(0, 0);
+    backgroundSprite4.position = CGPointMake(0, -SCREEN_HEIGHT);
+    backgroundSprite4.zPosition = 0.1;
+
     [myWorld addChild:backgroundSprite1];
     [myWorld addChild:backgroundSprite2];
+    [myWorld addChild:backgroundSprite3];
+    [myWorld addChild:backgroundSprite4];
+
 }
 
 
 -(void)createDock{
-    currentIcon = 0;
+    currentTool = 0;
     
     dockIcon1 = [SKSpriteNode spriteNodeWithImageNamed:@"HeartShapedBox"];
     dockIcon1.position = [self checkPostionInGrid:CGPointMake(TILE_SIZE,11*TILE_SIZE)];
@@ -301,7 +362,8 @@
         if(modX == x){
             for(y = 0; y < SCREEN_HEIGHT/TILE_SIZE; y++){
                 if(modY == y){
-                    location = CGPointMake(x*TILE_SIZE + TILE_SIZE/2,y*TILE_SIZE + TILE_SIZE/2);
+                    //location = CGPointMake(x*TILE_SIZE + TILE_SIZE/2,y*TILE_SIZE + TILE_SIZE/2);
+                    location = CGPointMake(x*TILE_SIZE + TILE_SIZE/2 +camera.node.position.x,y*TILE_SIZE + TILE_SIZE/2+camera.node.position.y);
                     break;
                 }
             }
@@ -321,23 +383,23 @@
     platformLabel.text = [NSString stringWithFormat:@"Pressed: %@",node.name];
     [self checkPostionInGrid:location];
     if([node.name isEqualToString:@"heartIcon"]){
-        currentIcon = ICON_HEART;
+        currentTool = ICON_HEART;
         currentToolLabel.text = @"Tool: Box";
         
         
     }
     if([node.name isEqualToString:@"cloudIcon"]){
-        currentIcon = ICON_CLOUD;
+        currentTool = ICON_CLOUD;
         currentToolLabel.text = @"Tool: Cloud";
         
     }
     if([node.name isEqualToString:@"waterIcon"]){
-        currentIcon = ICON_WATER;
+        currentTool = ICON_WATER;
         currentToolLabel.text = @"Tool: Water";
         
     }
     if([node.name isEqualToString:@"brickIcon"]){
-        currentIcon = ICON_BRICK;
+        currentTool = ICON_BRICK;
         currentToolLabel.text = @"Tool: Brick";
         
     }
@@ -358,17 +420,17 @@
     
     else if (isErasing == false && [node.name isEqualToString:@"Background"] == true){
         CGPoint gridPosition = [self checkPostionInGrid:location];
-        if(currentIcon == ICON_HEART){
+        if(currentTool == ICON_HEART){
             [self createPlatform:gridPosition.x :gridPosition.y :@"HeartShapedBox"];
         }
-        if(currentIcon == ICON_BRICK){
+        if(currentTool == ICON_BRICK){
             [self createPlatform:gridPosition.x :gridPosition.y :@"Brick"];
         }
-        if(currentIcon == ICON_CLOUD){
+        if(currentTool == ICON_CLOUD){
             [self createPlatform:gridPosition.x :gridPosition.y : @"Cload"];
             
         }
-        if(currentIcon == ICON_WATER){
+        if(currentTool == ICON_WATER){
             [self createPlatform:gridPosition.x :gridPosition.y : @"Water"];
             
         }
@@ -385,6 +447,9 @@
     [platform createPlatform:x :y : spriteName];
     platform.sprite.name = str;
     platform.sprite.zPosition = 0.2;
+    platform.sprite.physicsBody.categoryBitMask = platform_category;
+    platform.sprite.physicsBody.collisionBitMask = rain_particle_category;
+    platform.sprite.physicsBody.contactTestBitMask = rain_particle_category;
     if([spriteName isEqualToString:@"HeartShapedBox"] || [spriteName isEqualToString:@"Brick"]){
         platform.sprite.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:platform.sprite.size];
         [platform.sprite.physicsBody setAffectedByGravity:false];

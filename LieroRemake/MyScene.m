@@ -9,12 +9,13 @@
 #import "KeyHeader.h"
 
 @implementation MyScene
-@synthesize player,platform,platformList,enemy,paths,docDir,fullFileName,audio,engineEmitter,engineSmokeEmitter,myWorld,camera,positionLabel;
+@synthesize player,platform,platformList,enemy,paths,docDir,fullFileName,audio,engineEmitter,engineSmokeEmitter,myWorld,camera,positionLabel,collisionLabel;
 
 static const uint32_t player_category = 0x1 << 0;
 static const uint32_t enemy_category = 0x1 << 3;
 static const uint32_t bullet_category = 0x1 << 4;
-
+static const uint32_t rain_particle_category = 0x1 <<5;
+static const uint32_t platform_category = 0x1 << 6;
 -(id)initWithSize:(CGSize)size {
     if (self = [super initWithSize:size]) {
         /* Setup your scene here */
@@ -52,6 +53,14 @@ static const uint32_t bullet_category = 0x1 << 4;
     positionLabel.fontColor = [SKColor redColor];
     positionLabel.fontSize = 30;
     [myWorld addChild:positionLabel];
+    
+    collisionLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
+    collisionLabel.position = CGPointMake(player.sprite.position.x, player.sprite.position.y + 200);
+    collisionLabel.fontSize =30;
+    collisionLabel.text = @"kukHuvud";
+    collisionLabel.fontColor = [SKColor greenColor];
+    [myWorld addChild:collisionLabel];
+    
     
     
 }
@@ -96,8 +105,8 @@ static const uint32_t bullet_category = 0x1 << 4;
     player = [[Player alloc]init];
     player.sprite.name = @"Player";
     player.sprite.physicsBody.categoryBitMask = player_category;
-    player.sprite.physicsBody.collisionBitMask = enemy_category | bullet_category;
-    player.sprite.physicsBody.contactTestBitMask = enemy_category | bullet_category;
+    player.sprite.physicsBody.collisionBitMask = enemy_category | bullet_category | rain_particle_category;
+    player.sprite.physicsBody.contactTestBitMask = enemy_category | bullet_category | rain_particle_category;
     [myWorld addChild:player.aim.sprite];
     
 }
@@ -121,8 +130,13 @@ static const uint32_t bullet_category = 0x1 << 4;
                            pathForResource:@"RainParticle" ofType:@"sks"]];
     engineEmitter.position = CGPointMake(self.frame.size.width/2 +100, self.frame.size.height);
     engineEmitter.name = @"rainParticle";
-   // [self addChild:engineEmitter];
-    engineEmitter.hidden = NO;
+    engineEmitter.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:player.sprite.size];
+    engineEmitter.physicsBody.categoryBitMask = rain_particle_category;
+    [engineEmitter.physicsBody setDynamic:true];
+    engineEmitter.physicsBody.collisionBitMask = player_category | platform_category;
+    engineEmitter.physicsBody.contactTestBitMask = player_category | platform_category;
+   [myWorld addChild:engineEmitter];
+    engineEmitter.hidden = YES;
 }
 
 
@@ -135,6 +149,7 @@ static const uint32_t bullet_category = 0x1 << 4;
     engineSmokeEmitter.position = CGPointMake(848, 400);
     engineSmokeEmitter.name = @"smokeParticle";
    // [self addChild:engineSmokeEmitter];
+    [myWorld addChild:engineSmokeEmitter];
     engineSmokeEmitter.hidden = NO;
 }
 
@@ -265,6 +280,42 @@ static const uint32_t bullet_category = 0x1 << 4;
 
 
 -(void)checkCollision :(SKPhysicsContact*) contact{
+    
+    
+    
+    
+    if(((contact.bodyA.categoryBitMask ==rain_particle_category) &&
+        (contact.bodyB.categoryBitMask == platform_category))
+        ||
+        ((contact.bodyB.categoryBitMask ==rain_particle_category) &&
+         (contact.bodyA.categoryBitMask == platform_category))){
+            
+            collisionLabel.position = CGPointMake(player.sprite.position.x, player.sprite.position.y + 150);
+            NSString *info = [NSString stringWithFormat:@"kukenSträng"];
+            collisionLabel.text = info;
+            
+            
+            if(contact.bodyA.categoryBitMask > contact.bodyB.categoryBitMask) {
+                //BodyB = rain
+                SKNode *rainNode = contact.bodyB.node;
+                collisionLabel.position = CGPointMake(player.sprite.position.x, player.sprite.position.y + 150);
+                NSString *info = [NSString stringWithFormat:rainNode.debugDescription];
+                collisionLabel.text = info;
+                [rainNode removeFromParent];
+                
+            } else {
+                SKNode *rainNode = contact.bodyA.node;
+                collisionLabel.position = CGPointMake(player.sprite.position.x, player.sprite.position.y + 150);
+                NSString *info = [NSString stringWithFormat:rainNode.debugDescription];
+                collisionLabel.text = info;
+                [rainNode removeFromParent];
+                //BodyA = rain
+            }
+
+
+        }
+    
+    
     // Collision between enemy and a bullet
    	if (((contact.bodyA.categoryBitMask == bullet_category) &&
          (contact.bodyB.categoryBitMask == enemy_category))
@@ -351,15 +402,39 @@ static const uint32_t bullet_category = 0x1 << 4;
     
     //NSLog(@"Player Postion X: %i Y: %i",(int)player.sprite.position.x,(int)player.sprite.position.y);
     if(player.isShooting){
+        [engineSmokeEmitter setHidden:false];
         SKSpriteNode* bullet_sprite= [player shoot];
 		if(bullet_sprite != nil) {
+            SKAction * shootSound = [SKAction playSoundFileNamed:@"Shot.wav" waitForCompletion:true];
+            [self runAction:shootSound];
 	        [myWorld addChild:bullet_sprite];
         }
     }
+    if(player.isShooting == false){
+        [engineSmokeEmitter setHidden:true];
 
+    }
+
+
+    
+    if(player.isRealoading){
+        SKAction *reloadSound = [player reload];
+        [self runAction:reloadSound];
+    }
+    engineSmokeEmitter.position = CGPointMake(player.sprite.position.x+16, player.sprite.position.y);
+
+    
+    
+    
     positionLabel.position = CGPointMake(player.sprite.position.x, player.sprite.position.y + 100);
     NSString *info = [NSString stringWithFormat:@"X:%i Y:%i ",(int)player.sprite.position.x,(int)player.sprite.position.y];
     positionLabel.text = info;
+    
+
+    
+    
+    
+    
 }
 
 @end
