@@ -82,8 +82,8 @@
 
 -(void)setMovingRightToTrue{
     if(aims_right == false){
-        aim.angle -= M_PI;
-        aim.angle *= -1;
+        aim.angle_in_radians -= M_PI;
+        aim.angle_in_radians *= -1;
     }
     isMovingRight = true;
     isStopingPlayer = false;
@@ -91,7 +91,7 @@
 }
 -(void)setMovingLeftToTrue{
     if(aims_right){
-        aim.angle = M_PI - aim.angle;
+        aim.angle_in_radians = M_PI - aim.angle_in_radians;
     }
     isMovingLeft = true;
     isStopingPlayer = false;
@@ -115,6 +115,8 @@
     
 }
 
+-(void)hej{return;}
+
 -(SKSpriteNode*)shoot{
     //SKAction *audioShot = [SKAction playSoundFileNamed:@"Shot.wav" waitForCompletion:YES];
     //[self runAction:audioShot];
@@ -124,7 +126,7 @@
 	    switch (bullet_type) {
     	    case SMG: {
                 if(smg_ammo > 0) {
-        			[self createSmgKaliber:aim.angle :sprite.position.x :sprite.position.y];
+        			[self createSmgKaliber:aim.angle_in_radians :sprite.position.x :sprite.position.y];
                     smg_ammo--;
                 } else {
                 	//TIMER WIHO
@@ -136,7 +138,7 @@
             	break;
         	case GRENADE:
                 if(grenade_ammo > 0) {
-            	[self createBullet:aim.angle :10.0 :1.0 :1 :@"pistol_bullet" :1.0 :sprite.position.x :sprite.position.y];
+            	[self createBullet:aim.angle_in_radians :10.0 :1.0 :1 :@"pistol_bullet" :1.0 :sprite.position.x :sprite.position.y];
                 grenade_ammo--;
                 } else {
                 	//TIMER WIHO
