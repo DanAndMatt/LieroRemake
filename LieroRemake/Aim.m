@@ -6,8 +6,10 @@
 //  Copyright (c) 2014 Mattias Linder. All rights reserved.
 //
 
+
 #import "KeyHeader.h"
-@interface Aim() 
+
+@interface Aim()
 
 -(void) moveAimDown:(float)player_x_pos :(float)player_y_pos :(bool)aims_right;
 
@@ -17,13 +19,13 @@
 
 @implementation Aim
 
-@synthesize sprite,up,down,angle,radius,aim_at_max;
+@synthesize sprite,up,down,angle_in_radians,radius,aim_at_max;
 
 -(NSObject*) init:(float)player_x_pos :(float)player_y_pos {
     radius = 200.0;
-    angle = 0.0;
+    angle_in_radians = 0.0;
 	sprite = [SKSpriteNode spriteNodeWithImageNamed:@"aim2.png"];
-	sprite.position = CGPointMake(radius * cos(angle) + player_x_pos, radius * sin(angle) + player_y_pos);
+	sprite.position = CGPointMake(radius * cos(angle_in_radians) + player_x_pos, radius * sin(angle_in_radians) + player_y_pos);
     return self;
 }
 
@@ -34,13 +36,13 @@
 	} else if (180*acos(cos(angle))/M_PI <= 90 && !aims_right) {
         aim_at_max = true;
         angle = M_PI/2;
-    } else*/ if ((180*acos(cos(angle))/M_PI <= 90 && aims_right) || (180*acos(cos(angle))/M_PI >= 90 && aims_right)) {
-        angle -= 0.03;
-    } else if (180*acos(cos(angle))/M_PI <= 90 && !aims_right) {
+    } else*/ if ((180*acos(cos(angle_in_radians))/M_PI <= 90 && aims_right) || (180*acos(cos(angle_in_radians))/M_PI >= 90 && aims_right)) {
+        angle_in_radians -= 0.03;
+    } else if (180*acos(cos(angle_in_radians))/M_PI <= 90 && !aims_right) {
     	aim_at_max = true;
-        angle = M_PI/2;
-    } else if ((180*acos(cos(angle))/M_PI >= 90 && !aims_right) || (180*acos(cos(angle))/M_PI <= 90 && !aims_right)) {
-    	angle -= 0.03;
+        angle_in_radians = M_PI/2;
+    } else if ((180*acos(cos(angle_in_radians))/M_PI >= 90 && !aims_right) || (180*acos(cos(angle_in_radians))/M_PI <= 90 && !aims_right)) {
+    	angle_in_radians -= 0.03;
     }
 }
 
@@ -51,15 +53,15 @@
     } else if (aim_at_max && !aims_right) {
 		NSLog(@"aimsleft aimmax");
         return;
-    } else */if (180*acos(cos(angle))/M_PI >= 90 && aims_right) {
+    } else */if (AIM_ANGLE(angle_in_radians) >= 90 && aims_right) {
         aim_at_max = true;
-        angle = M_PI/2;
-    } else if (180*acos(cos(angle))/M_PI <= 90 && aims_right) {
+        angle_in_radians = M_PI/2;
+    } else if (AIM_ANGLE(angle_in_radians) <= 90 && aims_right) {
 		aim_at_max = false;
-    	angle += 0.03;
-    } else if (180*acos(cos(angle))/M_PI >= 90 && !aims_right){
+    	angle_in_radians += 0.03;
+    } else if (AIM_ANGLE(angle_in_radians) >= 90 && !aims_right){
 		aim_at_max = false;
-    	angle += 0.03;
+    	angle_in_radians += 0.03;
     } 
 }
 
@@ -81,6 +83,6 @@
     	//sprite.position = CGPointMake(player_x_pos + radius * cos(angle), sprite.position.y);
     }
     
-    sprite.position = CGPointMake(radius * cos(angle) + player_x_pos, radius * sin(angle) + player_y_pos);
+    sprite.position = CGPointMake(radius * cos(angle_in_radians) + player_x_pos, radius * sin(angle_in_radians) + player_y_pos);
 }
 @end
