@@ -105,8 +105,8 @@ static const uint32_t platform_category = 0x1 << 6;
     player = [[Player alloc]init];
     player.sprite.name = @"Player";
     player.sprite.physicsBody.categoryBitMask = player_category;
-    player.sprite.physicsBody.collisionBitMask = enemy_category | bullet_category | rain_particle_category;
-    player.sprite.physicsBody.contactTestBitMask = enemy_category | bullet_category | rain_particle_category;
+    player.sprite.physicsBody.collisionBitMask = enemy_category | bullet_category | rain_particle_category | platform_category;
+    player.sprite.physicsBody.contactTestBitMask = enemy_category | bullet_category | rain_particle_category | platform_category;
     [myWorld addChild:player.aim.sprite];
     
 }
@@ -265,7 +265,7 @@ static const uint32_t platform_category = 0x1 << 6;
     platformList = [NSKeyedUnarchiver unarchiveObjectWithFile:fullFileName];
     for(Platform *p in platformList){
         [myWorld addChild:p.sprite];
-        NSLog(@"Bitmask %i",p.sprite.physicsBody.categoryBitMask);
+        NSLog(@"%@: Bitmask: %i",p.sprite.name,p.sprite.physicsBody.categoryBitMask);
     }
     
 }
@@ -325,31 +325,20 @@ static const uint32_t platform_category = 0x1 << 6;
        ((contact.bodyB.categoryBitMask == bullet_category) &&
         (contact.bodyA.categoryBitMask == platform_category))){
            if (contact.bodyA.categoryBitMask > contact.bodyB.categoryBitMask) {
-               //Body a = platfrom
-               // NSLog(contact.bodyA.node.name);
-               NSLog(@"body a");
+               SKNode *platformNode = contact.bodyA.node;
+               collisionLabel.position = CGPointMake(player.sprite.position.x, player.sprite.position.y + 150);
+               NSString *info = [NSString stringWithFormat:platformNode.name];
+               collisionLabel.text = info;
+               for(Platform* item in platformList){
+                   if ([item.sprite.name isEqualToString:platformNode.name]) {
+                       [item.sprite removeFromParent];
+                       [platformList removeObject:item];
+                       break;
+                   }
+               }
+
            } else {
-               //BodyB = platform
-               NSLog(contact.bodyB.node.name);
-               NSLog(@"body b");
            }
-           
-           /*
-            SKNode *platformNode = contact.bodyB.node;
-            collisionLabel.position = CGPointMake(player.sprite.position.x, player.sprite.position.y + 150);
-            NSString *info = [NSString stringWithFormat:platformNode.name];
-            collisionLabel.text = info;
-            for(Platform* item in platformList){
-            if ([item.sprite.name isEqualToString:platformNode.name]) {
-            NSLog(platformNode.name);
-            
-            [item.sprite removeFromParent];
-            [platformList removeObject:item];
-            break;
-            }
-            }
-            */
-           
        }
     
     
@@ -380,10 +369,10 @@ static const uint32_t platform_category = 0x1 << 6;
     //Collision between the floor and a bullet
     
     if(((contact.bodyA.categoryBitMask == bullet_category) &&
-        (contact.bodyB.categoryBitMask == -1))
+        (contact.bodyB.categoryBitMask == platform_category))
        ||
        ((contact.bodyB.categoryBitMask == bullet_category) &&
-        (contact.bodyA.categoryBitMask == -1))) {
+        (contact.bodyA.categoryBitMask == platform_category))) {
            if (contact.bodyA.categoryBitMask == bullet_category) {
                SKNode* bullet = contact.bodyA.node;
                [bullet runAction:[SKAction removeFromParent]];

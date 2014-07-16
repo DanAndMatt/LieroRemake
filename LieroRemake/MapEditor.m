@@ -522,9 +522,17 @@ static const uint32_t platform_category = 0x1 << 6;
     [platform createPlatform:x :y : spriteName];
     platform.sprite.name = str;
     platform.sprite.zPosition = 0.2;
+    platform.sprite.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:platform.sprite.size];
+    [platform.sprite.physicsBody setAffectedByGravity:false];
+    [platform.sprite.physicsBody setAllowsRotation:false];
+    [platform.sprite.physicsBody setDynamic:false];
     platform.sprite.physicsBody.categoryBitMask = platform_category;
-    platform.sprite.physicsBody.collisionBitMask = bullet_category;
-    platform.sprite.physicsBody.contactTestBitMask = bullet_category;
+    platform.sprite.physicsBody.collisionBitMask = bullet_category | player_category;
+    platform.sprite.physicsBody.contactTestBitMask = bullet_category | player_category;
+
+    
+    
+    /*
     if([spriteName isEqualToString:@"HeartShapedBox"] || [spriteName isEqualToString:@"Brick"]){
         platform.sprite.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:platform.sprite.size];
         [platform.sprite.physicsBody setAffectedByGravity:false];
@@ -532,6 +540,7 @@ static const uint32_t platform_category = 0x1 << 6;
         [platform.sprite.physicsBody setDynamic:false];
 
     }
+     */
     [platformList addObject:platform];
     [myWorld addChild:platform.sprite];
     platformLabel.text = [NSString stringWithFormat:@"Created: %@",str];
