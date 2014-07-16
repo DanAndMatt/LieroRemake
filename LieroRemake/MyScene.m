@@ -265,6 +265,7 @@ static const uint32_t platform_category = 0x1 << 6;
     platformList = [NSKeyedUnarchiver unarchiveObjectWithFile:fullFileName];
     for(Platform *p in platformList){
         [myWorld addChild:p.sprite];
+        NSLog(@"Bitmask %i",p.sprite.physicsBody.categoryBitMask);
     }
     
 }
@@ -315,7 +316,8 @@ static const uint32_t platform_category = 0x1 << 6;
 }
 
 -(void)checkCollision :(SKPhysicsContact*) contact{
-    
+
+
    // [self collisionWithPlatform:contact];
     if(((contact.bodyA.categoryBitMask == bullet_category) &&
         (contact.bodyB.categoryBitMask == platform_category))

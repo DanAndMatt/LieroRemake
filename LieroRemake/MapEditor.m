@@ -8,6 +8,7 @@
 
 #import "KeyHeader.h"
 #import "Camera.h"
+
 @implementation MapEditor
 
 @synthesize player,platform,platformList,enemy,paths,docDir,fullFileName,audio,currentTool,cursorBrickSprite,cursorCharSprite,dockIcon1,dockIcon2,mousePostionLabel,isErasing,platformLabel,eraseLabel,saveLabel,currentToolLabel,dockIcon3,dockIcon4,myWorld,camera,currentToolIcon;
