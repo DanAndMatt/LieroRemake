@@ -49,18 +49,11 @@
 }
 
 -(SKAction*)reload {
-    NSLog(@"reloaded");
     smg_ammo = SMG_NEW_MAGAZINE;
     SKAction *reloadSound = [SKAction playSoundFileNamed:@"ReloadSound.wav" waitForCompletion:true];
     isRealoading = false;
     return reloadSound;
 }
-
-
-
-
--(void)hej{NSLog(@"jek");}
-
 
 -(void)createAim{
     aim = [[Aim alloc]init:sprite.position.x :sprite.position.y];
@@ -103,6 +96,9 @@
     isMovingLeft = true;
     isStopingPlayer = false;
     aims_right = false;
+    
+    //added this
+    //aim.aim_at_max = false;
 }
 
 -(void)moveDirection{
