@@ -11,9 +11,9 @@
 @implementation MapEditor
 
 @synthesize player,platform,platformList,enemy,paths,docDir,fullFileName,audio,currentTool,cursorBrickSprite,cursorCharSprite,dockIcon1,dockIcon2,mousePostionLabel,isErasing,platformLabel,eraseLabel,saveLabel,currentToolLabel,dockIcon3,dockIcon4,myWorld,camera,currentToolIcon;
-/*static const uint32_t player_category = 0x1 << 0;
+static const uint32_t player_category = 0x1 << 0;
 static const uint32_t enemy_category = 0x1 << 3;
-static const uint32_t bullet_category = 0x1 << 4;*/
+static const uint32_t bullet_category = 0x1 << 4;
 static const uint32_t rain_particle_category = 0x1 <<5;
 static const uint32_t platform_category = 0x1 << 6;
 
@@ -522,13 +522,14 @@ static const uint32_t platform_category = 0x1 << 6;
     platform.sprite.name = str;
     platform.sprite.zPosition = 0.2;
     platform.sprite.physicsBody.categoryBitMask = platform_category;
-    platform.sprite.physicsBody.collisionBitMask = rain_particle_category;
-    platform.sprite.physicsBody.contactTestBitMask = rain_particle_category;
+    platform.sprite.physicsBody.collisionBitMask = bullet_category;
+    platform.sprite.physicsBody.contactTestBitMask = bullet_category;
     if([spriteName isEqualToString:@"HeartShapedBox"] || [spriteName isEqualToString:@"Brick"]){
         platform.sprite.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:platform.sprite.size];
         [platform.sprite.physicsBody setAffectedByGravity:false];
         [platform.sprite.physicsBody setAllowsRotation:false];
         [platform.sprite.physicsBody setDynamic:false];
+
     }
     [platformList addObject:platform];
     [myWorld addChild:platform.sprite];

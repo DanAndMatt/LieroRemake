@@ -13,6 +13,8 @@
 static const uint32_t player_category = 0x1 << 0;
 static const uint32_t enemy_category = 0x1 << 3;
 static const uint32_t bullet_category = 0x1 << 4;
+static const uint32_t platform_category = 0x1 << 6;
+
 
 -(NSObject*)init:(float)_angle :(float)x_pos :(float)y_pos {
     self.velocity = 15.0;
@@ -34,8 +36,8 @@ static const uint32_t bullet_category = 0x1 << 4;
     //sprite.physicsBody.angularDamping=0;
     
     self.sprite.physicsBody.categoryBitMask = bullet_category;
-    self.sprite.physicsBody.collisionBitMask = player_category | enemy_category;
-    self.sprite.physicsBody.contactTestBitMask = player_category | enemy_category;
+    self.sprite.physicsBody.collisionBitMask = player_category | enemy_category | platform_category;
+    self.sprite.physicsBody.contactTestBitMask = player_category | enemy_category | platform_category;
     
 	return self;
 }
