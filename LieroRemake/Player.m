@@ -103,6 +103,9 @@
     isMovingLeft = true;
     isStopingPlayer = false;
     aims_right = false;
+    
+    //added this
+    //aim.aim_at_max = false;
 }
 
 -(void)moveDirection{

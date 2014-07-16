@@ -16,6 +16,7 @@
 		23A5C7941966DCC2000A2D1F /* 9mm.png in Resources */ = {isa = PBXBuildFile; fileRef = 23A5C7931966DCC2000A2D1F /* 9mm.png */; };
 		23A5C7971966DEE8000A2D1F /* Smg_kaliber.m in Sources */ = {isa = PBXBuildFile; fileRef = 23A5C7961966DEE8000A2D1F /* Smg_kaliber.m */; };
 		23A5C7991966EB60000A2D1F /* explosion.png in Resources */ = {isa = PBXBuildFile; fileRef = 23A5C7981966EB60000A2D1F /* explosion.png */; };
+		23BA944419769712000FC1C1 /* aim2.png in Resources */ = {isa = PBXBuildFile; fileRef = 23BA944319769712000FC1C1 /* aim2.png */; };
 		9E044F5B19644E2300F62514 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E044F5A19644E2300F62514 /* Cocoa.framework */; };
 		9E044F5D19644E2300F62514 /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E044F5C19644E2300F62514 /* SpriteKit.framework */; };
 		9E044F6719644E2300F62514 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9E044F6519644E2300F62514 /* InfoPlist.strings */; };
@@ -88,6 +89,7 @@
 		23A5C7951966DEE8000A2D1F /* Smg_kaliber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Smg_kaliber.h; sourceTree = "<group>"; };
 		23A5C7961966DEE8000A2D1F /* Smg_kaliber.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Smg_kaliber.m; sourceTree = "<group>"; };
 		23A5C7981966EB60000A2D1F /* explosion.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = explosion.png; sourceTree = "<group>"; };
+		23BA944319769712000FC1C1 /* aim2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aim2.png; sourceTree = "<group>"; };
 		9E044F5719644E2300F62514 /* LieroRemake.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LieroRemake.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E044F5A19644E2300F62514 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		9E044F5C19644E2300F62514 /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
@@ -342,6 +344,7 @@
 				9E044FB319644F4A00F62514 /* char2.png */,
 				9E44879E196ABD280013FE2B /* RainbowBG.png */,
 				9E044FB419644F4A00F62514 /* char23.png */,
+				23BA944319769712000FC1C1 /* aim2.png */,
 				9E044FB519644F4A00F62514 /* char24.png */,
 				9E044FAA19644F0C00F62514 /* aim.png */,
 			);
@@ -454,6 +457,7 @@
 				9EC637ED1971879E0070B1E7 /* Brick.png in Resources */,
 				9E044F6719644E2300F62514 /* InfoPlist.strings in Resources */,
 				9EC637E91970A1230070B1E7 /* Cload.png in Resources */,
+				23BA944419769712000FC1C1 /* aim2.png in Resources */,
 				9E044FAB19644F0C00F62514 /* aim.png in Resources */,
 				23561CFB196BDFFD00514EAD /* explosions.atlas in Resources */,
 				9E44879C196AB7FC0013FE2B /* RainParticle.sks in Resources */,

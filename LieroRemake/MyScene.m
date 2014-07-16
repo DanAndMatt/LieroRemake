@@ -309,7 +309,6 @@ static const uint32_t platform_category = 0x1 << 6;
                 NSString *info = [NSString stringWithFormat:rainNode.debugDescription];
                 collisionLabel.text = info;
                 [rainNode removeFromParent];
-                //BodyA = rain
             }
 
 
@@ -381,7 +380,7 @@ static const uint32_t platform_category = 0x1 << 6;
 }
 
 -(void)removeExplosionAction{
-    SKNode *node = [self childNodeWithName:@"explosionId"];
+    SKNode *node = [myWorld childNodeWithName:@"explosionId"];
     if(![node hasActions]){
         [node removeFromParent];
     }

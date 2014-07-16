@@ -15,6 +15,7 @@
 @property bool down;
 @property double angle;
 @property float radius;
+@property bool aim_at_max;
 
 -(NSObject*) init:(float)player_x_pos :(float)player_y_pos;
 
