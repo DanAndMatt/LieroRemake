@@ -34,5 +34,6 @@
 @property SKLabelNode *saveLabel;
 @property SKLabelNode *currentToolLabel;
 @property SKNode *myWorld;
+@property SKSpriteNode *currentToolIcon;
 @end
 

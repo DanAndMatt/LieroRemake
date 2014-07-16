@@ -8,13 +8,13 @@
 
 #import "KeyHeader.h"
 @implementation Camera
-@synthesize node;
-static const int speed = 32;
+@synthesize node,isMovingDown,isMovingUp,isMovingLeft,isMovingRight,speed;
 
--(id)initWithPosition: (CGPoint)position{
+-(id)initWithPosition: (CGPoint)position :(int)_speed{
     if(self = [super init]){
         node = [SKNode node];
         node.position = position;
+        speed = _speed;
     }
     return self;
 }
@@ -26,17 +26,43 @@ static const int speed = 32;
     return self;
 }
 
+-(void)moveCamera{
+    if(isMovingRight){
+        [self moveCameraRight];
+    }
+    if(isMovingLeft){
+        [self moveCameraLeft];
+    }
+    if(isMovingDown){
+        [self moveCameraDown];
+    }
+    if(isMovingUp){
+        [self moveCameraUp];
+    }
+}
+
 -(void)moveCameraUp{
-    node.position = CGPointMake(node.position.x, node.position.y+speed);
+    if(node.position.y < 0){
+        node.position = CGPointMake(node.position.x, node.position.y+speed);
+    }
 }
 -(void)moveCameraDown{
-    node.position = CGPointMake(node.position.x, node.position.y-speed);
+   if(node.position.y > -SCREEN_HEIGHT){
+        
+        node.position = CGPointMake(node.position.x, node.position.y-speed);
+    }
 }
 -(void)moveCameraRight{
-    node.position = CGPointMake(node.position.x+speed, node.position.y);
+    if(node.position.x < SCREEN_WIDHT){
+        
+        node.position = CGPointMake(node.position.x+speed, node.position.y);
+    }
 }
 -(void)moveCameraLeft{
-    node.position = CGPointMake(node.position.x-speed, node.position.y);
+    if(node.position.x > 0){
+        
+        node.position = CGPointMake(node.position.x-speed, node.position.y);
+    }
 }
 
 @end

@@ -37,7 +37,7 @@ static const uint32_t platform_category = 0x1 << 6;
         [player superAnimateFunction:@"worm" :3 :@"WormRight"];
         [self createRain];
         [self createSmoke];
-        [self playThemeSong];
+        //[self playThemeSong];
         //timer = [NSTimer scheduledTimerWithTimeInterval:5.0f target:self selector:@selector(someMethod) userInfo:nil repeats:YES];
         
         

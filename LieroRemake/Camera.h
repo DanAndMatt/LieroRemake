@@ -12,11 +12,17 @@
 
 
 @property SKNode *node;
+@property bool isMovingRight;
+@property bool isMovingLeft;
+@property bool isMovingUp;
+@property bool isMovingDown;
+@property int speed;
 //@property CGPoint *location;
 
 -(void)moveCameraUp;
 -(void)moveCameraDown;
 -(void)moveCameraRight;
 -(void)moveCameraLeft;
--(id)initWithPosition: (CGPoint)position;
+-(void)moveCamera;
+-(id)initWithPosition: (CGPoint)position :(int)_speed;
 @end
